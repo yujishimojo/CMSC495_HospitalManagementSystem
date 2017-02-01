@@ -57,7 +57,7 @@
 			<drop_tablespace>false</drop_tablespace>
 			<drop_trigger>false</drop_trigger>
 			<drop_view>false</drop_view>
-			<inline_column_comment>true</inline_column_comment>
+			<inline_column_comment>false</inline_column_comment>
 			<inline_table_comment>false</inline_table_comment>
 			<comment_value_description>false</comment_value_description>
 			<comment_value_logical_name>false</comment_value_logical_name>
@@ -114,7 +114,7 @@
 			<font_name>.SF NS Text</font_name>
 			<font_size>9</font_size>
 			<x>463</x>
-			<y>481</y>
+			<y>470</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -198,12 +198,12 @@
 					<physical_name>end_date</physical_name>
 					<logical_name>end_date</logical_name>
 					<type>date</type>
+					<not_null>true</not_null>
 				</normal_column>
 				<normal_column>
 					<physical_name>status</physical_name>
 					<logical_name>status</logical_name>
 					<type>tinyint</type>
-					<description>0: empty&#x0A;1: occupied</description>
 					<not_null>true</not_null>
 					<default_value>0</default_value>
 				</normal_column>
@@ -360,15 +360,15 @@
 			</table_properties>
 		</table>
 		<table>
-			<physical_name>patient_records</physical_name>
-			<logical_name>patient_records</logical_name>
+			<physical_name>inpatinet_records</physical_name>
+			<logical_name>inpatinet_records</logical_name>
 			<description></description>
 			<height>75</height>
 			<width>120</width>
 			<font_name>.SF NS Text</font_name>
 			<font_size>9</font_size>
 			<x>680</x>
-			<y>436</y>
+			<y>529</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -376,9 +376,9 @@
 			</color>
 			<connections>
 				<relationship>
-					<name>FK_patient_records_patients</name>
+					<name>FK_inpatinet_records_patients</name>
 					<source>table.patients</source>
-					<target>table.patient_records</target>
+					<target>table.inpatinet_records</target>
 					<fk_columns>
 						<fk_column>
 							<fk_column_name>patient_id</fk_column_name>
@@ -391,9 +391,9 @@
 					<on_update_action>RESTRICT</on_update_action>
 				</relationship>
 				<relationship>
-					<name>FK_patient_records_beds</name>
+					<name>FK_inpatinet_records_beds</name>
 					<source>table.beds</source>
-					<target>table.patient_records</target>
+					<target>table.inpatinet_records</target>
 					<fk_columns>
 						<fk_column>
 							<fk_column_name>bed_id</fk_column_name>
@@ -420,14 +420,15 @@
 					<physical_name>patient_id</physical_name>
 					<logical_name>patient_id</logical_name>
 					<referred_column>table.patients.id</referred_column>
-					<relationship>FK_patient_records_patients</relationship>
+					<relationship>FK_inpatinet_records_patients</relationship>
 					<not_null>true</not_null>
 				</normal_column>
 				<normal_column>
 					<physical_name>bed_id</physical_name>
 					<logical_name>bed_id</logical_name>
 					<referred_column>table.beds.id</referred_column>
-					<relationship>FK_patient_records_beds</relationship>
+					<relationship>FK_inpatinet_records_beds</relationship>
+					<not_null>true</not_null>
 				</normal_column>
 				<normal_column>
 					<physical_name>created_at</physical_name>
@@ -442,10 +443,15 @@
 					<not_null>true</not_null>
 				</normal_column>
 				<normal_column>
-					<physical_name>visit_date</physical_name>
-					<logical_name>visit_date</logical_name>
+					<physical_name>admitted_date</physical_name>
+					<logical_name>admitted_date</logical_name>
 					<type>date</type>
 					<not_null>true</not_null>
+				</normal_column>
+				<normal_column>
+					<physical_name>discharged_date</physical_name>
+					<logical_name>discharged_date</logical_name>
+					<type>date</type>
 				</normal_column>
 				<normal_column>
 					<physical_name>disease_name</physical_name>
@@ -455,8 +461,8 @@
 					<not_null>true</not_null>
 				</normal_column>
 				<normal_column>
-					<physical_name>treatment</physical_name>
-					<logical_name>treatment</logical_name>
+					<physical_name>type_of_treatment</physical_name>
+					<logical_name>type_of_treatment</logical_name>
 					<type>varchar(n)</type>
 					<length>1000</length>
 					<not_null>true</not_null>
@@ -474,8 +480,122 @@
 					<length>500</length>
 				</normal_column>
 				<normal_column>
-					<physical_name>medical_notes</physical_name>
-					<logical_name>medical_notes</logical_name>
+					<physical_name>special_notes</physical_name>
+					<logical_name>special_notes</logical_name>
+					<type>varchar(n)</type>
+					<length>1000</length>
+				</normal_column>
+				<normal_column>
+					<physical_name>billing_amount</physical_name>
+					<logical_name>billing_amount</logical_name>
+					<type>character(n)</type>
+					<length>30</length>
+					<not_null>true</not_null>
+				</normal_column>
+			</columns>
+			<indexes>
+			</indexes>
+			<compound_unique_key_list>
+			</compound_unique_key_list>
+			<table_properties>
+			</table_properties>
+		</table>
+		<table>
+			<physical_name>outpatient_records</physical_name>
+			<logical_name>outpatient_records</logical_name>
+			<description></description>
+			<height>75</height>
+			<width>120</width>
+			<font_name>.SF NS Text</font_name>
+			<font_size>9</font_size>
+			<x>678</x>
+			<y>238</y>
+			<color>
+				<r>128</r>
+				<g>128</g>
+				<b>192</b>
+			</color>
+			<connections>
+				<relationship>
+					<name>FK_outpatient_records_patients</name>
+					<source>table.patients</source>
+					<target>table.outpatient_records</target>
+					<fk_columns>
+						<fk_column>
+							<fk_column_name>patient_id</fk_column_name>
+						</fk_column>
+					</fk_columns>
+					<parent_cardinality>1</parent_cardinality>
+					<child_cardinality>0..n</child_cardinality>
+					<reference_for_pk>true</reference_for_pk>
+					<on_delete_action>RESTRICT</on_delete_action>
+					<on_update_action>RESTRICT</on_update_action>
+				</relationship>
+			</connections>
+			<columns>
+				<normal_column>
+					<physical_name>id</physical_name>
+					<logical_name>id</logical_name>
+					<type>integer</type>
+					<not_null>true</not_null>
+					<primary_key>true</primary_key>
+					<unique_key>true</unique_key>
+					<auto_increment>true</auto_increment>
+				</normal_column>
+				<normal_column>
+					<physical_name>patient_id</physical_name>
+					<logical_name>patient_id</logical_name>
+					<referred_column>table.patients.id</referred_column>
+					<relationship>FK_outpatient_records_patients</relationship>
+					<not_null>true</not_null>
+				</normal_column>
+				<normal_column>
+					<physical_name>created_at</physical_name>
+					<logical_name>created_at</logical_name>
+					<type>datetime</type>
+					<not_null>true</not_null>
+				</normal_column>
+				<normal_column>
+					<physical_name>updated_at</physical_name>
+					<logical_name>updated_at</logical_name>
+					<type>datetime</type>
+					<not_null>true</not_null>
+				</normal_column>
+				<normal_column>
+					<physical_name>visit_data</physical_name>
+					<logical_name>visit_data</logical_name>
+					<type>date</type>
+					<not_null>true</not_null>
+				</normal_column>
+				<normal_column>
+					<physical_name>disease_name</physical_name>
+					<logical_name>disease_name</logical_name>
+					<type>varchar(n)</type>
+					<length>500</length>
+					<not_null>true</not_null>
+				</normal_column>
+				<normal_column>
+					<physical_name>type_of_treatment</physical_name>
+					<logical_name>type_of_treatment</logical_name>
+					<type>varchar(n)</type>
+					<length>1000</length>
+					<not_null>true</not_null>
+				</normal_column>
+				<normal_column>
+					<physical_name>medicine_given</physical_name>
+					<logical_name>medicine_given</logical_name>
+					<type>boolean</type>
+					<not_null>true</not_null>
+				</normal_column>
+				<normal_column>
+					<physical_name>medicine_name</physical_name>
+					<logical_name>medicine_name</logical_name>
+					<type>varchar(n)</type>
+					<length>500</length>
+				</normal_column>
+				<normal_column>
+					<physical_name>special_notes</physical_name>
+					<logical_name>special_notes</logical_name>
 					<type>varchar(n)</type>
 					<length>1000</length>
 				</normal_column>
@@ -483,6 +603,7 @@
 					<physical_name>ambulance_service_used</physical_name>
 					<logical_name>ambulance_service_used</logical_name>
 					<type>boolean</type>
+					<not_null>true</not_null>
 				</normal_column>
 				<normal_column>
 					<physical_name>billing_amount</physical_name>
@@ -508,7 +629,7 @@
 			<font_name>.SF NS Text</font_name>
 			<font_size>9</font_size>
 			<x>463</x>
-			<y>285</y>
+			<y>301</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -581,19 +702,6 @@
 					<logical_name>updated_at</logical_name>
 					<type>datetime</type>
 					<not_null>true</not_null>
-				</normal_column>
-				<normal_column>
-					<physical_name>type</physical_name>
-					<logical_name>type</logical_name>
-					<type>tinyint</type>
-					<description>0: inpatient&#x0A;1: outpatient</description>
-					<not_null>true</not_null>
-				</normal_column>
-				<normal_column>
-					<physical_name>insurance</physical_name>
-					<logical_name>insurance</logical_name>
-					<type>character(n)</type>
-					<length>100</length>
 				</normal_column>
 			</columns>
 			<indexes>
@@ -669,7 +777,7 @@
 			<width>120</width>
 			<font_name>.SF NS Text</font_name>
 			<font_size>9</font_size>
-			<x>41</x>
+			<x>43</x>
 			<y>529</y>
 			<color>
 				<r>128</r>
@@ -725,20 +833,18 @@
 				<normal_column>
 					<physical_name>clock_in_time</physical_name>
 					<logical_name>clock_in_time</logical_name>
-					<type>time</type>
+					<type>datetime</type>
 					<not_null>true</not_null>
 				</normal_column>
 				<normal_column>
 					<physical_name>clock_out_time</physical_name>
 					<logical_name>clock_out_time</logical_name>
-					<type>time</type>
-					<not_null>true</not_null>
+					<type>datetime</type>
 				</normal_column>
 				<normal_column>
 					<physical_name>status</physical_name>
 					<logical_name>status</logical_name>
 					<type>tinyint</type>
-					<description>0: normal&#x0A;1: emergency</description>
 					<not_null>true</not_null>
 					<default_value>0</default_value>
 				</normal_column>
@@ -822,6 +928,7 @@
 					<physical_name>certification_expirations</physical_name>
 					<logical_name>certification_expirations</logical_name>
 					<type>date</type>
+					<not_null>true</not_null>
 				</normal_column>
 				<normal_column>
 					<physical_name>cell_phone_number</physical_name>
@@ -920,7 +1027,6 @@
 					<physical_name>role</physical_name>
 					<logical_name>role</logical_name>
 					<type>tinyint</type>
-					<description>0: administrator&#x0A;1: medical staff&#x0A;2: patient</description>
 					<not_null>true</not_null>
 				</normal_column>
 				<normal_column>
