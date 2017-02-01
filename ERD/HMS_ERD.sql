@@ -1,237 +1,216 @@
+/* create tables */
 
-
-/* Create Tables */
-
-CREATE TABLE BEDS
+create table beds
 (
-	ID INT NOT NULL UNIQUE AUTO_INCREMENT COMMENT 'id',
-	ROOM_ID INT NOT NULL COMMENT 'room_id',
-	CREATED_AT DATETIME NOT NULL COMMENT 'created_at',
-	UPDATED_AT DATETIME NOT NULL COMMENT 'updated_at',
-	NAME CHAR(30) COMMENT 'name',
-	PRIMARY KEY (ID)
-) COMMENT = 'beds';
+	id int not null unique auto_increment comment 'id',
+	room_id int not null comment 'room_id',
+	created_at datetime not null comment 'created_at',
+	updated_at datetime not null comment 'updated_at',
+	name char(30) comment 'name',
+	primary key (id)
+) comment = 'beds';
 
 
-CREATE TABLE BED_USAGE
+create table bed_usage
 (
-	ID INT NOT NULL UNIQUE AUTO_INCREMENT COMMENT 'id',
-	BED_ID INT NOT NULL COMMENT 'bed_id',
-	PATIENT_ID INT NOT NULL COMMENT 'patient_id',
-	CREATED_AT DATETIME NOT NULL COMMENT 'created_at',
-	UPDATED_AT DATETIME NOT NULL COMMENT 'updated_at',
-	START_DATE DATE NOT NULL COMMENT 'start_date',
-	END_DATE DATE NOT NULL COMMENT 'end_date',
-	STATUS TINYINT DEFAULT 0 NOT NULL COMMENT 'status',
-	PRIMARY KEY (ID)
-) COMMENT = 'bed_usage';
+	id int not null unique auto_increment comment 'id',
+	bed_id int not null comment 'bed_id',
+	patient_id int not null comment 'patient_id',
+	created_at datetime not null comment 'created_at',
+	updated_at datetime not null comment 'updated_at',
+	start_date date not null comment 'start_date',
+	end_date date comment 'end_date',
+	-- 0: empty
+	-- 1: occupied
+	status tinyint default 0 not null comment 'status : 0: empty, 1: occupied',
+	primary key (id)
+) comment = 'bed_usage';
 
 
-CREATE TABLE DOCTORS
+create table doctors
 (
-	ID INT NOT NULL UNIQUE AUTO_INCREMENT COMMENT 'id',
-	STAFF_ID INT NOT NULL COMMENT 'staff_id',
-	CREATED_AT DATETIME NOT NULL COMMENT 'created_at',
-	UPDATED_AT DATETIME NOT NULL COMMENT 'updated_at',
-	PRIMARY KEY (ID)
-) COMMENT = 'doctors';
+	id int not null unique auto_increment comment 'id',
+	staff_id int not null comment 'staff_id',
+	created_at datetime not null comment 'created_at',
+	updated_at datetime not null comment 'updated_at',
+	primary key (id)
+) comment = 'doctors';
 
 
-CREATE TABLE INPATINET_RECORDS
+create table patients
 (
-	ID INT NOT NULL UNIQUE AUTO_INCREMENT COMMENT 'id',
-	PATIENT_ID INT NOT NULL COMMENT 'patient_id',
-	BED_ID INT NOT NULL COMMENT 'bed_id',
-	CREATED_AT DATETIME NOT NULL COMMENT 'created_at',
-	UPDATED_AT DATETIME NOT NULL COMMENT 'updated_at',
-	ADMITTED_DATE DATE NOT NULL COMMENT 'admitted_date',
-	DISCHARGED_DATE DATE COMMENT 'discharged_date',
-	DISEASE_NAME VARCHAR(500) NOT NULL COMMENT 'disease_name',
-	TYPE_OF_TREATMENT VARCHAR(1000) NOT NULL COMMENT 'type_of_treatment',
-	MEDICINE_GIVEN BOOLEAN NOT NULL COMMENT 'medicine_given',
-	MEDICINE_NAME VARCHAR(500) COMMENT 'medicine_name',
-	SPECIAL_NOTES VARCHAR(1000) COMMENT 'special_notes',
-	BILLING_AMOUNT CHAR(30) NOT NULL COMMENT 'billing_amount',
-	PRIMARY KEY (ID)
-) COMMENT = 'inpatinet_records';
+	id int not null unique auto_increment comment 'id',
+	user_id int not null comment 'user_id',
+	doctor_id int not null comment 'doctor_id',
+	created_at datetime not null comment 'created_at',
+	updated_at datetime not null comment 'updated_at',
+	-- 0: inpatient
+	-- 1: outpatient
+	type tinyint not null comment 'type : 0: inpatient, 1: outpatient',
+	insurance char(100) comment 'insurance',
+	primary key (id)
+) comment = 'patients';
 
 
-CREATE TABLE OUTPATIENT_RECORDS
+create table patient_records
 (
-	ID INT NOT NULL UNIQUE AUTO_INCREMENT COMMENT 'id',
-	PATIENT_ID INT NOT NULL COMMENT 'patient_id',
-	CREATED_AT DATETIME NOT NULL COMMENT 'created_at',
-	UPDATED_AT DATETIME NOT NULL COMMENT 'updated_at',
-	VISIT_DATA DATE NOT NULL COMMENT 'visit_data',
-	DISEASE_NAME VARCHAR(500) NOT NULL COMMENT 'disease_name',
-	TYPE_OF_TREATMENT VARCHAR(1000) NOT NULL COMMENT 'type_of_treatment',
-	MEDICINE_GIVEN BOOLEAN NOT NULL COMMENT 'medicine_given',
-	MEDICINE_NAME VARCHAR(500) COMMENT 'medicine_name',
-	SPECIAL_NOTES VARCHAR(1000) COMMENT 'special_notes',
-	AMBULANCE_SERVICE_USED BOOLEAN NOT NULL COMMENT 'ambulance_service_used',
-	BILLING_AMOUNT CHAR(30) NOT NULL COMMENT 'billing_amount',
-	PRIMARY KEY (ID)
-) COMMENT = 'outpatient_records';
+	id int not null unique auto_increment comment 'id',
+	patient_id int not null comment 'patient_id',
+	bed_id int comment 'bed_id',
+	created_at datetime not null comment 'created_at',
+	updated_at datetime not null comment 'updated_at',
+	visit_date date not null comment 'visit_date',
+	disease_name varchar(500) not null comment 'disease_name',
+	treatment varchar(1000) not null comment 'treatment',
+	medicine_given boolean not null comment 'medicine_given',
+	medicine_name varchar(500) comment 'medicine_name',
+	medical_notes varchar(1000) comment 'medical_notes',
+	ambulance_service_used boolean comment 'ambulance_service_used',
+	billing_amount char(30) not null comment 'billing_amount',
+	primary key (id)
+) comment = 'patient_records';
 
 
-CREATE TABLE PATIENTS
+create table rooms
 (
-	ID INT NOT NULL UNIQUE AUTO_INCREMENT COMMENT 'id',
-	USER_ID INT NOT NULL COMMENT 'user_id',
-	DOCTOR_ID INT NOT NULL COMMENT 'doctor_id',
-	CREATED_AT DATETIME NOT NULL COMMENT 'created_at',
-	UPDATED_AT DATETIME NOT NULL COMMENT 'updated_at',
-	PRIMARY KEY (ID)
-) COMMENT = 'patients';
+	id int not null unique auto_increment comment 'id',
+	created_at datetime not null comment 'created_at',
+	updated_at datetime not null comment 'updated_at',
+	name char(30) comment 'name',
+	floor tinyint comment 'floor',
+	primary key (id)
+) comment = 'rooms';
 
 
-CREATE TABLE ROOMS
+create table shifts
 (
-	ID INT NOT NULL UNIQUE AUTO_INCREMENT COMMENT 'id',
-	CREATED_AT DATETIME NOT NULL COMMENT 'created_at',
-	UPDATED_AT DATETIME NOT NULL COMMENT 'updated_at',
-	NAME CHAR(30) COMMENT 'name',
-	FLOOR TINYINT COMMENT 'floor',
-	PRIMARY KEY (ID)
-) COMMENT = 'rooms';
+	id int not null unique auto_increment comment 'id',
+	staff_id int not null comment 'staff_id',
+	created_at datetime not null comment 'created_at',
+	updated_at datetime not null comment 'updated_at',
+	clock_in_time time not null comment 'clock_in_time',
+	clock_out_time time not null comment 'clock_out_time',
+	-- 0: normal
+	-- 1: emergency
+	status tinyint default 0 not null comment 'status : 0: normal, 1: emergency',
+	primary key (id)
+) comment = 'shifts';
 
 
-CREATE TABLE SHIFTS
+create table staff
 (
-	ID INT NOT NULL UNIQUE AUTO_INCREMENT COMMENT 'id',
-	STAFF_ID INT NOT NULL COMMENT 'staff_id',
-	CREATED_AT DATETIME NOT NULL COMMENT 'created_at',
-	UPDATED_AT DATETIME NOT NULL COMMENT 'updated_at',
-	CLOCK_IN_TIME DATETIME NOT NULL COMMENT 'clock_in_time',
-	CLOCK_OUT_TIME DATETIME COMMENT 'clock_out_time',
-	STATUS TINYINT DEFAULT 0 NOT NULL COMMENT 'status',
-	PRIMARY KEY (ID)
-) COMMENT = 'shifts';
+	id int not null unique auto_increment comment 'id',
+	user_id int not null comment 'user_id',
+	created_at datetime not null comment 'created_at',
+	updated_at datetime not null comment 'updated_at',
+	qualification char(50) not null comment 'qualification',
+	certification_expirations date comment 'certification_expirations',
+	cell_phone_number char(20) comment 'cell_phone_number',
+	email_address char(50) comment 'email_address',
+	payroll char(30) not null comment 'payroll',
+	personal_details varchar(500) comment 'personal_details',
+	is_doctor boolean not null comment 'is_doctor',
+	primary key (id)
+) comment = 'staff';
 
 
-CREATE TABLE STAFF
+create table users
 (
-	ID INT NOT NULL UNIQUE AUTO_INCREMENT COMMENT 'id',
-	USER_ID INT NOT NULL COMMENT 'user_id',
-	CREATED_AT DATETIME NOT NULL COMMENT 'created_at',
-	UPDATED_AT DATETIME NOT NULL COMMENT 'updated_at',
-	QUALIFICATION CHAR(50) NOT NULL COMMENT 'qualification',
-	CERTIFICATION_EXPIRATIONS DATE NOT NULL COMMENT 'certification_expirations',
-	CELL_PHONE_NUMBER CHAR(20) COMMENT 'cell_phone_number',
-	EMAIL_ADDRESS CHAR(50) COMMENT 'email_address',
-	PAYROLL CHAR(30) NOT NULL COMMENT 'payroll',
-	PERSONAL_DETAILS VARCHAR(500) COMMENT 'personal_details',
-	IS_DOCTOR BOOLEAN NOT NULL COMMENT 'is_doctor',
-	PRIMARY KEY (ID)
-) COMMENT = 'staff';
+	id int not null unique auto_increment comment 'id',
+	created_at datetime not null comment 'created_at',
+	updated_at datetime not null comment 'updated_at',
+	login_name char(30) not null unique comment 'login_name',
+	password char(50) not null comment 'password',
+	-- 0: administrator
+	-- 1: medical staff
+	-- 2: patient
+	role tinyint not null comment 'role : 0: administrator, 1: medical staff, 2: patient',
+	first_name char(30) not null comment 'first_name',
+	middle_name char(30) comment 'middle_name',
+	last_name char(30) not null comment 'last_name',
+	social_security_number char(15) not null unique comment 'social_security_number',
+	address char(100) comment 'address',
+	primary key (id)
+) comment = 'users';
 
 
-CREATE TABLE USERS
-(
-	ID INT NOT NULL UNIQUE AUTO_INCREMENT COMMENT 'id',
-	CREATED_AT DATETIME NOT NULL COMMENT 'created_at',
-	UPDATED_AT DATETIME NOT NULL COMMENT 'updated_at',
-	LOGIN_NAME CHAR(30) NOT NULL UNIQUE COMMENT 'login_name',
-	PASSWORD CHAR(50) NOT NULL COMMENT 'password',
-	ROLE TINYINT NOT NULL COMMENT 'role',
-	FIRST_NAME CHAR(30) NOT NULL COMMENT 'first_name',
-	MIDDLE_NAME CHAR(30) COMMENT 'middle_name',
-	LAST_NAME CHAR(30) NOT NULL COMMENT 'last_name',
-	SOCIAL_SECURITY_NUMBER CHAR(15) NOT NULL UNIQUE COMMENT 'social_security_number',
-	ADDRESS CHAR(100) COMMENT 'address',
-	PRIMARY KEY (ID)
-) COMMENT = 'users';
+/* create foreign keys */
 
-
-
-/* Create Foreign Keys */
-
-ALTER TABLE BED_USAGE
-	ADD CONSTRAINT FK_BED_USAGE_BEDS FOREIGN KEY (BED_ID)
-	REFERENCES BEDS (ID)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+alter table bed_usage
+	add constraint fk_bed_usage_beds foreign key (bed_id)
+	references beds (id)
+	on update restrict
+	on delete restrict
 ;
 
 
-ALTER TABLE INPATINET_RECORDS
-	ADD CONSTRAINT FK_INPATINET_RECORDS_BEDS FOREIGN KEY (BED_ID)
-	REFERENCES BEDS (ID)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+alter table patient_records
+	add constraint fk_patient_records_beds foreign key (bed_id)
+	references beds (id)
+	on update restrict
+	on delete restrict
 ;
 
 
-ALTER TABLE PATIENTS
-	ADD CONSTRAINT FK_PATIENTS_DOCTORS FOREIGN KEY (DOCTOR_ID)
-	REFERENCES DOCTORS (ID)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+alter table patients
+	add constraint fk_patients_doctors foreign key (doctor_id)
+	references doctors (id)
+	on update restrict
+	on delete restrict
 ;
 
 
-ALTER TABLE BED_USAGE
-	ADD CONSTRAINT FK_BED_USAGE_PATIENTS FOREIGN KEY (PATIENT_ID)
-	REFERENCES PATIENTS (ID)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+alter table bed_usage
+	add constraint fk_bed_usage_patients foreign key (patient_id)
+	references patients (id)
+	on update restrict
+	on delete restrict
 ;
 
 
-ALTER TABLE INPATINET_RECORDS
-	ADD CONSTRAINT FK_INPATINET_RECORDS_PATIENTS FOREIGN KEY (PATIENT_ID)
-	REFERENCES PATIENTS (ID)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+alter table patient_records
+	add constraint fk_patient_records_patients foreign key (patient_id)
+	references patients (id)
+	on update restrict
+	on delete restrict
 ;
 
 
-ALTER TABLE OUTPATIENT_RECORDS
-	ADD CONSTRAINT FK_OUTPATIENT_RECORDS_PATIENTS FOREIGN KEY (PATIENT_ID)
-	REFERENCES PATIENTS (ID)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+alter table beds
+	add constraint fk_beds_rooms foreign key (room_id)
+	references rooms (id)
+	on update restrict
+	on delete restrict
 ;
 
 
-ALTER TABLE BEDS
-	ADD CONSTRAINT FK_BEDS_ROOMS FOREIGN KEY (ROOM_ID)
-	REFERENCES ROOMS (ID)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+alter table doctors
+	add constraint fk_doctors_staff foreign key (staff_id)
+	references staff (id)
+	on update restrict
+	on delete restrict
 ;
 
 
-ALTER TABLE DOCTORS
-	ADD CONSTRAINT FK_DOCTORS_STAFF FOREIGN KEY (STAFF_ID)
-	REFERENCES STAFF (ID)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+alter table shifts
+	add constraint fk_shifts_staff foreign key (staff_id)
+	references staff (id)
+	on update restrict
+	on delete restrict
 ;
 
 
-ALTER TABLE SHIFTS
-	ADD CONSTRAINT FK_SHIFTS_STAFF FOREIGN KEY (STAFF_ID)
-	REFERENCES STAFF (ID)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+alter table patients
+	add constraint fk_patients_users foreign key (user_id)
+	references users (id)
+	on update restrict
+	on delete restrict
 ;
 
 
-ALTER TABLE PATIENTS
-	ADD CONSTRAINT FK_PATIENTS_USERS FOREIGN KEY (USER_ID)
-	REFERENCES USERS (ID)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+alter table staff
+	add constraint fk_staff_users foreign key (user_id)
+	references users (id)
+	on update restrict
+	on delete restrict
 ;
-
-
-ALTER TABLE STAFF
-	ADD CONSTRAINT FK_STAFF_USERS FOREIGN KEY (USER_ID)
-	REFERENCES USERS (ID)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-
