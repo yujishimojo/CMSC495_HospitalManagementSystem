@@ -1,0 +1,78 @@
+/*
+Colors: 
+#0f585e   logo color
+#072c2f   almost black
+#c3d5d7   light neutral shade
+#e1eaeb   lighter neutral shade
+#5e0f58   dark purple
+*/
+
+body {
+    background-color: white;
+    color: #0f585e;
+    font-family: sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
+    font-family: serif;
+    overflow: hidden;
+}
+
+header img {
+    float: left;
+    margin: 10px;
+    display: block;
+}
+
+header h1 {
+    color: #072c2f;
+    position: relative;
+}
+
+.align-vertically {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+nav a {
+    text-decoration: none;
+    display: inline;
+    margin: 0px 10px;
+    color: #0f585e;
+    
+}
+
+th {
+    text-align: right;
+/*     width: 50%; */
+}
+
+td {
+    text-align: left;
+/*     width: 50%; */
+}
+
+form {
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    margin: 1em auto;
+    background-color: #c3d5d7;
+    color: #5e0f58;
+    box-shadow: 2px 2px 5px gray;
+    padding: 5px;
+}
+
+form h2 {
+  text-align: center;
+}
+
+form li {
+    margin: 5px 0px;
+}
+
+.floatleft {
+    float: left;
+}
