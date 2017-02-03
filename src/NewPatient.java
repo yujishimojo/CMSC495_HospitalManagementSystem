@@ -166,10 +166,10 @@ public class NewPatient extends HttpServlet {
 		} else if (ssn.equals(null) || ssn.equals("")) {
 			validationMap.put("ssn", "empty");
 			return false;
-		} else if (ssn.length() < 9 || 11 < ssn.length()) {
+		} else if (ssn.length() != 9) {
 			validationMap.put("ssn", "invalid format");
 			return false;
-		} else if (ssn.equals("000-00-0000") || ssn.equals("111-11-1111") || ssn.equals("222-22-2222")) {  // a dummy condition
+		} else if (ssn.equals("111223333") || ssn.equals("222334444") || ssn.equals("333445555")) {  // a dummy condition
 			validationMap.put("ssn", "in use");
 			return false;
 		} else {
@@ -182,7 +182,7 @@ public class NewPatient extends HttpServlet {
 		if (date.equals(null) || date.equals("")) {
 			validationMap.put("date", "empty");
 			return false;
-		} else if (date.length() != 10) {  // must be YYYY-MM-DD (a dummy condition)
+		} else if (date.length() != 10) {  // must be MM/DD/YYYY (a dummy condition)
 			validationMap.put("date", "invalid format");
 			return false;
 		} else {

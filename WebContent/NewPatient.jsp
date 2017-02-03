@@ -6,7 +6,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>CMSC 495 - Group 4</title>
-    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <script src="js/validate-form.js"></script>
 </head>
 <body>
     <%
@@ -19,19 +20,22 @@
     <% HashMap<String,String> validationMap = (HashMap<String,String>)request.getAttribute("validationMap"); %>
 
     <header>
-        <h1>Group 4 Capstone Project</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="newpatient.html">New Patient</a>
-            <a href="newstaff.html">New Staff</a>
-            <a href="search.html">Search</a>
-        </nav>
+        <a href="index.html"><img src="images/logo_notext.png"></a>
+        <div class="align-vertically">
+           <h1>Hygieia</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="newpatient.html">New Patient</a>
+                <a href="newstaff.html">New Staff</a>
+                <a href="search.html">Search</a>
+            </nav>
+	    </div>
     </header>
 
     <!-- action needs to be changed to another value to send info somewhere useful -->
     <!-- doing some client-side input validation before sending to database would be useful -->
     <% String pathToNewPatient = request.getContextPath() + "/NewPatient"; %>
-    <form method="POST" action="<%=pathToNewPatient%>" >
+    <form name="newpatient" action="<%=pathToNewPatient%>" method="POST" onsubmit="return validateForm()">
         <h2>New Patient</h2>
 
         <table>
@@ -39,7 +43,7 @@
 
             <tr>
                 <th>First Name:</th>
-                <td><input type="text" name="firstname" value=""/></td>
+                <td><input type="text" name="firstname" value="" required></td>
             </tr>
 
             <%
@@ -81,7 +85,7 @@
 
             <tr>
                 <th>Last Name:</th>
-                <td><input type="text" name="lastname" value=""/></td>
+                <td><input type="text" name="lastname" value="" required></td>
             </tr>
 
             <%
@@ -107,7 +111,7 @@
                 <th colspan="2" style="text-align: center;"><small><em>**If we include this in an online form we MUST make sure the site is secure. Otherwise remove it<br/>DO NOT USE REAL SSN FOR TESTING!</em></small> </th></tr>
             <tr>
                 <th>SSN:</th>
-                <td><input type="text" name="ssn" value="000-00-0000"/></td>
+                <td><input type="text" name="ssn" value="111223333" required></td>
             </tr>
 
             <%
@@ -134,7 +138,7 @@
 
             <tr>
                 <th>Admitted date:</th>
-                <td><input id="date" type="text" name="date" value=""/><td>
+                <td><input id="date" type="text" name="date" required><td>
             </tr>
 
             <%
@@ -143,7 +147,7 @@
                 		out.println("<tr>");
                 		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
                 		out.println("</tr>");
-                	} else if (validationMap.get("date") == "invalid format") {  // acceptable input format is YYYY-MM-DD
+                	} else if (validationMap.get("date") == "invalid format") {  // acceptable input format is MM/DD/YYYY
                 		out.println("<tr>");
                 		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This is not a valid format. The field must be 'YYYY-MM-DD.'</font></em></small></th>");
                 		out.println("</tr>");
@@ -154,7 +158,7 @@
             <!-- Maybe change to a dropdown menu to prevent non-existent doctors from being selected -->
             <tr>
                 <th>Doctor:</th>
-                <td><input type="text" name="doctor" value=""/></td>
+                <td><input type="text" name="doctor" value="" required></td>
             </tr>
 
             <%
@@ -170,15 +174,6 @@
                 	}
                 }
             %>
-
-            <!-- Should also be checked for validity if possible -->
-
-            <!--
-            <tr>
-                <th>Room Number:</th>
-                <td><input type="text" name="room" value=""/></td>
-            </tr>
-            -->
 
             <tr>
                 <th>Patient Type:</th>
@@ -220,17 +215,28 @@
                 }
             %>
 
+            <tr>
+                <th>New Password:</th>
+                <td><input type="password" name="pass1" size="32" required></td>
+            </tr>
+
+            <tr>
+                <th>Retype Password:</th>
+                <td><input type="password" name="pass2" size="32" required></td>
+            </tr>
+
         </table>
         <br/>
-        <input type="submit" value="Submit"/>
+        <input type="submit" value="Submit" />
         <% String pathToLogout = request.getContextPath() + "/Logout"; %>
         <input type="button" value="Logout" align="right" onClick="location.href='<%=pathToLogout%>'">
     </form>
 
 
     <script>
+        //Get Current date and set as default value in date field
         var d = new Date();
-        document.getElementById("date").value = d.toDateString();
+        document.getElementById("date").value = d.getMonth()+"/"+d.getFullDate()+"/"+d.getFullYear();
     </script>
 </body>
 </html>

@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>New Patient Result</title>
+<link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
 
@@ -15,7 +16,22 @@
         }
     %>
 
-    <h1>Registration Successful</h1>
+
+    <header>
+        <a href="index.html"><img src="images/logo_notext.png"></a>
+        <div class="align-vertically">
+            <h1>Hygieia</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="newpatient.html">New Patient</a>
+                <a href="newstaff.html">New Staff</a>
+                <a href="search.html">Search</a>
+            </nav>
+	    </div>
+    </header>
+
+
+    <h2>Registration Successful</h2>
 
     <ul>
         <li>Patient ID:</li>
