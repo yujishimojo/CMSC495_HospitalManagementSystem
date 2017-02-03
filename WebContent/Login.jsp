@@ -5,14 +5,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Login Page</title>
-<link rel="stylesheet" href="styles.css"/>
+<link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
+
     <header>
-        <h1>Group 4 Capstone Project</h1>
+        <a href="index.html"><img src="images/logo_notext.png"></a>
+        <div class="align-vertically">
+        <h1>Hygieia</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="newpatient.html">New Patient</a>
+            <a href="newstaff.html">New Staff</a>
+            <a href="search.html">Search</a>
+        </nav>
+	    </div>
     </header>
-<% String pathToLogin = request.getContextPath() + "/Login"; %>
-<form method="POST" action="<%=pathToLogin%>" >
+
+    <% String pathToLogin = request.getContextPath() + "/Login"; %>
+    <form method="POST" action="<%=pathToLogin%>" >
     <table>
         <tr>
             <td>Login Name:</td>
@@ -27,6 +38,6 @@
             <td><input type="reset" value="reset"></td>
         </tr>
     </table>
-</form>
+    </form>
 </body>
 </html>
