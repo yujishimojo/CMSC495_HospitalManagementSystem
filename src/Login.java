@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.sql.Connection;
-//import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,18 +27,11 @@ public class Login extends HttpServlet {
     protected Connection conn = null;
 
     public void init() throws ServletException {
-//        String url = "";
-//        String user = "";
-//        String password = "";
 
         try {
-//            Class.forName("com.mysql.jdbc.Driver").newInstance();
             Context ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/hygieia_db");
             conn = ds.getConnection();
-//            conn = DriverManager.getConnection(url, user, password);
-//        } catch (ClassNotFoundException e) {
-//            log("ClassNotFoundException:" + e.getMessage());
         } catch (SQLException e) {
             log("SQLException:" + e.getMessage());
         } catch (Exception e) {
@@ -71,6 +63,7 @@ public class Login extends HttpServlet {
         if (check) {
             /* authentication successful */
             session.setAttribute("login", "OK");
+            session.setAttribute("status", "Auth");
 
             /* redirect to the referrer url */
 //            String target = (String)session.getAttribute("target");
@@ -90,7 +83,7 @@ public class Login extends HttpServlet {
         }
 	
         try {
-            String sql = "SELECT * FROM users WHERE login_name = ? && password = ?";
+            String sql = "SELECT id FROM users WHERE login_name = ? AND password = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, user);

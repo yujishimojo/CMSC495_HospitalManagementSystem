@@ -25,6 +25,7 @@
     <% String pathToLogin = request.getContextPath() + "/Login"; %>
     <form method="POST" action="<%=pathToLogin%>" >
     <table>
+
         <tr>
             <td>Login Name:</td>
             <td><input type="text" name="user" size="32"></td>
@@ -33,6 +34,14 @@
             <td>Password:</td>
             <td><input type="password" name="pass" size="32"></td>
         </tr>
+        <%
+            String status = (String)session.getAttribute("status");
+                if (status == "Not Auth") {
+		            out.println("<tr>");
+		            out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**Invalid Login Name or Password. Please try it again.</font></em></small></th>");
+		            out.println("</tr>");
+                }
+        %>
         <tr>
             <td><input type="submit" value="login"></td>
             <td><input type="reset" value="reset"></td>
