@@ -1,8 +1,8 @@
 import java.io.IOException;
 import java.sql.Connection;
-//import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -27,18 +27,11 @@ public class NewPatient extends HttpServlet {
     protected HashMap<String,String> validationMap = new HashMap<String,String>();
 
     public void init() throws ServletException {
-//        String url = "j";
-//        String user = "";
-//        String password = "";
 
         try {
-//            Class.forName("com.mysql.jdbc.Driver").newInstance();
             Context ctx = new InitialContext();
             DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/hygieia_db");
             conn = ds.getConnection();
-//            conn = DriverManager.getConnection(url, user, password);
-//        } catch (ClassNotFoundException e) {
-//            log("ClassNotFoundException:" + e.getMessage());
         } catch (SQLException e) {
             log("SQLException:" + e.getMessage());
         } catch (Exception e) {
@@ -80,17 +73,7 @@ public class NewPatient extends HttpServlet {
 		String address = request.getParameter("address");
 		String insurance = request.getParameter("insurance");
 
-//		System.out.println("firstname: " + firstname);
-//		System.out.println("middlename: " + middlename);
-//		System.out.println("lastname: " + lastname);
-//		System.out.println("ssn: " + ssn);
-//		System.out.println("date: " + date);
-//		System.out.println("doctor: " + doctor);
-//		System.out.println("patienttypegroup: " + patienttypegroup);
-//		System.out.println("address: " + address);
-//		System.out.println("insurance: " + insurance);
 		System.out.println("validationMap: " + validationMap);
-
 		validationMap.clear();
 
 		boolean checkFirstname = validateFirstname(firstname);
@@ -115,7 +98,8 @@ public class NewPatient extends HttpServlet {
 	}
 
 	protected boolean validateFirstname(String firstname) {
-		if (firstname.contains(" ") || firstname.contains("'") || firstname.contains(";")) {
+		if (Pattern.compile(".*[0-9].*").matcher(firstname).find() || Pattern.compile(".*\\s.*").matcher(firstname).find()
+				|| firstname.contains("'") || firstname.contains(";")) {
 			validationMap.put("firstname", "illegal characters");
 			return false;
 		} else if (firstname.equals(null) || firstname.equals("")) {
@@ -131,7 +115,8 @@ public class NewPatient extends HttpServlet {
 	}
 
 	protected boolean validateMiddlename(String middlename) {
-		if (middlename.contains(" ") || middlename.contains("'") || middlename.contains(";")) {
+		if (Pattern.compile(".*[0-9].*").matcher(middlename).find() || Pattern.compile(".*\\s.*").matcher(middlename).find()
+				|| middlename.contains("'") || middlename.contains(";")) {
 			validationMap.put("middlename", "illegal characters");
 			return false;
 		} else if (middlename.length() > 30) {
@@ -144,7 +129,8 @@ public class NewPatient extends HttpServlet {
 	}
 
 	protected boolean validateLastname(String lastname) {
-		if (lastname.contains(" ") || lastname.contains("'") || lastname.contains(";")) {
+		if (Pattern.compile(".*[0-9].*").matcher(lastname).find() || Pattern.compile(".*\\s.*").matcher(lastname).find()
+				|| lastname.contains("'") || lastname.contains(";")) {
 			validationMap.put("lastname", "illegal characters");
 			return false;
 		} else if (lastname.equals(null) || lastname.equals("")) {
@@ -160,7 +146,7 @@ public class NewPatient extends HttpServlet {
 	}
 
 	protected boolean validateSSN(String ssn) {
-		if (ssn.contains(" ") || ssn.contains("'") || ssn.contains(";")) {
+		if (Pattern.compile(".*\\s.*").matcher(ssn).find() || ssn.contains("'") || ssn.contains(";")) {
 			validationMap.put("ssn", "illegal characters");
 			return false;
 		} else if (ssn.equals(null) || ssn.equals("")) {
