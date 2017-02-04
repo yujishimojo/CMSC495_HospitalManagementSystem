@@ -126,9 +126,9 @@
                 		out.println("</tr>");
                 	} else if (validationMap.get("ssn") == "invalid format") {
                 		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be between 9 and 11 characters.</font></em></small></th>");
+                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be 9 numeric digits.</font></em></small></th>");
                 		out.println("</tr>");
-                	} else if (validationMap.get("ssn") == "in use") {  // if input value is 000-00-0000, 111-11-1111, or 222-22-2222 (a dummy condition so far)
+                	} else if (validationMap.get("ssn") == "in use") {
                 		out.println("<tr>");
                 		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is already in use.</font></em></small></th>");
                 		out.println("</tr>");
@@ -149,27 +149,47 @@
                 		out.println("</tr>");
                 	} else if (validationMap.get("date") == "invalid format") {  // acceptable input format is MM/DD/YYYY
                 		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This is not a valid format. The field must be 'YYYY-MM-DD.'</font></em></small></th>");
+                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This is not a valid format. The field must be 'MM/DD/YYYY.'</font></em></small></th>");
                 		out.println("</tr>");
                 	}
                 }
             %>
 
             <!-- Maybe change to a dropdown menu to prevent non-existent doctors from being selected -->
+
             <tr>
-                <th>Doctor:</th>
-                <td><input type="text" name="doctor" value="" required></td>
+                <th>Doctor First Name:</th>
+                <td><input type="text" name="doctor_firstname" value="" required></td>
             </tr>
 
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
-                	if (validationMap.get("doctor") == "empty") {
+                	if (validationMap.get("doctor_firstname") == "empty") {
                 		out.println("<tr>");
                 		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
                 		out.println("</tr>");
-                	} else if (validationMap.get("doctor") == "not found") {  // if input value is 'anonymous' (a dummy condition so far)
+                	} else if (validationMap.get("doctor_firstname") == "not found") {
                 		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**The doctor name is not found.</font></em></small></th>");
+                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This doctor name is not found.</font></em></small></th>");
+                		out.println("</tr>");
+                	}
+                }
+            %>
+
+            <tr>
+                <th>Doctor Last Name:</th>
+                <td><input type="text" name="doctor_lastname" value="" required></td>
+            </tr>
+
+            <%
+                if (validationMap != null && validationMap.get("registration") == "failed") {
+                	if (validationMap.get("doctor_lastname") == "empty") {
+                		out.println("<tr>");
+                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                		out.println("</tr>");
+                	} else if (validationMap.get("doctor_lastname") == "not found") {
+                		out.println("<tr>");
+                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This doctor name is not found.</font></em></small></th>");
                 		out.println("</tr>");
                 	}
                 }
