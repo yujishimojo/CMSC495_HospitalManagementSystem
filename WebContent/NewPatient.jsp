@@ -198,7 +198,7 @@
             <tr>
                 <th>Patient Type:</th>
                 <td><input type="radio" name="patienttypegroup" value="Inpatient" checked/> Inpatient<br/>
-                <input type="radio" name="patienttypegroup" value="Inpatient"/> Outpatient</td>
+                <input type="radio" name="patienttypegroup" value="Outpatient"/> Outpatient</td>
             </tr>
 
             <!--
