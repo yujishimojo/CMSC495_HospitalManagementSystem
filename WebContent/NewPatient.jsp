@@ -29,7 +29,7 @@
                 <a href="newstaff.html">New Staff</a>
                 <a href="search.html">Search</a>
             </nav>
-	    </div>
+        </div>
     </header>
 
     <!-- action needs to be changed to another value to send info somewhere useful -->
@@ -48,19 +48,19 @@
 
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
-                	if (validationMap.get("firstname") == "illegal characters") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**First Name Field contains illegal characters.</font></em></small></th>");
-                		out.println("</tr>");
-                	} else if (validationMap.get("firstname") == "empty") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
-                		out.println("</tr>");
-                	} else if (validationMap.get("firstname") == "too long") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 30 characters.</font></em></small></th>");
-                		out.println("</tr>");
-                	}
+                    if (validationMap.get("firstname") == "illegal characters") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**First Name Field contains illegal characters.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("firstname") == "empty") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("firstname") == "too long") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 30 characters.</font></em></small></th>");
+                        out.println("</tr>");
+                    }
                 }
             %>
 
@@ -71,15 +71,15 @@
 
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
-                	if (validationMap.get("middlename") == "illegal characters") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**Middle Name Field contains illegal characters.</font></em></small></th>");
-                		out.println("</tr>");
-                	} else if (validationMap.get("middlename") == "too long") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 30 characters.</font></em></small></th>");
-                		out.println("</tr>");
-                	}
+                    if (validationMap.get("middlename") == "illegal characters") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**Middle Name Field contains illegal characters.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("middlename") == "too long") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 30 characters.</font></em></small></th>");
+                        out.println("</tr>");
+                    }
                 }
             %>
 
@@ -90,19 +90,19 @@
 
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
-                	if (validationMap.get("lastname") == "illegal characters") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**Last Name Field contains illegal characters.</font></em></small></th>");
-                		out.println("</tr>");
-                	} else if (validationMap.get("lastname") == "empty") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
-                		out.println("</tr>");
-                	} else if (validationMap.get("lastname") == "too long") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 30 characters.</font></em></small></th>");
-                		out.println("</tr>");
-                	}
+                    if (validationMap.get("lastname") == "illegal characters") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**Last Name Field contains illegal characters.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("lastname") == "empty") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("lastname") == "too long") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 30 characters.</font></em></small></th>");
+                        out.println("</tr>");
+                    }
                 }
             %>
 
@@ -116,23 +116,23 @@
 
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
-                	if (validationMap.get("ssn") == "illegal characters") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**Social Security Number contains illegal characters.</font></em></small></th>");
-                		out.println("</tr>");
-                	} else if (validationMap.get("ssn") == "empty") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
-                		out.println("</tr>");
-                	} else if (validationMap.get("ssn") == "invalid format") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be 9 numeric digits.</font></em></small></th>");
-                		out.println("</tr>");
-                	} else if (validationMap.get("ssn") == "in use") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is already in use.</font></em></small></th>");
-                		out.println("</tr>");
-                	}
+                    if (validationMap.get("ssn") == "illegal characters") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**Social Security Number contains illegal characters.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("ssn") == "empty") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("ssn") == "invalid format") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be 9 numeric digits.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("ssn") == "in use") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is already in use.</font></em></small></th>");
+                        out.println("</tr>");
+                    }
                 }
             %>
 
@@ -143,15 +143,15 @@
 
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
-                	if (validationMap.get("date") == "empty") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
-                		out.println("</tr>");
-                	} else if (validationMap.get("date") == "invalid format") {  // acceptable input format is MM/DD/YYYY
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This is not a valid format. The field must be 'MM/DD/YYYY.'</font></em></small></th>");
-                		out.println("</tr>");
-                	}
+                    if (validationMap.get("date") == "empty") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("date") == "invalid format") {  // acceptable input format is MM/DD/YYYY
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This is not a valid format. The field must be 'MM/DD/YYYY.'</font></em></small></th>");
+                        out.println("</tr>");
+                    }
                 }
             %>
 
@@ -164,15 +164,15 @@
 
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
-                	if (validationMap.get("doctor_firstname") == "empty") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
-                		out.println("</tr>");
-                	} else if (validationMap.get("doctor_firstname") == "not found") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This doctor name is not found.</font></em></small></th>");
-                		out.println("</tr>");
-                	}
+                    if (validationMap.get("doctor_firstname") == "empty") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("doctor_firstname") == "not found") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This doctor name is not found.</font></em></small></th>");
+                        out.println("</tr>");
+                    }
                 }
             %>
 
@@ -183,15 +183,15 @@
 
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
-                	if (validationMap.get("doctor_lastname") == "empty") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
-                		out.println("</tr>");
-                	} else if (validationMap.get("doctor_lastname") == "not found") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This doctor name is not found.</font></em></small></th>");
-                		out.println("</tr>");
-                	}
+                    if (validationMap.get("doctor_lastname") == "empty") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("doctor_lastname") == "not found") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This doctor name is not found.</font></em></small></th>");
+                        out.println("</tr>");
+                    }
                 }
             %>
 
@@ -212,11 +212,11 @@
 
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
-                	if (validationMap.get("address") == "too long") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 100 characters.</font></em></small></th>");
-                		out.println("</tr>");
-                	}
+                    if (validationMap.get("address") == "too long") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 100 characters.</font></em></small></th>");
+                        out.println("</tr>");
+                    }
                 }
             %>
 
@@ -227,11 +227,11 @@
 
             <%
                 if (validationMap != null) {
-                	if (validationMap.get("insurance") == "too long") {
-                		out.println("<tr>");
-                		out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 100 characters.</font></em></small></th>");
-                		out.println("</tr>");
-                	}
+                    if (validationMap.get("insurance") == "too long") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 100 characters.</font></em></small></th>");
+                        out.println("</tr>");
+                    }
                 }
             %>
 

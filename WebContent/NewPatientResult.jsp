@@ -29,7 +29,7 @@
                 <a href="newstaff.html">New Staff</a>
                 <a href="search.html">Search</a>
             </nav>
-	    </div>
+        </div>
     </header>
 
 

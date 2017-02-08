@@ -38,27 +38,27 @@ public class Login extends HttpServlet {
             log("Exception:" + e.getMessage());
         }
     }
-	  
+      
     public void destroy() {
-	    try {
-	    	if (conn != null) {
-	            conn.close();
-	        }
-	    } catch (SQLException e) {
-	        log("SQLException:" + e.getMessage());
-	    }
-	}
-	
+        try {
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            log("SQLException:" + e.getMessage());
+        }
+    }
+    
     /**
     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+    
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
 
         HttpSession session = request.getSession(true);
-	
+    
         boolean check = authUser(user, pass);
         if (check) {
             /* authentication successful */
@@ -73,15 +73,15 @@ public class Login extends HttpServlet {
             /* when authentication is failed, redirect to the login page. */
             session.setAttribute("status", "Not Auth");
             response.sendRedirect(request.getContextPath() + "/Login.jsp");
-    	}
+        }
     }
-	
+    
     protected boolean authUser(String user, String pass) {
 
         if (user == null || user.length() == 0 || pass == null || pass.length() == 0) {
-	        return false;
+            return false;
         }
-	
+    
         try {
             String sql = "SELECT id FROM users WHERE login_name = ? AND password = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -91,9 +91,9 @@ public class Login extends HttpServlet {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-            	return true;
+                return true;
             } else {
-            	return false;
+                return false;
             }
         } catch (SQLException e) {
             log("SQLException:" + e.getMessage());

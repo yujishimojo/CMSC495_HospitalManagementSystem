@@ -19,7 +19,7 @@
             <a href="newstaff.html">New Staff</a>
             <a href="search.html">Search</a>
         </nav>
-	    </div>
+        </div>
     </header>
 
     <% String pathToLogin = request.getContextPath() + "/Login"; %>
@@ -37,9 +37,9 @@
         <%
             String status = (String)session.getAttribute("status");
                 if (status == "Not Auth") {
-		            out.println("<tr>");
-		            out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**Invalid Login Name or Password. Please try it again.</font></em></small></th>");
-		            out.println("</tr>");
+                    out.println("<tr>");
+                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**Invalid Login Name or Password. Please try it again.</font></em></small></th>");
+                    out.println("</tr>");
                 }
         %>
         <tr>
