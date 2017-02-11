@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'simpleprintbold';
+    src: url('simple-print_bold.eot');
+    src: url('simple-print_bold.eot?#iefix') format('embedded-opentype'),
+         url('simple-print_bold.woff') format('woff'),
+         url('simple-print_bold.ttf') format('truetype'),
+         url('simple-print_bold.svg#simpleprintbold') format('svg');
+}
+
+@font-face {
+    font-family: 'simple-print';
+    src: url('simple-print_regular.eot');
+    src: url('simple-print_regular.eot?#iefix') format('embedded-opentype'),
+         url('simple-print_regular.woff') format('woff'),
+         url('simple-print_regular.ttf') format('truetype'),
+         url('simple-print_regular.svg#simple-print') format('svg');
+}
+

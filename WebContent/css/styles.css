@@ -7,16 +7,26 @@ Colors:
 #5e0f58   dark purple
 */
 
+@font-face {
+    font-family: quicksand;
+    src: url('fonts/quicksand/Quicksand-Regular.otf');
+}
+
+@font-face {
+    font-family: simple;
+    src: url('fonts/simple-print/simple-print_regular.woff');
+}
+
 body {
     background-color: white;
     color: #0f585e;
-    font-family: sans-serif;
+    font-family: quicksand, arial, sans-serif;
     margin: 0px;
     padding: 0px;
 }
 
 header {
-    font-family: serif;
+    /* font-family: serif; */
     overflow: hidden;
 }
 
@@ -46,23 +56,54 @@ nav a {
 
 th {
     text-align: right;
-/*     width: 50%; */
 }
 
 td {
     text-align: left;
-/*     width: 50%; */
 }
 
 form {
-    width: -webkit-max-content;
-    width: -moz-max-content;
-    width: max-content;
     margin: 1em auto;
     background-color: #c3d5d7;
     color: #5e0f58;
     box-shadow: 2px 2px 5px gray;
     padding: 5px;
+    font-weight: inherit;
+    font-size: inherit;
+}
+
+.flex-container {
+    display: -webkit-flex;
+    display: flex; 
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-align-content: center;
+    align-content: center;
+    width: 100%;
+    height: 250px;
+    background-color: lightgrey;
+}
+.flex-container div {
+    background-color: red;
+    margin: 5px;
+    display: inline-block;
+}
+
+textarea, input {
+    font-family: inherit;
+    /*font-size: inherit;*/
+}
+
+textarea, input[type=text], select {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type=text], select {
+    padding: 2px;
+    width: 15em;
 }
 
 form h2 {
