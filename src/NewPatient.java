@@ -99,16 +99,17 @@ public class NewPatient extends HttpServlet {
                 /* Insert the form data to users table. */
                 String sql = "INSERT INTO"
                            + " users (created_at, updated_at, login_name, password, role, first_name, middle_name, last_name, social_security_number, address)"
-                           + " VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?)";
+                           + " VALUES (STR_TO_DATE(?, '%m/%d/%Y'), CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, firstname + "." + lastname);
-                pstmt.setString(2, pass1);
-                pstmt.setInt(3, 2);
-                pstmt.setString(4, firstname);
-                pstmt.setString(5, middlename);
-                pstmt.setString(6, lastname);
-                pstmt.setString(7, ssn);
-                pstmt.setString(8, address);
+                pstmt.setString(1, date);
+                pstmt.setString(2, firstname + "." + lastname);
+                pstmt.setString(3, pass1);
+                pstmt.setInt(4, 2);
+                pstmt.setString(5, firstname);
+                pstmt.setString(6, middlename);
+                pstmt.setString(7, lastname);
+                pstmt.setString(8, ssn);
+                pstmt.setString(9, address);
                 pstmt.executeUpdate();
                 
                 pstmt.clearParameters();
@@ -160,16 +161,17 @@ public class NewPatient extends HttpServlet {
                 /* Insert the form data, user_id, and doctor_id into patients table. */
                 sql = "INSERT INTO"
                     + " patients (user_id, doctor_id, created_at, updated_at, type, insurance)"
-                    + " VALUES (?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)";
+                    + " VALUES (?, ?, STR_TO_DATE(?, '%m/%d/%Y'), CURRENT_TIMESTAMP, ?, ?)";
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setInt(1, user_id);
                 pstmt.setInt(2, doctor_id);
+                pstmt.setString(3, date);
                 if (patienttypegroup.equals("Inpatient")) {
-                    pstmt.setInt(3, 0);
+                    pstmt.setInt(4, 0);
                 } else if (patienttypegroup.equals("Outpatient")) {
-                    pstmt.setInt(3, 1);
+                    pstmt.setInt(4, 1);
                 }
-                pstmt.setString(4, insurance);
+                pstmt.setString(5, insurance);
                 pstmt.executeUpdate();
 
                 pstmt.clearParameters();
