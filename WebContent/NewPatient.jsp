@@ -25,7 +25,7 @@
                 <a href="index.html">Home</a>
                 <a href="NewPatient.jsp">New Patient</a>
                 <a href="newstaff.html">New Staff</a>
-                <a href="search.html">Search</a>
+                <a href="Search.jsp">Search</a>
             </nav>
         </div>
     </header>
@@ -100,7 +100,7 @@
                 <th colspan="2" style="text-align: center;"><small><em>**If we include this in an online form we MUST make sure the site is secure. Otherwise remove it<br/>DO NOT USE REAL SSN FOR TESTING!</em></small> </th></tr>
             <tr>
                 <th>SSN:</th>
-                <td><input type="text" name="ssn" value="111223333" required></td>
+                <td><input type="text" name="ssn" value="" required></td>
             </tr>
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {

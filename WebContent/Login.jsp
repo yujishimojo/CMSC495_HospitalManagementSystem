@@ -16,7 +16,7 @@
             <a href="index.html">Home</a>
             <a href="NewPatient.jsp">New Patient</a>
             <a href="newstaff.html">New Staff</a>
-            <a href="search.html">Search</a>
+            <a href="Search.jsp">Search</a>
         </nav>
         </div>
     </header>

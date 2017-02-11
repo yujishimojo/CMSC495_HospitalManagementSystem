@@ -24,7 +24,7 @@
                 <a href="index.html">Home</a>
                 <a href="NewPatient.jsp">New Patient</a>
                 <a href="newstaff.html">New Staff</a>
-                <a href="search.html">Search</a>
+                <a href="Search.jsp">Search</a>
             </nav>
         </div>
     </header>
@@ -44,34 +44,5 @@
         <li>Address: &nbsp;&nbsp;&nbsp; <%out.print(list.get(11));%></li>
         <li>Insurance: &nbsp;&nbsp;&nbsp; <%out.print(list.get(12));%></li>
     </ul>
-    <!-- dl version -->
-<%--     <dl>
-        <dt>Patient ID:</dt>
-        <dd><%out.print(list.get(0));%></dd>
-        <dt>Login Name:</dt>
-        <dd><%out.print(list.get(1));%></dd>
-        <dt>Password:</dt>
-        <dd><%out.print(list.get(2));%></dd>
-        <dt>First Name:</dt>
-        <dd><%out.print(list.get(3));%></dd>
-        <dt>Middle Name:</dt>
-        <dd><%out.print(list.get(4));%></dd>
-        <dt>Last Name:</dt>
-        <dd><%out.print(list.get(5));%></dd>
-        <dt>SSN:</dt>
-        <dd><%out.print(list.get(6));%></dd>
-        <dt>Admitted date:</dt>
-        <dd><%out.print(list.get(7));%></dd>
-        <dt>Doctor:</dt>
-        <dd><%out.print(list.get(8));%> <%out.print(list.get(9));%></dd>
-        <dt>Patient Type:</dt>
-        <dd><%out.print(list.get(10));%></dd>
-        <dt>Address:</dt>
-        <dd><%out.print(list.get(11));%></dd>
-        <dt>Insurance:</dt>
-        <dd><%out.print(list.get(12));%></dd>
-    </dl> --%>
-    <% String pathToNewPatientJsp = request.getContextPath() + "/index.html"; %>
-    <h3><a href="<%=pathToNewPatientJsp%>" target="_self"> Return to Home Page.</a></h3>
 </body>
 </html>
