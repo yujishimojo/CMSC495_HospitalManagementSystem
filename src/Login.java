@@ -27,7 +27,6 @@ public class Login extends HttpServlet {
     protected Connection conn = null;
 
     public void init() throws ServletException {
-
         try {
             Context ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/hygieia_db");
@@ -65,6 +64,15 @@ public class Login extends HttpServlet {
             session.setAttribute("login", "OK");
             session.setAttribute("status", "Auth");
 
+            int role = getRole(user, pass);
+            if (role == 0) {
+                session.setAttribute("role", "admin");
+            } else if (role == 1) {
+            	session.setAttribute("role", "staff");
+            } else if (role == 2) {
+            	session.setAttribute("role", "patient");
+            }
+
             /* redirect to the referrer url */
 //            String target = (String)session.getAttribute("target");
 //            response.sendRedirect(target);
@@ -77,11 +85,9 @@ public class Login extends HttpServlet {
     }
     
     protected boolean authUser(String user, String pass) {
-
         if (user == null || user.length() == 0 || pass == null || pass.length() == 0) {
             return false;
         }
-    
         try {
             String sql = "SELECT id FROM users WHERE login_name = ? AND password = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -91,13 +97,33 @@ public class Login extends HttpServlet {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return true;
+            	return true;
             } else {
                 return false;
             }
         } catch (SQLException e) {
             log("SQLException:" + e.getMessage());
             return false;
+        }
+    }
+
+    protected int getRole(String user, String pass) {    
+        try {
+            String sql = "SELECT role FROM users WHERE login_name = ? AND password = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, user);
+            pstmt.setString(2, pass);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            log("SQLException:" + e.getMessage());
+            return 0;
         }
     }
 }
