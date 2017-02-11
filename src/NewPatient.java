@@ -232,14 +232,6 @@ public class NewPatient extends HttpServlet {
                 request.setAttribute("validationMap", validationMap);
                 request.getRequestDispatcher("/NewPatient.jsp").forward(request, response);
                 e.printStackTrace();
-            } finally {
-                if (conn != null) {
-                    try {
-                        conn.close();
-                    } catch (SQLException sqlEx) {
-
-                    }
-                }
             }
 
         } else {
