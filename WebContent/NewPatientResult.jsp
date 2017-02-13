@@ -23,7 +23,7 @@
             <nav>
                 <a href="index.html">Home</a>
                 <a href="NewPatient.jsp">New Patient</a>
-                <a href="newstaff.html">New Staff</a>
+                <a href="NewStaff.jsp">New Staff</a>
                 <a href="Search.jsp">Search</a>
             </nav>
         </div>
