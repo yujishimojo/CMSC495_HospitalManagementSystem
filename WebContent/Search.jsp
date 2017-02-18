@@ -22,6 +22,7 @@
             <a href="index.html">Home</a>
             <a href="NewPatient.jsp">New Patient</a>
             <a href="NewStaff.jsp">New Staff</a>
+            <a href="NewMedicalFile.jsp">New Medical File</a>
             <a href="Search.jsp">Search</a>
         </nav>
         </div>
