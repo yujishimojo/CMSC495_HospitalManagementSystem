@@ -30,20 +30,56 @@
         </div>
     </header>
     <h2>Registration Successful</h2>
-    <!-- ul version -->
-    <ul>
-        <li>Patient ID: &nbsp;&nbsp;&nbsp; <%out.print(list.get(0));%></li>
-        <li>Login Name: &nbsp;&nbsp;&nbsp; <%out.print(list.get(1));%></li>
-        <li>Password: &nbsp;&nbsp;&nbsp; <%out.print(list.get(2));%></li>
-        <li>First Name: &nbsp;&nbsp;&nbsp; <%out.print(list.get(3));%></li>
-        <li>Middle Name: &nbsp;&nbsp;&nbsp; <%out.print(list.get(4));%></li>
-        <li>Last Name: &nbsp;&nbsp;&nbsp; <%out.print(list.get(5));%></li>
-        <li>SSN: &nbsp;&nbsp;&nbsp; <%out.print(list.get(6));%></li>
-        <li>Admitted date: &nbsp;&nbsp;&nbsp; <%out.print(list.get(7));%></li>
-        <li>Doctor: &nbsp;&nbsp;&nbsp; <%out.print(list.get(8));%>  <%out.print(list.get(9));%></li>
-        <li>Patient Type: &nbsp;&nbsp;&nbsp; <%out.print(list.get(10));%></li>
-        <li>Address: &nbsp;&nbsp;&nbsp; <%out.print(list.get(11));%></li>
-        <li>Insurance: &nbsp;&nbsp;&nbsp; <%out.print(list.get(12));%></li>
-    </ul>
+    <!-- table version -->
+	<table>
+		<tr>
+			<th>Patient ID:</th>
+			<td><%out.print(list.get(0));%></td>
+		</tr>
+		<tr>
+			<th>Login Name:</th>
+			<td><%out.print(list.get(1));%></td>
+		</tr>
+		<tr>
+			<th>Password:</th>
+			<td><%out.print(list.get(2));%></td>
+		</tr>
+		<tr>
+			<th>First Name:</th>
+			<td><%out.print(list.get(3));%></td>
+		</tr>
+		<tr> 
+			<th>Middle Name:</th>
+			<td><%out.print(list.get(4));%></td>
+		</tr>
+		<tr>
+			<th>Last Name:</th>
+			<td><%out.print(list.get(5));%></td>
+		</tr>
+		<tr> <!-- I think we should consider not displaying this in the final version -->
+			<th>SSN:</th>
+			<td><%out.print(list.get(6));%></td>
+		</tr>
+		<tr>
+			<th>Admitted Date:</th>
+			<td><%out.print(list.get(7));%></td>
+		</tr>
+		<tr>
+			<th>Doctor:</th>
+			<td><%out.print(list.get(8));%> <%out.print(list.get(9));%></td>
+		</tr>
+		<tr>
+			<th>Patient Type:</th>
+			<td><%out.print(list.get(10));%></td>
+		</tr>
+		<tr>
+			<th>Address:</th>
+			<td><%out.print(list.get(11));%></td>
+		</tr>
+		<tr>
+			<th>Insurance:</th>
+			<td><%out.print(list.get(12));%></td>
+		</tr>
+	</table>
 </body>
 </html>

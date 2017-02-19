@@ -32,34 +32,34 @@
         </div>
     </header>
     <h2>Registration Successful</h2>
-   <%
-        if (!profile.isEmpty()) {
-            out.println("<ul>");
-            out.println("    <li>Staff ID: &nbsp;&nbsp;&nbsp; " + profile.get(0) + "</li>");
-            out.println("    <li>Staff Type: &nbsp;&nbsp;&nbsp; " + profile.get(14) + "</li>");
-            if (doctor_id != 0) {
-                out.println("    <li>Doctor ID: &nbsp;&nbsp;&nbsp; " + doctor_id + "</li>");
-            }
-            out.println("    <li>Login Name: &nbsp;&nbsp;&nbsp; " + profile.get(1) + "</li>");
-            out.println("    <li>Password: &nbsp;&nbsp;&nbsp; " + profile.get(2) + "</li>");
-            out.println("    <li>First Name: &nbsp;&nbsp;&nbsp; " + profile.get(3) + "</li>");
-            out.println("    <li>Middle Name: &nbsp;&nbsp;&nbsp; " + profile.get(4) + "</li>");
-            out.println("    <li>Last Name: &nbsp;&nbsp;&nbsp; " + profile.get(5) + "</li>");
-            out.println("    <li>SSN: &nbsp;&nbsp;&nbsp; " + profile.get(6) + "</li>");
-            out.println("    <li>Address: &nbsp;&nbsp;&nbsp; " + profile.get(7) + "</li>");
-            out.println("    <li>Qualification: &nbsp;&nbsp;&nbsp; " + profile.get(8) + "</li>");
-            out.println("    <li>Certification expiration: &nbsp;&nbsp;&nbsp; " + profile.get(9) + "</li>");
-            out.println("    <li>Cell phone number: &nbsp;&nbsp;&nbsp; " + profile.get(10) + "</li>");
-            out.println("    <li>Email address: &nbsp;&nbsp;&nbsp; " + profile.get(11) + "</li>");
-            out.println("    <li>Payroll: &nbsp;&nbsp;&nbsp; " + profile.get(12) + "</li>");
-            out.println("    <li>Personal details: &nbsp;&nbsp;&nbsp; " + profile.get(13) + "</li>");
-            if (!shift.isEmpty()) {
-                out.println("    <li>Clock in time: &nbsp;&nbsp;&nbsp; " + shift.get(0) + "</li>");
-                out.println("    <li>Clock out time: &nbsp;&nbsp;&nbsp; " + shift.get(1) + "</li>");
-                out.println("    <li>Status: &nbsp;&nbsp;&nbsp; " + shift.get(2) + "</li>");
-            }
-            out.println("</ul>");
-        }
+    <%
+         if (!profile.isEmpty()) {
+             out.println("<table>");
+             out.println("    <tr><th>Staff ID:</th><td>" + profile.get(0) + "</td></tr>");
+             out.println("    <tr><th>Staff Type:</th><td>" + profile.get(14) + "</td></tr>");
+             if (doctor_id != 0) {
+                 out.println("    <tr><th>Doctor ID:</th><td>" + doctor_id + "</td></tr>");
+             }
+             out.println("    <tr><th>Login Name:</th><td>" + profile.get(1) + "</td></tr>");
+             out.println("    <tr><th>Password:</th><td>" + profile.get(2) + "</td></tr>");
+             out.println("    <tr><th>First Name:</th><td>" + profile.get(3) + "</td></tr>");
+             out.println("    <tr><th>Middle Name:</th><td>" + profile.get(4) + "</td></tr>");
+             out.println("    <tr><th>Last Name:</th><td>" + profile.get(5) + "</td></tr>");
+             out.println("    <tr><th>SSN:</th><td>" + profile.get(6) + "</td></tr>");
+             out.println("    <tr><th>Address:</th><td>" + profile.get(7) + "</td></tr>");
+             out.println("    <tr><th>Qualification:</th><td>" + profile.get(8) + "</td></tr>");
+             out.println("    <tr><th>Certification expiration:</th><td>" + profile.get(9) + "</td></tr>");
+             out.println("    <tr><th>Cell phone number:</th><td>" + profile.get(10) + "</td></tr>");
+             out.println("    <tr><th>Email address:</th><td>" + profile.get(11) + "</td></tr>");
+             out.println("    <tr><th>Payroll:</th><td>" + profile.get(12) + "</td></tr>");
+             out.println("    <tr><th>Personal details:</th><td>" + profile.get(13) + "</td></tr>");
+             if (!shift.isEmpty()) {
+                 out.println("    <tr><th>Clock in time:</th><td>" + shift.get(0) + "</td></tr>");
+                 out.println("    <tr><th>Clock out time:</th><td>" + shift.get(1) + "</td></tr>");
+                 out.println("    <tr><th>Status:</th><td>" + shift.get(2) + "</td></tr>");
+             }
+             out.println("</table>");
+         }
     %>
 </body>
 </html>

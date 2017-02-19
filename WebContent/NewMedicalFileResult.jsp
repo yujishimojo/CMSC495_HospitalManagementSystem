@@ -34,28 +34,28 @@
     <h2>Registration Successful</h2>
    <%
         if (!list.isEmpty()) {
-            out.println("<ul>");
-            out.println("    <li>Patient ID: &nbsp;&nbsp;&nbsp; " + list.get(0) + "</li>");
-            out.println("    <li>Patient Name: &nbsp;&nbsp;&nbsp; " + list.get(1) + "</li>");
-            out.println("    <li>Date of Visit: &nbsp;&nbsp;&nbsp; " + list.get(2) + "</li>");
-            out.println("    <li>Bed Name: &nbsp;&nbsp;&nbsp; " + list.get(3) + "</li>");
-            out.println("    <li>Room Name: &nbsp;&nbsp;&nbsp; " + list.get(4) + "</li>");
-            out.println("    <li>Floor: &nbsp;&nbsp;&nbsp; " + list.get(5) + "</li>");
-            out.println("    <li>Start Bed Date: &nbsp;&nbsp;&nbsp; " + bedUsage.get(0) + "</li>");
+            out.println("<table>");
+            out.println("    <tr><th>Patient ID:</th><td>" + list.get(0) + "</td></tr>");
+            out.println("    <tr><th>Patient Name:</th><td>" + list.get(1) + "</td></tr>");
+            out.println("    <tr><th>Date of Visit:</th><td>" + list.get(2) + "</td></tr>");
+            out.println("    <tr><th>Bed Name:</th><td>" + list.get(3) + "</td></tr>");
+            out.println("    <tr><th>Room Name:</th><td>" + list.get(4) + "</td></tr>");
+            out.println("    <tr><th>Floor:</th><td>" + list.get(5) + "</td></tr>");
+            out.println("    <tr><th>Start Bed Date:</th><td>" + bedUsage.get(0) + "</td></tr>");
             if (!bedUsage.get(1).equals(null) && !bedUsage.get(1).equals("")) {
-                out.println("    <li>End Bed Date: &nbsp;&nbsp;&nbsp; " + bedUsage.get(1) + "</li>");
+                out.println("    <tr><th>End Bed Date:</th><td>" + bedUsage.get(1) + "</td></tr>");
             }
-            out.println("    <li>Bed Status: &nbsp;&nbsp;&nbsp; " + bedUsage.get(2) + "</li>");
-            out.println("    <li>Disease Name: &nbsp;&nbsp;&nbsp; " + list.get(6) + "</li>");
-            out.println("    <li>Treatment: &nbsp;&nbsp;&nbsp; " + list.get(7) + "</li>");
-            out.println("    <li>Medicine Given: &nbsp;&nbsp;&nbsp; " + medicine.get(0) + "</li>");
+            out.println("    <tr><th>Bed Status:</th><td>" + bedUsage.get(2) + "</td></tr>");
+            out.println("    <tr><th>Disease Name:</th><td>" + list.get(6) + "</td></tr>");
+            out.println("    <tr><th>Treatment:</th><td>" + list.get(7) + "</td></tr>");
+            out.println("    <tr><th>Medicine Given:</th><td>" + medicine.get(0) + "</td></tr>");
             if (medicine.get(0).equals("Yes")) {
-                out.println("    <li>Medicine Name: &nbsp;&nbsp;&nbsp; " + medicine.get(1) + "</li>");
+                out.println("    <li>Medicine Name:</th><td>" + medicine.get(1) + "</td></tr>");
             }
-            out.println("    <li>Medical Notes: &nbsp;&nbsp;&nbsp; " + list.get(10) + "</li>");
-            out.println("    <li>Ambulance Service: &nbsp;&nbsp;&nbsp; " + list.get(8) + "</li>");
-            out.println("    <li>Billing Amount: &nbsp;&nbsp;&nbsp; " + list.get(9) + "</li>");
-            out.println("</ul>");
+            out.println("    <tr><th>Medical Notes:</th><td>" + list.get(10) + "</td></tr>");
+            out.println("    <tr><th>Ambulance Service:</th><td>" + list.get(8) + "</td></tr>");
+            out.println("    <tr><th>Billing Amount:</th><td>" + list.get(9) + "</td></tr>");
+            out.println("</table>");
         }
     %>
 </body>

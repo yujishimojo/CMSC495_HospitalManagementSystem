@@ -96,12 +96,12 @@ textarea, input {
     /*font-size: inherit;*/
 }
 
-textarea, input[type=text], select {
+textarea, input[type=text], input[type=password], select {
     border: 1px solid #ccc;
     border-radius: 3px;
 }
 
-input[type=text], select {
+input[type=text], input[type=password], select {
     padding: 2px;
     width: 15em;
 }
@@ -116,4 +116,19 @@ form li {
 
 .floatleft {
     float: left;
+}
+
+.error-message {
+	font-size:small;
+	color: red;
+	font-style: italic;
+}
+
+form {
+    display: inline-block;
+}
+
+form div.field {
+    display: inline-block;
+    margin: 10px;
 }
