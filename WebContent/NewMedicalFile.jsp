@@ -135,6 +135,10 @@
                         out.println("<tr>");
                         out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 500 characters.</font></em></small></th>");
                         out.println("</tr>");
+                    } else if (validationMap.get("disease") == "illegal characters") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**You have entered an illegal character.</font></em></small></th>");
+                        out.println("</tr>");
                     }
                 }
             %>
@@ -152,6 +156,10 @@
                         out.println("<tr>");
                         out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 1000 characters.</font></em></small></th>");
                         out.println("</tr>");
+                    } else if (validationMap.get("treatment") == "illegal characters") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**You have entered an illegal character.</font></em></small></th>");
+                        out.println("</tr>");
                     }
                 }
             %>
@@ -162,7 +170,7 @@
             </tr>
             <tr>
                 <th>Medicine Name:</th>
-                <td><input type="text" name="medicine_name" value="" required></td>
+                <td><input type="text" name="medicine_name" value=""></td>
             </tr>
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
@@ -170,18 +178,26 @@
                         out.println("<tr>");
                         out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 500 characters.</font></em></small></th>");
                         out.println("</tr>");
+                    } else if (validationMap.get("medicine_name") == "illegal characters") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**You have entered an illegal character.</font></em></small></th>");
+                        out.println("</tr>");
                     }
                 }
             %>
             <tr>
                 <th>Medical Notes:</th>
-                <td><textarea type="text" name="notes" rows="3" required></textarea></td>
+                <td><textarea type="text" name="notes" rows="3"></textarea></td>
             </tr>
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
                     if (validationMap.get("notes") == "too long") {
                         out.println("<tr>");
                         out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 1000 characters.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("notes") == "illegal characters") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**You have entered an illegal character.</font></em></small></th>");
                         out.println("</tr>");
                     }
                 }
@@ -204,6 +220,10 @@
                     } else if (validationMap.get("billing_amount") == "too long") {
                         out.println("<tr>");
                         out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 30 characters.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("billing_amount") == "invalid format") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**Billing amount must only be numbers.</font></em></small></th>");
                         out.println("</tr>");
                     }
                 }

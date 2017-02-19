@@ -329,7 +329,13 @@ public class NewMedicalFile extends HttpServlet {
         if (bed_name.equals(null) || bed_name.equals("")) {
             validationMap.put("bed_name", "empty");
             return false;
-        } else {
+        } 
+        else if (bed_name.contains("'") || bed_name.contains(";"))
+        {
+            validationMap.put("bed_name", "You have entered an illegal character.");
+            return false;
+        }
+        else {
             try {
                 String sql = "SELECT id FROM beds WHERE name = ?";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -381,6 +387,9 @@ public class NewMedicalFile extends HttpServlet {
         } else if (disease.length() > 500) {
             validationMap.put("disease", "too long");
             return false;
+        } else if (disease.contains("'") || disease.contains(";")) {
+            validationMap.put("disease", "illegal characters");
+            return false;
         } else {
             validationMap.put("disease", "OK");
             return true;
@@ -394,6 +403,9 @@ public class NewMedicalFile extends HttpServlet {
         } else if (treatment.length() > 1000) {
             validationMap.put("treatment", "too long");
             return false;
+        } else if (treatment.contains("'") || treatment.contains(";")) {
+            validationMap.put("treatment", "illegal characters");
+            return false;
         } else {
             validationMap.put("treatment", "OK");
             return true;
@@ -404,6 +416,9 @@ public class NewMedicalFile extends HttpServlet {
         if (medicine_name.length() > 500) {
             validationMap.put("medicine_name", "too long");
             return false;
+        } else if (medicine_name.contains("'") || medicine_name.contains(";")) {
+            validationMap.put("medicine_name", "illegal characters");
+            return false;
         } else {
             validationMap.put("medicine_name", "OK");
             return true;
@@ -413,6 +428,9 @@ public class NewMedicalFile extends HttpServlet {
     protected boolean validateNotes(String notes) {
         if (notes.length() > 1000) {
             validationMap.put("notes", "too long");
+            return false;
+        } else if (notes.contains("'") || notes.contains(";")) {
+            validationMap.put("notes", "illegal characters");
             return false;
         } else {
             validationMap.put("notes", "OK");
@@ -426,6 +444,9 @@ public class NewMedicalFile extends HttpServlet {
             return false;
         } else if (billing_amount.length() > 30) {
             validationMap.put("billing_amount", "too long");
+            return false;
+        } else if (Pattern.compile("[0-9]{1,27}.[0-9]{2}").matcher(billing_amount).find() == false){
+            validationMap.put("billing_amount", "invalid format");
             return false;
         } else {
             validationMap.put("billing_amount", "OK");
