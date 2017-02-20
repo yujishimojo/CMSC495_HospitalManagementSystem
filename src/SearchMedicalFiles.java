@@ -94,7 +94,7 @@ public class SearchMedicalFiles extends HttpServlet {
                            + " (SELECT patient_id, bed_id, start_date, end_date, status FROM bed_usage) bu"
                            + " ON p.id = bu.patient_id"
                            + " INNER JOIN"
-                           + " (SELECT id, name, room_id FROM BEDS) b"
+                           + " (SELECT id, name, room_id FROM beds) b"
                            + " ON bu.bed_id = b.id"
                            + " INNER JOIN"
                            + " (SELECT id, name, floor FROM rooms) r"
