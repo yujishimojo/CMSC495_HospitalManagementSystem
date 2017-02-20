@@ -88,12 +88,12 @@
             if (validationMap != null) {
                 if (validationMap.get("user") == "not found") {
                     out.println("<tr>");
-                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**There is no users that match your search.</font></em></small></th>");
+                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**There are no users that match your search.</font></em></small></th>");
                     out.println("</tr>");
                 }
                 if (validationMap.get("medical_file") == "not found") {
                     out.println("<tr>");
-                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**There is no medical files that match your search.</font></em></small></th>");
+                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**There are no medical files that match your search.</font></em></small></th>");
                     out.println("</tr>");
                 }
             }
