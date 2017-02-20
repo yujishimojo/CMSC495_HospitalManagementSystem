@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 /**
- * Servlet implementation class Search
+ * Servlet implementation class SearchUser
  */
-@WebServlet("/Search")
-public class Search extends HttpServlet {
+@WebServlet("/SearchUser")
+public class SearchUser extends HttpServlet {
     private static final long serialVersionUID = 1L;
        
     /**
@@ -92,7 +92,7 @@ public class Search extends HttpServlet {
                     request.setAttribute("shift", shift);
                     request.setAttribute("role", role);
                     request.setAttribute("doctor_id", doctor_id);
-                    request.getRequestDispatcher("/SearchResult.jsp").forward(request, response);
+                    request.getRequestDispatcher("/SearchUserResult.jsp").forward(request, response);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -157,7 +157,7 @@ public class Search extends HttpServlet {
                 request.setAttribute("shift", shift);
                 request.setAttribute("role", role);
                 request.setAttribute("doctor_id", doctor_id);
-                request.getRequestDispatcher("/SearchResult.jsp").forward(request, response);
+                request.getRequestDispatcher("/SearchUserResult.jsp").forward(request, response);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -206,7 +206,7 @@ public class Search extends HttpServlet {
                     request.setAttribute("shift", shift);
                     request.setAttribute("role", role);
                     request.setAttribute("doctor_id", doctor_id);
-                    request.getRequestDispatcher("/SearchResult.jsp").forward(request, response);
+                    request.getRequestDispatcher("/SearchUserResult.jsp").forward(request, response);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

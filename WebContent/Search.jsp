@@ -27,20 +27,9 @@
         </nav>
         </div>
     </header>
-    <% String pathToLogin = request.getContextPath() + "/Search"; %>
-    <form method="POST" action="<%=pathToLogin%>" >
+    <% String pathToSearchUser = request.getContextPath() + "/SearchUser"; %>
+    <form method="POST" action="<%=pathToSearchUser%>">
     <table>
-<!--         <tr>
-            <td>Search for</td>
-            <td>
-                <select name="role">
-                    <option value="admin">admin</option>
-                    <option value="staff">staff</option>
-                    <option value="patient">patient</option>
-                </select>
-            </td>
-        </tr> -->
-        <tr>
         <tr>
             <td>First Name:</td>
             <td><input type="text" name="firstname" size="32"></td>
