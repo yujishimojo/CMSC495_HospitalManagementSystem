@@ -19,9 +19,6 @@
         <a href="index.html"><img src="images/logo_notext.png"></a>
         <div class="align-vertically">
         <h1>Hygieia</h1>
-        <nav>
-            <a href="#" onClick="location.href='<%=pathToHome%>'">Home</a>
-        </nav>
         </div>
     </header>
     <% String pathToLogin = request.getContextPath() + "/Login"; %>
