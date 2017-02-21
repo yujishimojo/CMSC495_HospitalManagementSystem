@@ -7,6 +7,12 @@
 <title>Login Page</title>
 <link rel="stylesheet" href="css/styles.css"/>
 </head>
+    <%
+        String login = (String)session.getAttribute("login");
+        if (login == "OK") {
+            response.sendRedirect(request.getContextPath() + "/Home");
+        }
+    %>
     <% String pathToHome = request.getContextPath() + "/Home"; %>
 <body>
     <header>
