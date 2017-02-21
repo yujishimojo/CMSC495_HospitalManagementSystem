@@ -15,6 +15,7 @@
             response.sendRedirect(request.getContextPath() + "/Login.jsp");
         }
     %>
+    <% String pathToHome = request.getContextPath() + "/Home"; %>
     <% ArrayList<String> profile = (ArrayList<String>)request.getAttribute("profile"); %>
     <% ArrayList<String> shift = (ArrayList<String>)request.getAttribute("shift"); %>
     <% int doctor_id = (int)request.getAttribute("doctor_id"); %>
@@ -23,7 +24,7 @@
         <div class="align-vertically">
             <h1>Hygieia</h1>
             <nav>
-                <a href="index.html">Home</a>
+                <a href="#" onClick="location.href='<%=pathToHome%>'">Home</a>
                 <a href="NewPatient.jsp">New Patient</a>
                 <a href="NewStaff.jsp">New Staff</a>
                 <a href="NewMedicalFile.jsp">New Medical File</a>

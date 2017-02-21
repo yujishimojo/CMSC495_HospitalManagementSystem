@@ -73,10 +73,9 @@ public class Login extends HttpServlet {
             	session.setAttribute("role", "patient");
             }
 
-            /* redirect to the referrer url */
-//            String target = (String)session.getAttribute("target");
-//            response.sendRedirect(target);
-            response.sendRedirect(request.getContextPath() + "/NewPatient.jsp");
+            int user_id = getUserId(user, pass);
+            session.setAttribute("user_id", user_id);
+            response.sendRedirect(request.getContextPath() + "/Home");
         } else {
             /* when authentication is failed, redirect to the login page. */
             session.setAttribute("status", "Not Auth");
@@ -110,6 +109,26 @@ public class Login extends HttpServlet {
     protected int getRole(String user, String pass) {    
         try {
             String sql = "SELECT role FROM users WHERE login_name = ? AND password = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, user);
+            pstmt.setString(2, pass);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            log("SQLException:" + e.getMessage());
+            return 0;
+        }
+    }
+
+    protected int getUserId(String user, String pass) {    
+        try {
+            String sql = "SELECT id FROM users WHERE login_name = ? AND password = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, user);

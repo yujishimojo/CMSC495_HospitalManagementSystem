@@ -15,13 +15,14 @@
             response.sendRedirect(request.getContextPath() + "/Login.jsp");
         }
     %>
+    <% String pathToHome = request.getContextPath() + "/Home"; %>
     <% HashMap<String,String> validationMap = (HashMap<String,String>)request.getAttribute("validationMap"); %>
     <header>
         <a href="index.html"><img src="images/logo_notext.png"></a>
         <div class="align-vertically">
         <h1>Hygieia</h1>
         <nav>
-            <a href="index.html">Home</a>
+            <a href="#" onClick="location.href='<%=pathToHome%>'">Home</a>
             <a href="NewPatient.jsp">New Patient</a>
             <a href="NewStaff.jsp">New Staff</a>
             <a href="NewMedicalFile.jsp">New Medical File</a>
