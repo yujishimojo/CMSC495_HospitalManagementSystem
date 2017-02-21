@@ -27,27 +27,27 @@
             <nav>
                 <a href="#" onClick="location.href='<%=pathToHome%>'">Home</a>
                 <%
-                    if (role.equals("admin") || role.equals("staff")) {
-                        out.println("<a href=\"NewPatient.jsp\">New Patient</a>");
+                    if (role == "admin" || role == "staff") {
+                       out.println("<a href=\"NewPatient.jsp\">New Patient</a>");
                     }
                 %>
                 <%
-                    if (role.equals("admin")) {
+                    if (role == "admin") {
                         out.println("<a href=\"NewStaff.jsp\">New Staff</a>");
                     }
                 %>
                 <%
-                    if (role.equals("admin") || role.equals("staff")) {
+                    if (role == "admin" || role == "staff") {
                         out.println("<a href=\"NewMedicalFile.jsp\">New Medical File</a>");
                     }
                 %>
                 <%
-                    if (role.equals("admin") || role.equals("staff")) {
+                    if (role == "admin" || role == "staff") {
                         out.println("<a href=\"Search.jsp\">Search</a>");
                     }
                 %>
                 <%
-                    if (role.equals("patient")) {
+                    if (role == "patient") {
                         out.println("<a href=\"MedicalFiles.jsp\">Medical Files</a>");
                     }
                 %>

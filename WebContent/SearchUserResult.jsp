@@ -9,15 +9,15 @@
 <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
+    <% String login = (String)session.getAttribute("login"); %>
+    <% String loginUserRole = (String)session.getAttribute("role"); %>
     <%
-        String login = (String)session.getAttribute("login");
         if (login == null || login != "OK") {
             response.sendRedirect(request.getContextPath() + "/Login.jsp");
-        }
-    %>
-    <% String loginUserRole = (String)session.getAttribute("role");
-        if (loginUserRole != "admin" && loginUserRole != "staff") {
-            response.sendRedirect(request.getContextPath() + "/Home");
+        } else {
+            if (loginUserRole != "admin" && loginUserRole != "staff") {
+                response.sendRedirect(request.getContextPath() + "/Home");
+            }
         }
     %>
     <% String pathToHome = request.getContextPath() + "/Home"; %>
@@ -32,22 +32,22 @@
             <nav>
                 <a href="#" onClick="location.href='<%=pathToHome%>'">Home</a>
                 <%
-                    if (loginUserRole.equals("admin") || loginUserRole.equals("staff")) {
+                    if (loginUserRole == "admin" || loginUserRole == "staff") {
                         out.println("<a href=\"NewPatient.jsp\">New Patient</a>");
                     }
                 %>
                 <%
-                    if (loginUserRole.equals("admin")) {
+                    if (loginUserRole == "admin") {
                         out.println("<a href=\"NewStaff.jsp\">New Staff</a>");
                     }
                 %>
                 <%
-                    if (loginUserRole.equals("admin") || loginUserRole.equals("staff")) {
+                    if (loginUserRole == "admin" || loginUserRole == "staff") {
                         out.println("<a href=\"NewMedicalFile.jsp\">New Medical File</a>");
                     }
                 %>
                 <%
-                    if (loginUserRole.equals("admin") || loginUserRole.equals("staff")) {
+                    if (loginUserRole == "admin" || loginUserRole == "staff") {
                         out.println("<a href=\"Search.jsp\">Search</a>");
                     }
                 %>

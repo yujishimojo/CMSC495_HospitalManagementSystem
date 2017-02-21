@@ -9,15 +9,15 @@
 <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
+    <% String login = (String)session.getAttribute("login"); %>
+    <% String role = (String)session.getAttribute("role"); %>
     <%
-        String login = (String)session.getAttribute("login");
         if (login == null || login != "OK") {
             response.sendRedirect(request.getContextPath() + "/Login.jsp");
-        }
-    %>
-    <% String role = (String)session.getAttribute("role");
-        if (role != "admin" && role != "staff") {
-            response.sendRedirect(request.getContextPath() + "/Home");
+        } else {
+            if (role != "admin" && role != "staff") {
+                response.sendRedirect(request.getContextPath() + "/Home");
+            }
         }
     %>
     <% String pathToHome = request.getContextPath() + "/Home"; %>
@@ -31,22 +31,22 @@
             <nav>
                 <a href="#" onClick="location.href='<%=pathToHome%>'">Home</a>
                 <%
-                    if (role.equals("admin") || role.equals("staff")) {
-                        out.println("<a href=\"NewPatient.jsp\">New Patient</a>");
+                    if (role == "admin" || role == "staff") {
+                       out.println("<a href=\"NewPatient.jsp\">New Patient</a>");
                     }
                 %>
                 <%
-                    if (role.equals("admin")) {
+                    if (role == "admin") {
                         out.println("<a href=\"NewStaff.jsp\">New Staff</a>");
                     }
                 %>
                 <%
-                    if (role.equals("admin") || role.equals("staff")) {
+                    if (role == "admin" || role == "staff") {
                         out.println("<a href=\"NewMedicalFile.jsp\">New Medical File</a>");
                     }
                 %>
                 <%
-                    if (role.equals("admin") || role.equals("staff")) {
+                    if (role == "admin" || role == "staff") {
                         out.println("<a href=\"Search.jsp\">Search</a>");
                     }
                 %>
