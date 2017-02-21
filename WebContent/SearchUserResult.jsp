@@ -15,10 +15,15 @@
             response.sendRedirect(request.getContextPath() + "/Login.jsp");
         }
     %>
+    <% String loginUserRole = (String)session.getAttribute("role");
+        if (loginUserRole != "admin" && loginUserRole != "staff") {
+            response.sendRedirect(request.getContextPath() + "/Home");
+        }
+    %>
     <% String pathToHome = request.getContextPath() + "/Home"; %>
     <% ArrayList<String> profile = (ArrayList<String>)request.getAttribute("profile"); %>
     <% ArrayList<String> shift = (ArrayList<String>)request.getAttribute("shift"); %>
-    <% int role = (int)request.getAttribute("role"); %>
+    <% int searchUserRole = (int)request.getAttribute("role"); %>
     <% int doctor_id = (int)request.getAttribute("doctor_id"); %>
     <header>
         <a href="index.html"><img src="images/logo_notext.png"></a>
@@ -26,16 +31,32 @@
             <h1>Hygieia</h1>
             <nav>
                 <a href="#" onClick="location.href='<%=pathToHome%>'">Home</a>
-                <a href="NewPatient.jsp">New Patient</a>
-                <a href="NewStaff.jsp">New Staff</a>
-                <a href="NewMedicalFile.jsp">New Medical File</a>
-                <a href="Search.jsp">Search</a>
+                <%
+                    if (loginUserRole.equals("admin") || loginUserRole.equals("staff")) {
+                        out.println("<a href=\"NewPatient.jsp\">New Patient</a>");
+                    }
+                %>
+                <%
+                    if (loginUserRole.equals("admin")) {
+                        out.println("<a href=\"NewStaff.jsp\">New Staff</a>");
+                    }
+                %>
+                <%
+                    if (loginUserRole.equals("admin") || loginUserRole.equals("staff")) {
+                        out.println("<a href=\"NewMedicalFile.jsp\">New Medical File</a>");
+                    }
+                %>
+                <%
+                    if (loginUserRole.equals("admin") || loginUserRole.equals("staff")) {
+                        out.println("<a href=\"Search.jsp\">Search</a>");
+                    }
+                %>
             </nav>
         </div>
     </header>
     <%
         if (!profile.isEmpty()) {
-            if (role == 0) {   // administrator
+            if (searchUserRole == 0) {   // administrator
                 out.println("<table>");
                 out.println("    <tr><th>Role:</th><td>" + profile.get(0) + "</td></tr>");
                 out.println("    <tr><th>User ID:</th><td>" + profile.get(1) + "</td></tr>");
@@ -46,7 +67,7 @@
                 out.println("    <tr><th>SSN:</th><td>" + profile.get(6) + "</td></tr>");
                 out.println("    <tr><th>Address:</th><td>" + profile.get(7) + "</td></tr>");
                 out.println("</table>");
-            } else if (role == 1) {   // medical staff
+            } else if (searchUserRole == 1) {   // medical staff
                 out.println("<table>");
                 out.println("    <tr><th>Role:</th><td>" + profile.get(0) + "</td></tr>");
                 out.println("    <tr><th>Staff ID:</th><td>" + profile.get(1) + "</td></tr>");
@@ -71,7 +92,7 @@
                     out.println("    <tr><th>Status:</th><td>" + shift.get(2) + "</td></tr>");
                 }
                 out.println("</table>");
-            } else if (role == 2) {   // patient
+            } else if (searchUserRole == 2) {   // patient
                 out.println("<table>");
                 out.println("    <tr><th>Role:</th><td>" + profile.get(0) + "</td></tr>");
                 out.println("    <tr><th>Patient ID:</th><td>" + profile.get(1) + "</td></tr>");

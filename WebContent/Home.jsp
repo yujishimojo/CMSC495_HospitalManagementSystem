@@ -15,10 +15,10 @@
             response.sendRedirect(request.getContextPath() + "/Login.jsp");
         }
     %>
+    <% String role = (String)request.getAttribute("role"); %>
     <% String pathToHome = request.getContextPath() + "/Home"; %>
     <% ArrayList<String> profile = (ArrayList<String>)request.getAttribute("profile"); %>
     <% ArrayList<String> shift = (ArrayList<String>)request.getAttribute("shift"); %>
-    <% String role = (String)request.getAttribute("role"); %>
     <% int doctor_id = (int)request.getAttribute("doctor_id"); %>
     <header>
         <a href="index.html"><img src="images/logo_notext.png"></a>
@@ -26,10 +26,31 @@
             <h1>Hygieia</h1>
             <nav>
                 <a href="#" onClick="location.href='<%=pathToHome%>'">Home</a>
-                <a href="NewPatient.jsp">New Patient</a>
-                <a href="NewStaff.jsp">New Staff</a>
-                <a href="NewMedicalFile.jsp">New Medical File</a>
-                <a href="Search.jsp">Search</a>
+                <%
+                    if (role.equals("admin") || role.equals("staff")) {
+                        out.println("<a href=\"NewPatient.jsp\">New Patient</a>");
+                    }
+                %>
+                <%
+                    if (role.equals("admin")) {
+                        out.println("<a href=\"NewStaff.jsp\">New Staff</a>");
+                    }
+                %>
+                <%
+                    if (role.equals("admin") || role.equals("staff")) {
+                        out.println("<a href=\"NewMedicalFile.jsp\">New Medical File</a>");
+                    }
+                %>
+                <%
+                    if (role.equals("admin") || role.equals("staff")) {
+                        out.println("<a href=\"Search.jsp\">Search</a>");
+                    }
+                %>
+                <%
+                    if (role.equals("patient")) {
+                        out.println("<a href=\"MedicalFiles.jsp\">Medical Files</a>");
+                    }
+                %>
             </nav>
         </div>
     </header>

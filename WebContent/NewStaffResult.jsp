@@ -15,6 +15,11 @@
             response.sendRedirect(request.getContextPath() + "/Login.jsp");
         }
     %>
+    <% String role = (String)session.getAttribute("role");
+        if (role != "admin") {
+            response.sendRedirect(request.getContextPath() + "/Home");
+        }
+    %>
     <% String pathToHome = request.getContextPath() + "/Home"; %>
     <% ArrayList<String> profile = (ArrayList<String>)request.getAttribute("profile"); %>
     <% ArrayList<String> shift = (ArrayList<String>)request.getAttribute("shift"); %>
@@ -25,10 +30,26 @@
             <h1>Hygieia</h1>
             <nav>
                 <a href="#" onClick="location.href='<%=pathToHome%>'">Home</a>
-                <a href="NewPatient.jsp">New Patient</a>
-                <a href="NewStaff.jsp">New Staff</a>
-                <a href="NewMedicalFile.jsp">New Medical File</a>
-                <a href="Search.jsp">Search</a>
+                <%
+                    if (role.equals("admin") || role.equals("staff")) {
+                        out.println("<a href=\"NewPatient.jsp\">New Patient</a>");
+                    }
+                %>
+                <%
+                    if (role.equals("admin")) {
+                        out.println("<a href=\"NewStaff.jsp\">New Staff</a>");
+                    }
+                %>
+                <%
+                    if (role.equals("admin") || role.equals("staff")) {
+                        out.println("<a href=\"NewMedicalFile.jsp\">New Medical File</a>");
+                    }
+                %>
+                <%
+                    if (role.equals("admin") || role.equals("staff")) {
+                        out.println("<a href=\"Search.jsp\">Search</a>");
+                    }
+                %>
             </nav>
         </div>
     </header>

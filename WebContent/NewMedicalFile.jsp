@@ -16,6 +16,11 @@
             response.sendRedirect(request.getContextPath() + "/Login.jsp");
         }
     %>
+    <% String role = (String)session.getAttribute("role");
+        if (role != "admin" && role != "staff") {
+            response.sendRedirect(request.getContextPath() + "/Home");
+        }
+    %>
     <% String pathToHome = request.getContextPath() + "/Home"; %>
     <% HashMap<String,String> validationMap = (HashMap<String,String>)request.getAttribute("validationMap"); %>
     <header>
@@ -24,10 +29,26 @@
            <h1>Hygieia</h1>
             <nav>
                 <a href="#" onClick="location.href='<%=pathToHome%>'">Home</a>
-                <a href="NewPatient.jsp">New Patient</a>
-                <a href="NewStaff.jsp">New Staff</a>
-                <a href="NewMedicalFile.jsp">New Medical File</a>
-                <a href="Search.jsp">Search</a>
+                <%
+                    if (role.equals("admin") || role.equals("staff")) {
+                        out.println("<a href=\"NewPatient.jsp\">New Patient</a>");
+                    }
+                %>
+                <%
+                    if (role.equals("admin")) {
+                        out.println("<a href=\"NewStaff.jsp\">New Staff</a>");
+                    }
+                %>
+                <%
+                    if (role.equals("admin") || role.equals("staff")) {
+                        out.println("<a href=\"NewMedicalFile.jsp\">New Medical File</a>");
+                    }
+                %>
+                <%
+                    if (role.equals("admin") || role.equals("staff")) {
+                        out.println("<a href=\"Search.jsp\">Search</a>");
+                    }
+                %>
             </nav>
         </div>
     </header>
