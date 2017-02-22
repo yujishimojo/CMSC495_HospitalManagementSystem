@@ -22,6 +22,7 @@
     %>
     <% String pathToHome = request.getContextPath() + "/Home"; %>
     <% HashMap<Integer,String[]> map = (HashMap<Integer,String[]>)request.getAttribute("map"); %>
+    <% int patient_type = (int)request.getAttribute("patient_type"); %>
     <header>
         <a href="index.html"><img src="images/logo_notext.png"></a>
         <div class="align-vertically">
@@ -52,51 +53,88 @@
         </div>
     </header>
     <%
-        if (!map.isEmpty()) {
-            out.println("<table border=1>");
-            out.println("    <tr>");
-            out.println("        <th>Date of Visit</th>");
-            out.println("        <th>Patient ID</th>");
-            out.println("        <th>First Name</th>");
-            out.println("        <th>Middle Name</th>");
-            out.println("        <th>Last Name</th>");
-            out.println("        <th>Bed Name</th>");
-            out.println("        <th>Room Name</th>");
-            out.println("        <th>Floor</th>");
-            out.println("        <th>Start Bed Date</th>");
-            out.println("        <th>End Bed Date</th>");
-            out.println("        <th>Status</th>");
-            out.println("        <th>Disease Name</th>");
-            out.println("        <th>Treatment</th>");
-            out.println("        <th>Medicine Given</th>");
-            out.println("        <th>Medicine Name</th>");
-            out.println("        <th>Ambulance Service</th>");
-            out.println("        <th>Billing Amount</th>");
-            out.println("        <th>Medical Notes</th>");
-            out.println("    </tr>");
-            out.println("    <tr>");
-        for (int i = 0; i < map.size(); i++) {
-            out.println("        <td>" + map.get(i)[0] + "</td>");
-            out.println("        <td>" + map.get(i)[1] + "</td>");
-            out.println("        <td>" + map.get(i)[2] + "</td>");
-            out.println("        <td>" + map.get(i)[3] + "</td>");
-            out.println("        <td>" + map.get(i)[4] + "</td>");
-            out.println("        <td>" + map.get(i)[5] + "</td>");
-            out.println("        <td>" + map.get(i)[6] + "</td>");
-            out.println("        <td>" + map.get(i)[7] + "</td>");
-            out.println("        <td>" + map.get(i)[8] + "</td>");
-            out.println("        <td>" + map.get(i)[9] + "</td>");
-            out.println("        <td>" + map.get(i)[10] + "</td>");
-            out.println("        <td>" + map.get(i)[11] + "</td>");
-            out.println("        <td>" + map.get(i)[12] + "</td>");
-            out.println("        <td>" + map.get(i)[13] + "</td>");
-            out.println("        <td>" + map.get(i)[14] + "</td>");
-            out.println("        <td>" + map.get(i)[15] + "</td>");
-            out.println("        <td>" + map.get(i)[16] + "</td>");
-            out.println("        <td>" + map.get(i)[17] + "</td>");
-        }
-            out.println("    </tr>");
-            out.println("</table>");
+        if (patient_type == 0) {
+            if (!map.isEmpty()) {
+                out.println("<table border=1>");
+                out.println("    <tr>");
+                out.println("        <th>Date of Visit</th>");
+                out.println("        <th>Patient ID</th>");
+                out.println("        <th>First Name</th>");
+                out.println("        <th>Middle Name</th>");
+                out.println("        <th>Last Name</th>");
+                out.println("        <th>Bed Name</th>");
+                out.println("        <th>Room Name</th>");
+                out.println("        <th>Floor</th>");
+                out.println("        <th>Start Bed Date</th>");
+                out.println("        <th>End Bed Date</th>");
+                out.println("        <th>Status</th>");
+                out.println("        <th>Disease Name</th>");
+                out.println("        <th>Treatment</th>");
+                out.println("        <th>Medicine Given</th>");
+                out.println("        <th>Medicine Name</th>");
+                out.println("        <th>Ambulance Service</th>");
+                out.println("        <th>Billing Amount</th>");
+                out.println("        <th>Medical Notes</th>");
+                out.println("    </tr>");
+                out.println("    <tr>");
+            for (int i = 0; i < map.size(); i++) {
+                out.println("        <td>" + map.get(i)[0] + "</td>");
+                out.println("        <td>" + map.get(i)[1] + "</td>");
+                out.println("        <td>" + map.get(i)[2] + "</td>");
+                out.println("        <td>" + map.get(i)[3] + "</td>");
+                out.println("        <td>" + map.get(i)[4] + "</td>");
+                out.println("        <td>" + map.get(i)[5] + "</td>");
+                out.println("        <td>" + map.get(i)[6] + "</td>");
+                out.println("        <td>" + map.get(i)[7] + "</td>");
+                out.println("        <td>" + map.get(i)[8] + "</td>");
+                out.println("        <td>" + map.get(i)[9] + "</td>");
+                out.println("        <td>" + map.get(i)[10] + "</td>");
+                out.println("        <td>" + map.get(i)[11] + "</td>");
+                out.println("        <td>" + map.get(i)[12] + "</td>");
+                out.println("        <td>" + map.get(i)[13] + "</td>");
+                out.println("        <td>" + map.get(i)[14] + "</td>");
+                out.println("        <td>" + map.get(i)[15] + "</td>");
+                out.println("        <td>" + map.get(i)[16] + "</td>");
+                out.println("        <td>" + map.get(i)[17] + "</td>");
+            }
+                out.println("    </tr>");
+                out.println("</table>");
+            }
+        } else if (patient_type == 1) {
+            if (!map.isEmpty()) {
+                out.println("<table border=1>");
+                out.println("    <tr>");
+                out.println("        <th>Date of Visit</th>");
+                out.println("        <th>Patient ID</th>");
+                out.println("        <th>First Name</th>");
+                out.println("        <th>Middle Name</th>");
+                out.println("        <th>Last Name</th>");
+                out.println("        <th>Disease Name</th>");
+                out.println("        <th>Treatment</th>");
+                out.println("        <th>Medicine Given</th>");
+                out.println("        <th>Medicine Name</th>");
+                out.println("        <th>Ambulance Service</th>");
+                out.println("        <th>Billing Amount</th>");
+                out.println("        <th>Medical Notes</th>");
+                out.println("    </tr>");
+                out.println("    <tr>");
+            for (int i = 0; i < map.size(); i++) {
+                out.println("        <td>" + map.get(i)[0] + "</td>");
+                out.println("        <td>" + map.get(i)[1] + "</td>");
+                out.println("        <td>" + map.get(i)[2] + "</td>");
+                out.println("        <td>" + map.get(i)[3] + "</td>");
+                out.println("        <td>" + map.get(i)[4] + "</td>");
+                out.println("        <td>" + map.get(i)[5] + "</td>");
+                out.println("        <td>" + map.get(i)[6] + "</td>");
+                out.println("        <td>" + map.get(i)[7] + "</td>");
+                out.println("        <td>" + map.get(i)[8] + "</td>");
+                out.println("        <td>" + map.get(i)[9] + "</td>");
+                out.println("        <td>" + map.get(i)[10] + "</td>");
+                out.println("        <td>" + map.get(i)[11] + "</td>");
+            }
+                out.println("    </tr>");
+                out.println("</table>");
+            }
         }
     %>
 </body>
