@@ -99,7 +99,6 @@
                 out.println("    <tr><th>First Name:</th><td>" + profile.get(3) + "</td></tr>");
                 out.println("    <tr><th>Middle Name:</th><td>" + profile.get(4) + "</td></tr>");
                 out.println("    <tr><th>Last Name:</th><td>" + profile.get(5) + "</td></tr>");
-                out.println("    <tr><th>SSN:</th><td>" + profile.get(6) + "</td></tr>");
                 out.println("    <tr><th>Address:</th><td>" + profile.get(6) + "</td></tr>");
                 out.println("    <tr><th>Admitted date:</th><td>" + profile.get(7) + "</td></tr>");
                 out.println("    <tr><th>Doctor:</th><td>" + profile.get(8) + "  " + profile.get(9) + "</td></tr>");
