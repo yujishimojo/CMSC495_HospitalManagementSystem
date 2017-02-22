@@ -78,29 +78,25 @@
 			<th>Last Name:</th>
 			<td><%out.print(list.get(5));%></td>
 		</tr>
-		<tr> <!-- I think we should consider not displaying this in the final version -->
-			<th>SSN:</th>
+		<tr>
+			<th>Admitted Date:</th>
 			<td><%out.print(list.get(6));%></td>
 		</tr>
 		<tr>
-			<th>Admitted Date:</th>
-			<td><%out.print(list.get(7));%></td>
-		</tr>
-		<tr>
 			<th>Doctor:</th>
-			<td><%out.print(list.get(8));%> <%out.print(list.get(9));%></td>
+			<td><%out.print(list.get(7));%> <%out.print(list.get(8));%></td>
 		</tr>
 		<tr>
 			<th>Patient Type:</th>
-			<td><%out.print(list.get(10));%></td>
+			<td><%out.print(list.get(9));%></td>
 		</tr>
 		<tr>
 			<th>Address:</th>
-			<td><%out.print(list.get(11));%></td>
+			<td><%out.print(list.get(10));%></td>
 		</tr>
 		<tr>
 			<th>Insurance:</th>
-			<td><%out.print(list.get(12));%></td>
+			<td><%out.print(list.get(11));%></td>
 		</tr>
 	</table>
 </body>

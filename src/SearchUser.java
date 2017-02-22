@@ -80,7 +80,7 @@ public class SearchUser extends HttpServlet {
             int role = getRole(firstname, lastname);
             if (role == 0) {   // in case of admin role
                 try {
-                    String sql = "SELECT id, login_name, first_name, middle_name, last_name, social_security_number, address"
+                    String sql = "SELECT id, login_name, first_name, middle_name, last_name, address"
                                + " FROM users"
                                + " WHERE first_name = ? AND last_name = ?";
                     PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -94,8 +94,7 @@ public class SearchUser extends HttpServlet {
                         profile.add(rs.getString(3));    // first_name
                         profile.add(rs.getString(4));   // middle_name
                         profile.add(rs.getString(5));   // last_name
-                        profile.add(rs.getString(6));   // social_security_number
-                        profile.add(rs.getString(7));   // address
+                        profile.add(rs.getString(6));   // address
                     	validationMap.put("user", "found");
                         request.setAttribute("validationMap", validationMap);
                         request.setAttribute("profile", profile);
@@ -114,8 +113,8 @@ public class SearchUser extends HttpServlet {
             } else if (role == 1) {   // in case of medical staff role
                 try {
                     String sql = "SELECT"
-                               + " s.id, u.login_name, u.first_name, u.middle_name, u.last_name, u.social_security_number,"
-                               + " u.address, s.qualification, DATE_FORMAT(s.certification_expirations, '%m/%d/%Y'),"
+                               + " s.id, u.login_name, u.first_name, u.middle_name, u.last_name, u.address,"
+                               + " s.qualification, DATE_FORMAT(s.certification_expirations, '%m/%d/%Y'),"
                                + " s.cell_phone_number, s.email_address, s.payroll, s.personal_details, s.is_doctor"
                                + " FROM users u"
                                + " INNER JOIN"
@@ -136,15 +135,14 @@ public class SearchUser extends HttpServlet {
                         profile.add(rs.getString(3));    // first_name
                         profile.add(rs.getString(4));   // middle_name
                         profile.add(rs.getString(5));   // last_name
-                        profile.add(rs.getString(6));   // social_security_number
-                        profile.add(rs.getString(7));   // address
-                        profile.add(rs.getString(8));   // qualification
-                        profile.add(rs.getString(9));   // certification_expirations
-                        profile.add(rs.getString(10));   // cell_phone_number
-                        profile.add(rs.getString(11));   // email_address
-                        profile.add(rs.getString(12));   // payroll
-                        profile.add(rs.getString(13));   // personal_details
-                        if (rs.getBoolean(14)) {   // is_doctor
+                        profile.add(rs.getString(6));   // address
+                        profile.add(rs.getString(7));   // qualification
+                        profile.add(rs.getString(8));   // certification_expirations
+                        profile.add(rs.getString(9));   // cell_phone_number
+                        profile.add(rs.getString(10));   // email_address
+                        profile.add(rs.getString(11));   // payroll
+                        profile.add(rs.getString(12));   // personal_details
+                        if (rs.getBoolean(13)) {   // is_doctor
                             pstmt.clearParameters();
                             sql = "SELECT id FROM doctors WHERE staff_id = " + staff_id;
                             pstmt = conn.prepareStatement(sql);
@@ -185,7 +183,7 @@ public class SearchUser extends HttpServlet {
                 try {
                     String sql = "SELECT"
                                + " p.id, u1.login_name, u1.first_name, u1.middle_name, u1.last_name,"
-                               + " u1.social_security_number, u1.address, DATE_FORMAT(u1.created_at, '%m/%d/%Y'),"
+                               + " u1.address, DATE_FORMAT(u1.created_at, '%m/%d/%Y'),"
                                + " d2.first_name, d2.last_name, p.type, p.insurance"
                                + " FROM users u1"
                                + " INNER JOIN"
@@ -211,17 +209,16 @@ public class SearchUser extends HttpServlet {
                         profile.add(rs.getString(3));    // first_name
                         profile.add(rs.getString(4));   // middle_name
                         profile.add(rs.getString(5));   // last_name
-                        profile.add(rs.getString(6));   // social_security_number
-                        profile.add(rs.getString(7));   // address
-                        profile.add(rs.getString(8));   // DATE_FORMAT(created_at, '%m/%d/%Y')
-                        profile.add(rs.getString(9));   // doctor_firstname
-                        profile.add(rs.getString(10));   // doctor_lastname
-                        if (rs.getInt(11) == 0) {    // type
+                        profile.add(rs.getString(6));   // address
+                        profile.add(rs.getString(7));   // DATE_FORMAT(created_at, '%m/%d/%Y')
+                        profile.add(rs.getString(8));   // doctor_firstname
+                        profile.add(rs.getString(9));   // doctor_lastname
+                        if (rs.getInt(10) == 0) {    // type
                             profile.add("Inpatient");
-                        } else if (rs.getInt(11) == 1) {
+                        } else if (rs.getInt(10) == 1) {
                             profile.add("Outpatient");
                         }
-                        profile.add(rs.getString(12));   // insurance
+                        profile.add(rs.getString(11));   // insurance
                     	validationMap.put("search", "successful");
                         validationMap.put("user", "found");
                         request.setAttribute("validationMap", validationMap);

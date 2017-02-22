@@ -64,8 +64,7 @@
                 out.println("    <tr><th>First Name:</th><td>" + profile.get(3) + "</td></tr>");
                 out.println("    <tr><th>Middle Name:</th><td>" + profile.get(4) + "</td></tr>");
                 out.println("    <tr><th>Last Name:</th><td>" + profile.get(5) + "</td></tr>");
-                out.println("    <tr><th>SSN:</th><td>" + profile.get(6) + "</td></tr>");
-                out.println("    <tr><th>Address:</th><td>" + profile.get(7) + "</td></tr>");
+                out.println("    <tr><th>Address:</th><td>" + profile.get(6) + "</td></tr>");
                 out.println("</table>");
             } else if (searchUserRole == 1) {   // medical staff
                 out.println("<table>");
@@ -78,14 +77,13 @@
                 out.println("    <tr><th>First Name:</th><td>" + profile.get(3) + "</td></tr>");
                 out.println("    <tr><th>Middle Name:</th><td>" + profile.get(4) + "</td></tr>");
                 out.println("    <tr><th>Last Name:</th><td>" + profile.get(5) + "</td></tr>");
-                out.println("    <tr><th>SSN:</th><td>" + profile.get(6) + "</td></tr>");
-                out.println("    <tr><th>Address:</th><td>" + profile.get(7) + "</td></tr>");
-                out.println("    <tr><th>Qualification:</th><td>" + profile.get(8) + "</td></tr>");
-                out.println("    <tr><th>Certification expiration:</th><td>" + profile.get(9) + "</td></tr>");
-                out.println("    <tr><th>Cell phone number:</th><td>" + profile.get(10) + "</td></tr>");
-                out.println("    <tr><th>Email address:</th><td>" + profile.get(11) + "</td></tr>");
-                out.println("    <tr><th>Payroll:</th><td>" + profile.get(12) + "</td></tr>");
-                out.println("    <tr><th>Personal details:</th><td>" + profile.get(13) + "</td></tr>");
+                out.println("    <tr><th>Address:</th><td>" + profile.get(6) + "</td></tr>");
+                out.println("    <tr><th>Qualification:</th><td>" + profile.get(7) + "</td></tr>");
+                out.println("    <tr><th>Certification expiration:</th><td>" + profile.get(8) + "</td></tr>");
+                out.println("    <tr><th>Cell phone number:</th><td>" + profile.get(9) + "</td></tr>");
+                out.println("    <tr><th>Email address:</th><td>" + profile.get(10) + "</td></tr>");
+                out.println("    <tr><th>Payroll:</th><td>" + profile.get(11) + "</td></tr>");
+                out.println("    <tr><th>Personal details:</th><td>" + profile.get(12) + "</td></tr>");
                 if (!shift.isEmpty()) {
                     out.println("    <tr><th>Clock in time:</th><td>" + shift.get(0) + "</td></tr>");
                     out.println("    <tr><th>Clock out time:</th><td>" + shift.get(1) + "</td></tr>");
@@ -100,12 +98,11 @@
                 out.println("    <tr><th>First Name:</th><td>" + profile.get(3) + "</td></tr>");
                 out.println("    <tr><th>Middle Name:</th><td>" + profile.get(4) + "</td></tr>");
                 out.println("    <tr><th>Last Name:</th><td>" + profile.get(5) + "</td></tr>");
-                out.println("    <tr><th>SSN:</th><td>" + profile.get(6) + "</td></tr>");
-                out.println("    <tr><th>Address:</th><td>" + profile.get(7) + "</td></tr>");
-                out.println("    <tr><th>Admitted date:</th><td>" + profile.get(8) + "</td></tr>");
-                out.println("    <tr><th>Doctor:</th><td>" + profile.get(9) + "  " + profile.get(10) + "</td></tr>");
-                out.println("    <tr><th>Patient Type:</th><td>" + profile.get(11) + "</td></tr>");
-                out.println("    <tr><th>Insurance:</th><td>" + profile.get(12) + "</td></tr>");
+                out.println("    <tr><th>Address:</th><td>" + profile.get(6) + "</td></tr>");
+                out.println("    <tr><th>Admitted date:</th><td>" + profile.get(7) + "</td></tr>");
+                out.println("    <tr><th>Doctor:</th><td>" + profile.get(8) + "  " + profile.get(9) + "</td></tr>");
+                out.println("    <tr><th>Patient Type:</th><td>" + profile.get(10) + "</td></tr>");
+                out.println("    <tr><th>Insurance:</th><td>" + profile.get(11) + "</td></tr>");
                 out.println("</table>");
             }
         }

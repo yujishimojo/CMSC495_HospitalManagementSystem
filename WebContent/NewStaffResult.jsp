@@ -58,7 +58,7 @@
          if (!profile.isEmpty()) {
              out.println("<table>");
              out.println("    <tr><th>Staff ID:</th><td>" + profile.get(0) + "</td></tr>");
-             out.println("    <tr><th>Staff Type:</th><td>" + profile.get(14) + "</td></tr>");
+             out.println("    <tr><th>Staff Type:</th><td>" + profile.get(13) + "</td></tr>");
              if (doctor_id != 0) {
                  out.println("    <tr><th>Doctor ID:</th><td>" + doctor_id + "</td></tr>");
              }
@@ -67,14 +67,13 @@
              out.println("    <tr><th>First Name:</th><td>" + profile.get(3) + "</td></tr>");
              out.println("    <tr><th>Middle Name:</th><td>" + profile.get(4) + "</td></tr>");
              out.println("    <tr><th>Last Name:</th><td>" + profile.get(5) + "</td></tr>");
-             out.println("    <tr><th>SSN:</th><td>" + profile.get(6) + "</td></tr>");
-             out.println("    <tr><th>Address:</th><td>" + profile.get(7) + "</td></tr>");
-             out.println("    <tr><th>Qualification:</th><td>" + profile.get(8) + "</td></tr>");
-             out.println("    <tr><th>Certification expiration:</th><td>" + profile.get(9) + "</td></tr>");
-             out.println("    <tr><th>Cell phone number:</th><td>" + profile.get(10) + "</td></tr>");
-             out.println("    <tr><th>Email address:</th><td>" + profile.get(11) + "</td></tr>");
-             out.println("    <tr><th>Payroll:</th><td>" + profile.get(12) + "</td></tr>");
-             out.println("    <tr><th>Personal details:</th><td>" + profile.get(13) + "</td></tr>");
+             out.println("    <tr><th>Address:</th><td>" + profile.get(6) + "</td></tr>");
+             out.println("    <tr><th>Qualification:</th><td>" + profile.get(7) + "</td></tr>");
+             out.println("    <tr><th>Certification expiration:</th><td>" + profile.get(8) + "</td></tr>");
+             out.println("    <tr><th>Cell phone number:</th><td>" + profile.get(9) + "</td></tr>");
+             out.println("    <tr><th>Email address:</th><td>" + profile.get(10) + "</td></tr>");
+             out.println("    <tr><th>Payroll:</th><td>" + profile.get(11) + "</td></tr>");
+             out.println("    <tr><th>Personal details:</th><td>" + profile.get(12) + "</td></tr>");
              if (!shift.isEmpty()) {
                  out.println("    <tr><th>Clock in time:</th><td>" + shift.get(0) + "</td></tr>");
                  out.println("    <tr><th>Clock out time:</th><td>" + shift.get(1) + "</td></tr>");

@@ -178,7 +178,7 @@ public class NewPatient extends HttpServlet {
 
                 /* Get the registration information from inserted records above, and forward it to NewPatientResult.jsp. */
                 sql = "SELECT"
-                    + " p.id, u1.login_name, u1.password, u1.first_name, u1.middle_name, u1.last_name, u1.social_security_number,"
+                    + " p.id, u1.login_name, u1.password, u1.first_name, u1.middle_name, u1.last_name,"
                     + " DATE_FORMAT(u1.created_at, '%m/%d/%Y'), d2.first_name, d2.last_name, p.type, u1.address, p.insurance"
                     + " FROM users u1"
                     + " INNER JOIN"
@@ -208,19 +208,18 @@ public class NewPatient extends HttpServlet {
                     list.add(rs.getString(4));    // first_name
                     list.add(rs.getString(5));   // middle_name
                     list.add(rs.getString(6));   // last_name
-                    list.add(rs.getString(7));   // social_security_number
-                    list.add(rs.getString(8));   // DATE_FORMAT(created_at, '%m/%d/%Y')
-                    list.add(rs.getString(9));   // doctor_firstname
-                    list.add(rs.getString(10));   // doctor_lastname
-                    if (rs.getInt(11) == 0) {    // type
+                    list.add(rs.getString(7));   // DATE_FORMAT(created_at, '%m/%d/%Y')
+                    list.add(rs.getString(8));   // doctor_firstname
+                    list.add(rs.getString(9));   // doctor_lastname
+                    if (rs.getInt(10) == 0) {    // type
                         list.add("Inpatient");
-                    } else if (rs.getInt(11) == 1) {
+                    } else if (rs.getInt(10) == 1) {
                         list.add("Outpatient");
                     }
-                    list.add(rs.getString(12));   // address
-                    list.add(rs.getString(13));   // insurance
-
+                    list.add(rs.getString(11));   // address
+                    list.add(rs.getString(12));   // insurance
                     validationMap.put("registration", "successful");
+                    request.setAttribute("validationMap", validationMap);
                     request.setAttribute("list", list);
                     request.getRequestDispatcher("/NewPatientResult.jsp").forward(request, response);
                 } else {

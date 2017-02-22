@@ -104,10 +104,6 @@ public class NewStaff extends HttpServlet {
         boolean checkClockOutTime = validateClockOutTime(clock_out_time);
         boolean checkClockInOutTimes = validateClockInOutTimes(clock_in_time, clock_out_time);
 
-//        System.out.println("checkClockInTime: " + checkClockInTime);
-//        System.out.println("checkClockOutTime: " + checkClockOutTime);
-//        System.out.println("checkClockInOutTimes: " + checkClockInOutTimes);
-
         if (checkFirstname && checkMiddlename && checkLastname && checkSSN && checkAddress
                 && checkQualification && checkExpiration && checkCell && checkEmail && checkPayroll
                 && checkDetails && checkClockInTime && checkClockOutTime && checkClockInOutTimes) {
@@ -215,7 +211,7 @@ public class NewStaff extends HttpServlet {
 
                 /* Get the registration information from inserted records above, and forward it to NewStaffResult.jsp. */
                 sql = "SELECT"
-                    + " s.id, u.login_name, u.password, u.first_name, u.middle_name, u.last_name, u.social_security_number,"
+                    + " s.id, u.login_name, u.password, u.first_name, u.middle_name, u.last_name,"
                     + " u.address, s.qualification, DATE_FORMAT(s.certification_expirations, '%m/%d/%Y'),"
                     + " s.cell_phone_number, s.email_address, s.payroll, s.personal_details, s.is_doctor"
                     + " FROM users u"
@@ -242,17 +238,16 @@ public class NewStaff extends HttpServlet {
                     profile.add(rs.getString(4));    // first_name
                     profile.add(rs.getString(5));   // middle_name
                     profile.add(rs.getString(6));   // last_name
-                    profile.add(rs.getString(7));   // social_security_number
-                    profile.add(rs.getString(8));   // address
-                    profile.add(rs.getString(9));   // qualification
-                    profile.add(rs.getString(10));   // DATE_FORMAT(certification_expirations, '%m/%d/%Y')
-                    profile.add(rs.getString(11));   // cell_phone_number
-                    profile.add(rs.getString(12));   // email_address
-                    profile.add(rs.getString(13));   // payroll
-                    profile.add(rs.getString(14));   // personal_details
-                    if (rs.getBoolean(15) == false) {    // is_doctor
+                    profile.add(rs.getString(7));   // address
+                    profile.add(rs.getString(8));   // qualification
+                    profile.add(rs.getString(9));   // DATE_FORMAT(certification_expirations, '%m/%d/%Y')
+                    profile.add(rs.getString(10));   // cell_phone_number
+                    profile.add(rs.getString(11));   // email_address
+                    profile.add(rs.getString(12));   // payroll
+                    profile.add(rs.getString(13));   // personal_details
+                    if (rs.getBoolean(14) == false) {    // is_doctor
                         profile.add("Staff");
-                    } else if (rs.getBoolean(15) == true) {
+                    } else if (rs.getBoolean(14) == true) {
                         profile.add("Doctor");
                         pstmt.clearParameters();
                         sql = "SELECT id FROM doctors WHERE staff_id = " + staff_id;
@@ -276,6 +271,7 @@ public class NewStaff extends HttpServlet {
                         }
                     }
                     validationMap.put("registration", "successful");
+                    request.setAttribute("validationMap", validationMap);
                     request.setAttribute("profile", profile);
                     request.setAttribute("shift", shift);
                     request.setAttribute("doctor_id", doctor_id);
