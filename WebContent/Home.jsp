@@ -17,6 +17,7 @@
     %>
     <% String role = (String)request.getAttribute("role"); %>
     <% String pathToHome = request.getContextPath() + "/Home"; %>
+    <% String pathToMedicalFiles = request.getContextPath() + "/MedicalFiles"; %>
     <% ArrayList<String> profile = (ArrayList<String>)request.getAttribute("profile"); %>
     <% ArrayList<String> shift = (ArrayList<String>)request.getAttribute("shift"); %>
     <% int doctor_id = (int)request.getAttribute("doctor_id"); %>
@@ -48,7 +49,7 @@
                 %>
                 <%
                     if (role == "patient") {
-                        out.println("<a href=\"MedicalFiles.jsp\">Medical Files</a>");
+                        out.println("<a href=\"#\" onClick=\"location.href=\'" + pathToMedicalFiles + "\'\" >Medical Files</a>");
                     }
                 %>
             </nav>
