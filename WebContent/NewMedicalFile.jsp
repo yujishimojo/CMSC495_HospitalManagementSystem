@@ -98,32 +98,36 @@
             %>
             <tr>
                 <th>Bed Name:</th>
-                <td><input type="text" name="bed_name" value="" required></td>
+                <td><input type="text" name="bed_name" value=""></td>
             </tr>
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
-                    if (validationMap.get("bed_name") == "empty") {
+                	if (validationMap.get("bed_name") == "empty") {
                         out.println("<tr>");
-                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied for inpatients. Please fill out the field.</font></em></small></th>");
                         out.println("</tr>");
                     } else if (validationMap.get("bed_name") == "not found") {
                         out.println("<tr>");
                         out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This bed name is not found.</font></em></small></th>");
+                        out.println("</tr>");
+                    } else if (validationMap.get("bed_name") == "illegal characters") {
+                        out.println("<tr>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**You have entered an illegal character.</font></em></small></th>");
                         out.println("</tr>");
                     }
                 }
             %>
             <tr>
                 <th>Start Bed Date:</th>
-                <td><input id="date" type="text" name="start_date" required><td>
+                <td><input id="date" type="text" name="start_date"><td>
             </tr>
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
-                    if (validationMap.get("start date") == "empty") {
+                	if (validationMap.get("start_date") == "empty") {
                         out.println("<tr>");
-                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied for inpatients. Please fill out the field.</font></em></small></th>");
                         out.println("</tr>");
-                    } else if (validationMap.get("start date") == "invalid format") {  // acceptable input format is MM/DD/YYYY
+                    } else if (validationMap.get("start_date") == "invalid format") {  // acceptable input format is MM/DD/YYYY
                         out.println("<tr>");
                         out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This is not a valid format. The field must be 'MM/DD/YYYY.'</font></em></small></th>");
                         out.println("</tr>");
@@ -132,7 +136,7 @@
             %>
             <tr>
                 <th>End Bed Date:</th>
-                <td><input id="date" type="text" name="end_date" required><td>
+                <td><input id="date" type="text" name="end_date"><td>
             </tr>
             <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
