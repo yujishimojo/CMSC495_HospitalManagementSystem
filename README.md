@@ -656,7 +656,7 @@ Go through the following 3 steps to change the JDBC interface from java.sql.Driv
       auth="Container"
       type="javax.sql.DataSource"
       driverClassName="com.mysql.jdbc.Driver"
-      url="jdbc:mysql://localhost:3306/test"
+      url="jdbc:mysql://localhost:3306/hygieia_db"
       connectionProperties="autoReconnect=true;verifyServerCertificate=false;useSSL=false;requireSSL=false"
       username="YourDatabaseUser"
       password="YourDatabasePassword"
@@ -685,7 +685,7 @@ $ sudo vi /opt/tomcat/apache-tomcat-8.0.39/conf/server.xml
         auth="Container"
         type="javax.sql.DataSource"
         driverClassName="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://localhost:3306/test"
+        url="jdbc:mysql://localhost:3306/hygieia_db"
         username="YourDatabaseUser"
         password="YourDatabasePassword" />
 ```
