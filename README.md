@@ -379,6 +379,253 @@ ProxyPass / ajp://localhost:8009/
 
     mysql> GRANT ALL ON hygieia_db. * TO YourDatabaseUser@localhost IDENTIFIED BY 'YourDatabasePassword';
 
+4\. Download the DDL file [HMS_ERD.sql](https://github.com/yujishimojo/CMSC495_HospitalManagementSystem/blob/master/ERD/HMS_ERD.sql)
+
+5\. Transfer `HMS_ERD.sql` to the server
+
+6\. Change the owner of `HMS_ERD.sql` to `mysql` user
+
+    $ sudo chown -R mysql:mysql HMS_ERD.sql
+
+7\. Move `HMS_ERD.sql` to /var/lib/mysql-files
+
+    $ sudo mv HMS_ERD.sql /var/lib/mysql-files/
+
+8\. Create tables using `HMS_ERD.sql`
+
+    mysql> USE hygieia_db;
+    mysql> SOURCE /var/lib/mysql-files/HMS_ERD.sql
+
+## Test Data ##
+
+1\. Create test data in CSV
+
+- rooms.csv
+- beds.csv
+- users.csv
+- staff.csv
+- doctors.csv
+- shifts.csv
+- patients.csv
+- patient_records.csv
+- bed_usage.csv
+
+2\. Move the CSV files to /var/lib/mysql-files/csv
+
+3\. Insert test data from the CSV files into the database
+
+- `rooms` table
+
+```
+mysql> LOAD DATA INFILE
+  "/var/lib/mysql-files/csv/rooms.csv"
+INTO TABLE
+  rooms
+FIELDS
+  TERMINATED BY ','
+  ENCLOSED BY '"'
+LINES
+  TERMINATED BY '\r'
+  IGNORE 1 LINES (@a, @b)
+SET
+  created_at = CURRENT_TIMESTAMP,
+  updated_at = CURRENT_TIMESTAMP,
+  name = @a,
+  floor = @b
+;
+```
+
+- `beds` table
+
+```
+mysql> LOAD DATA INFILE
+  "/var/lib/mysql-files/csv/beds.csv"
+INTO TABLE
+  beds
+FIELDS
+  TERMINATED BY ','
+  ENCLOSED BY '"'
+LINES
+  TERMINATED BY '\r'
+  IGNORE 1 LINES (@a, @b)
+SET
+  created_at = CURRENT_TIMESTAMP,
+  updated_at = CURRENT_TIMESTAMP,
+  room_id = @a,
+  name = @b
+;
+```
+
+- `users` table
+
+```
+mysql> LOAD DATA INFILE
+  "/var/lib/mysql-files/csv/users.csv"
+INTO TABLE
+  users
+FIELDS
+  TERMINATED BY ','
+  ENCLOSED BY '"'
+LINES
+  TERMINATED BY '\r'
+  IGNORE 1 LINES (@a, @b, @c, @d, @e, @f, @g)
+SET
+  created_at = CURRENT_TIMESTAMP,
+  updated_at = CURRENT_TIMESTAMP,
+  login_name = @a, password = @b,
+  role = @c,
+  first_name = @d,
+  last_name = @e,
+  social_security_number = @f,
+  address = @g
+;
+```
+
+- `staff` table
+
+```
+mysql> LOAD DATA INFILE
+  "/var/lib/mysql-files/csv/staff.csv"
+INTO TABLE
+  staff
+FIELDS
+  TERMINATED BY ','
+  ENCLOSED BY '"'
+LINES
+  TERMINATED BY '\r'
+  IGNORE 1 LINES (@a, @b, @c, @d, @e, @f, @g, @h)
+SET
+  created_at = CURRENT_TIMESTAMP,
+  updated_at = CURRENT_TIMESTAMP,
+  user_id = @a,
+  qualification = @b,
+  certification_expirations = @c,
+  cell_phone_number = @d,
+  email_address = @e, payroll = @f,
+  personal_details = @g,
+  is_doctor = @h
+;
+```
+
+- `doctors` table
+
+```
+mysql> LOAD DATA INFILE
+  "/var/lib/mysql-files/csv/doctors.csv"
+INTO TABLE
+  doctors
+FIELDS
+  TERMINATED BY ','
+  ENCLOSED BY '"'
+LINES
+  TERMINATED BY '\r'
+  IGNORE 1 LINES (@a)
+SET
+  created_at = CURRENT_TIMESTAMP,
+  updated_at = CURRENT_TIMESTAMP,
+  staff_id = @a
+;
+```
+
+- `shifts` table
+
+```
+mysql> LOAD DATA INFILE
+  "/var/lib/mysql-files/csv/shifts.csv"
+INTO TABLE
+  shifts
+FIELDS
+  TERMINATED BY ','
+  ENCLOSED BY '"'
+LINES
+  TERMINATED BY '\r'
+  IGNORE 1 LINES (@a, @b, @c, @d)
+SET
+  created_at = CURRENT_TIMESTAMP,
+  updated_at = CURRENT_TIMESTAMP,
+  staff_id = @a,
+  clock_in_time = @b,
+  clock_out_time = @c,
+  status = @d
+;
+```
+
+- `patients` table
+
+```
+mysql> LOAD DATA INFILE
+  "/var/lib/mysql-files/csv/patients.csv"
+INTO TABLE
+  patients
+FIELDS
+  TERMINATED BY ','
+  ENCLOSED BY '"'
+LINES
+  TERMINATED BY '\r'
+  IGNORE 1 LINES (@a, @b, @c, @d)
+SET
+  created_at = CURRENT_TIMESTAMP,
+  updated_at = CURRENT_TIMESTAMP,
+  user_id = @a,
+  doctor_id = @b,
+  type = @c,
+  insurance = @d
+;
+```
+
+- `patient_records` table
+
+```
+mysql> LOAD DATA INFILE
+  "/var/lib/mysql-files/csv/patient_records.csv"
+INTO TABLE
+  patient_records
+FIELDS
+  TERMINATED BY ','
+  ENCLOSED BY '"'
+LINES
+  TERMINATED BY '\r'
+  IGNORE 1 LINES (@a, @b, @c, @d, @e, @f, @g, @h, @i, @j)
+SET
+  created_at = CURRENT_TIMESTAMP,
+  updated_at = CURRENT_TIMESTAMP,
+  patient_id = @a,
+  bed_id = @b,
+  visit_date = @c,
+  disease_name = @d,
+  treatment = @e,
+  medicine_given = @f,
+  medicine_name = @g,
+  medical_notes = @h,
+  ambulance_service_used = @i,
+  billing_amount = @j
+;
+```
+
+- `bed_usage` table
+
+```
+mysql> LOAD DATA INFILE
+  "/var/lib/mysql-files/csv/bed_usage.csv"
+INTO TABLE
+  bed_usage
+FIELDS
+  TERMINATED BY ','
+  ENCLOSED BY '"'
+LINES
+  TERMINATED BY '\r'
+  IGNORE 1 LINES (@a, @b, @c, @d, @e)
+SET
+  created_at = CURRENT_TIMESTAMP,
+  updated_at = CURRENT_TIMESTAMP,
+  bed_id = @a,
+  patient_id = @b,
+  start_date = @c,
+  end_date = @d,
+  status = @e
+;
+```
+
 # Configuration #
 
 ## Application and Tomcat ##
@@ -438,7 +685,7 @@ $ sudo vi /etc/my.cnf
 ```
 ```
 wait_timeout=288000
-interactive_timeout = 288000
+interactive_timeout=288000
 ```
 ```
 $ sudo service mysqld restart
