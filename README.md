@@ -638,7 +638,7 @@ SET
 ;
 ```
 
-<span style="color:red">*</span> Note that the SQL statements above are on condition that the line break in the CSV files is `\n`.
+* Note that the SQL statements above are on condition that the line break in the CSV files is `\n`.
 
 # Configuration #
 
@@ -652,7 +652,7 @@ Go through the following 3 steps to change the JDBC interface from java.sql.Driv
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
   <Resource
-      name="jdbc/test"
+      name="jdbc/hygieia_db"
       auth="Container"
       type="javax.sql.DataSource"
       driverClassName="com.mysql.jdbc.Driver"
@@ -669,7 +669,7 @@ Go through the following 3 steps to change the JDBC interface from java.sql.Driv
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <resource-ref>
-    <res-ref-name>jdbc/test</res-ref-name>
+    <res-ref-name>jdbc/hygieia_db</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
 </resource-ref>
@@ -681,7 +681,7 @@ Go through the following 3 steps to change the JDBC interface from java.sql.Driv
 $ sudo vi /opt/tomcat/apache-tomcat-8.0.39/conf/server.xml
 ```
 ```
-<Resource name="jdbc/test"
+<Resource name="jdbc/hygieia_db"
         auth="Container"
         type="javax.sql.DataSource"
         driverClassName="com.mysql.jdbc.Driver"
