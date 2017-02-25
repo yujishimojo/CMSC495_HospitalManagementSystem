@@ -340,13 +340,13 @@ ProxyPass / ajp://localhost:8009/
 
 7\. Stop Apache and Tomcat
 
-    $ sudo /opt/httpd/httpd-2.4.25/bin/apachectl start
+    $ sudo /opt/httpd/httpd-2.4.25/bin/apachectl stop
     $ sudo -u tomcat /opt/tomcat/apache-tomcat-8.0.39/bin/shutdown.sh
 
 8\. Start Apache and Tomcat
 
     $ sudo -u tomcat /opt/tomcat/apache-tomcat-8.0.39/bin/startup.sh
-    $ sudo /opt/httpd/httpd-2.4.25/bin/apachectl stop
+    $ sudo /opt/httpd/httpd-2.4.25/bin/apachectl start
 
 # Database #
 
@@ -530,6 +530,38 @@ $ sudo crontab -u root -e
 7\. Delete the cron job
 
     $ sudo crontab -u root -r
+
+# Deployment #
+
+1\. Select the `HospitalManagementSystem` project in Eclipse.app
+
+2\. Select `File` in the window menu and then click `Export`
+
+3\. Select `WAR file` and then click the `Next >` button
+
+4\. Save as `ROOT.war`
+
+5\. Transfer `ROOT.war` to the server
+
+6\. Move `ROOT.war` to /webapps directory
+
+    $ sudo mv ROOT.war /opt/tomcat/apache-tomcat-8.0.39/webapps/
+
+7\. Stop Apache
+
+    $ sudo /opt/httpd/httpd-2.4.25/bin/apachectl stop
+
+8\. Stop Tomcat
+
+    $ sudo -u tomcat /opt/tomcat/apache-tomcat-8.0.39/bin/shutdown.sh
+
+9\. Start Tomcat
+
+    $ sudo -u tomcat /opt/tomcat/apache-tomcat-8.0.39/bin/startup.sh
+
+10\. Start Apache
+
+    $ sudo /opt/httpd/httpd-2.4.25/bin/apachectl start
 
 License
 ----------
