@@ -358,6 +358,7 @@ ProxyPass / ajp://localhost:8009/
     $ mysql -u root
     mysql> FLUSH PRIVILEGES;
     mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'YourNewPassword’;
+    mysql> exit
     $ mysql.server stop
     $ mysql.server start
 
@@ -367,6 +368,7 @@ ProxyPass / ajp://localhost:8009/
     $ mysql -u root
     mysql> FLUSH PRIVILEGES;
     mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'YourNewPassword';
+    mysql> exit
     $ sudo service mysqld stop
     $ sudo service mysqld start
 
@@ -377,7 +379,9 @@ ProxyPass / ajp://localhost:8009/
 
 3\. Create a new user and grant all privileges on `hygieia_db`
 
-    mysql> GRANT ALL ON hygieia_db. * TO YourDatabaseUser@localhost IDENTIFIED BY 'YourDatabasePassword';
+    mysql> GRANT ALL
+      ON hygieia_db. *
+      TO YourDatabaseUser@localhost IDENTIFIED BY 'YourDatabasePassword';
 
 4\. Download the DDL file [HMS_ERD.sql](https://github.com/yujishimojo/CMSC495_HospitalManagementSystem/blob/master/ERD/HMS_ERD.sql)
 
@@ -472,7 +476,8 @@ LINES
 SET
   created_at = CURRENT_TIMESTAMP,
   updated_at = CURRENT_TIMESTAMP,
-  login_name = @a, password = @b,
+  login_name = @a,
+  password = @b,
   role = @c,
   first_name = @d,
   last_name = @e,
@@ -501,7 +506,8 @@ SET
   qualification = @b,
   certification_expirations = @c,
   cell_phone_number = @d,
-  email_address = @e, payroll = @f,
+  email_address = @e,
+  payroll = @f,
   personal_details = @g,
   is_doctor = @h
 ;
