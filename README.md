@@ -391,18 +391,19 @@ ProxyPass / ajp://localhost:8009/
 
     $ sudo chown -R mysql:mysql HMS_ERD.sql
 
-7\. Move `HMS_ERD.sql` to /var/lib/mysql-files
-
-    $ sudo mv HMS_ERD.sql /var/lib/mysql-files/
-
-8\. Create tables using `HMS_ERD.sql`
+7\. Create tables using `HMS_ERD.sql` (for Vagrant)
 
     mysql> USE hygieia_db;
-    mysql> SOURCE /var/lib/mysql-files/HMS_ERD.sql
+    mysql> SOURCE /home/vagrant/HMS_ERD.sql
+
+7\. Create tables using `HMS_ERD.sql` (for Amazon EC2)
+
+    mysql> USE hygieia_db;
+    mysql> SOURCE /home/ec2-user/HMS_ERD.sql
 
 ## Test Data ##
 
-1\. Create test data in CSV
+1\. Create test data in CSV format
 
 - rooms.csv
 - beds.csv
@@ -416,7 +417,11 @@ ProxyPass / ajp://localhost:8009/
 
 2\. Move the CSV files to /var/lib/mysql-files/csv
 
-3\. Insert test data from the CSV files into the database
+3\. Change the owner of CSV files to `mysql` user
+
+    $ sudo chown -R mysql:mysql /var/lib/mysql-files/csv
+
+4\. Insert test data from the CSV files into the database
 
 - `rooms` table
 
@@ -429,7 +434,7 @@ FIELDS
   TERMINATED BY ','
   ENCLOSED BY '"'
 LINES
-  TERMINATED BY '\r'
+  TERMINATED BY '\n'
   IGNORE 1 LINES (@a, @b)
 SET
   created_at = CURRENT_TIMESTAMP,
@@ -450,7 +455,7 @@ FIELDS
   TERMINATED BY ','
   ENCLOSED BY '"'
 LINES
-  TERMINATED BY '\r'
+  TERMINATED BY '\n'
   IGNORE 1 LINES (@a, @b)
 SET
   created_at = CURRENT_TIMESTAMP,
@@ -471,8 +476,8 @@ FIELDS
   TERMINATED BY ','
   ENCLOSED BY '"'
 LINES
-  TERMINATED BY '\r'
-  IGNORE 1 LINES (@a, @b, @c, @d, @e, @f, @g)
+  TERMINATED BY '\n'
+  IGNORE 1 LINES (@a, @b, @c, @d, @e, @f, @g, @h)
 SET
   created_at = CURRENT_TIMESTAMP,
   updated_at = CURRENT_TIMESTAMP,
@@ -480,9 +485,10 @@ SET
   password = @b,
   role = @c,
   first_name = @d,
-  last_name = @e,
-  social_security_number = @f,
-  address = @g
+  middle_name = @e,
+  last_name = @f,
+  social_security_number = @g,
+  address = @h
 ;
 ```
 
@@ -497,7 +503,7 @@ FIELDS
   TERMINATED BY ','
   ENCLOSED BY '"'
 LINES
-  TERMINATED BY '\r'
+  TERMINATED BY '\n'
   IGNORE 1 LINES (@a, @b, @c, @d, @e, @f, @g, @h)
 SET
   created_at = CURRENT_TIMESTAMP,
@@ -524,7 +530,7 @@ FIELDS
   TERMINATED BY ','
   ENCLOSED BY '"'
 LINES
-  TERMINATED BY '\r'
+  TERMINATED BY '\n'
   IGNORE 1 LINES (@a)
 SET
   created_at = CURRENT_TIMESTAMP,
@@ -544,7 +550,7 @@ FIELDS
   TERMINATED BY ','
   ENCLOSED BY '"'
 LINES
-  TERMINATED BY '\r'
+  TERMINATED BY '\n'
   IGNORE 1 LINES (@a, @b, @c, @d)
 SET
   created_at = CURRENT_TIMESTAMP,
@@ -567,7 +573,7 @@ FIELDS
   TERMINATED BY ','
   ENCLOSED BY '"'
 LINES
-  TERMINATED BY '\r'
+  TERMINATED BY '\n'
   IGNORE 1 LINES (@a, @b, @c, @d)
 SET
   created_at = CURRENT_TIMESTAMP,
@@ -590,7 +596,7 @@ FIELDS
   TERMINATED BY ','
   ENCLOSED BY '"'
 LINES
-  TERMINATED BY '\r'
+  TERMINATED BY '\n'
   IGNORE 1 LINES (@a, @b, @c, @d, @e, @f, @g, @h, @i, @j)
 SET
   created_at = CURRENT_TIMESTAMP,
@@ -619,7 +625,7 @@ FIELDS
   TERMINATED BY ','
   ENCLOSED BY '"'
 LINES
-  TERMINATED BY '\r'
+  TERMINATED BY '\n'
   IGNORE 1 LINES (@a, @b, @c, @d, @e)
 SET
   created_at = CURRENT_TIMESTAMP,
@@ -631,6 +637,8 @@ SET
   status = @e
 ;
 ```
+
+<span style="color:red">*</span> Note that the SQL statements above are on condition that the line break in the CSV files is `\n`.
 
 # Configuration #
 
