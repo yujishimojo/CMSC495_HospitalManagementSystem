@@ -142,7 +142,7 @@ public class NewRoom extends HttpServlet {
         if (floor.equals(null) || floor.equals("")) {
             validationMap.put("floor", "empty");
             return false;
-        } else if (Pattern.compile("^[0-9]$").matcher(floor).find() == false) {  // must be a number
+        } else if (Pattern.compile("^[0-9]{1,}$").matcher(floor).find() == false) {  // must be a number
             validationMap.put("floor", "invalid format");
             return false;
         } else {

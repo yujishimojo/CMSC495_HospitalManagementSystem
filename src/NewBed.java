@@ -147,7 +147,7 @@ public class NewBed extends HttpServlet {
         if (room_id.equals(null) || room_id.equals("")) {
             validationMap.put("room_id", "empty");
             return false;
-        } else if (Pattern.compile("^[0-9]$").matcher(room_id).find() == false) {  // must be a number
+        } else if (Pattern.compile("^[0-9]{1,}$").matcher(room_id).find() == false) {  // must be a number
             validationMap.put("room_id", "invalid format");
             return false;
         } else {
@@ -172,35 +172,6 @@ public class NewBed extends HttpServlet {
             }
         }
     }
-
-//    protected boolean validateRoomName(String room_name) {
-//        if (room_name.contains("'") || room_name.contains(";")) {
-//            validationMap.put("room_name", "illegal characters");
-//            return false;
-//        } else if (room_name.equals("")) {
-//            validationMap.put("room_name", "empty");
-//            return false;
-//        } else {
-//            try {
-//                String sql = "SELECT id FROM rooms WHERE name = ?";
-//                PreparedStatement pstmt = conn.prepareStatement(sql);
-//                pstmt.setString(1, room_name);
-//                ResultSet rs = pstmt.executeQuery();
-//
-//                if (rs.next()) {
-//                    validationMap.put("room_name", "OK");
-//                    return true;
-//                } else {
-//                    validationMap.put("room_name", "not found");
-//                    return false;
-//                }
-//            } catch (SQLException e) {
-//                validationMap.put("room_name", "not found");
-//                log("SQLException:" + e.getMessage());
-//                return false;
-//            }
-//        }
-//    }
 
     protected boolean validateBedName(String bed_name) {
         if (bed_name.contains("'") || bed_name.contains(";")) {
