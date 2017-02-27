@@ -45,6 +45,16 @@
                     }
                 %>
                 <%
+                    if (role == "admin") {
+                        out.println("<a href=\"NewBed.jsp\">New Bed</a>");
+                    }
+                %>
+                <%
+                    if (role == "admin") {
+                        out.println("<a href=\"NewRoom.jsp\">New Room</a>");
+                    }
+                %>
+                <%
                     if (role == "admin" || role == "staff") {
                         out.println("<a href=\"Search.jsp\">Search</a>");
                     }
