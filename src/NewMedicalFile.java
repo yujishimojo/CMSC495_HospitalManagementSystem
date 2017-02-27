@@ -398,7 +398,7 @@ public class NewMedicalFile extends HttpServlet {
         if (patient_id.equals(null) || patient_id.equals("")) {
             validationMap.put("patient_id", "empty");
             return false;
-        } else if (Pattern.compile("^[0-9]").matcher(patient_id).find() == false) {  // must be a number
+        } else if (Pattern.compile("^[0-9]$").matcher(patient_id).find() == false) {  // must be a number
             validationMap.put("patient_id", "invalid format");
             return false;
         } else {
