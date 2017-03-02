@@ -2,9 +2,18 @@ Hygieia
 ======================
 Hygieia is an enterprise hospital management system which comes with the base components to allow hospitals to added new patients, create new medical files for patients, and employee records. All these components are stored in the centralized database that has multiple layers of security.
 
+# Table of Contents #
+
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Database](#database)
+- [Configuration](#configuration)
+- [Deployment](#deployment)
+
 # Prerequisites #
 
 ## Local Development Environment ##
+
 - OS: OS X 10.11 El Capitan
 - IDE: Eclipse 4.5.2 (Mars 2)
 - Eclipse plugins: Sysdeo Eclipse Tomcat Launcher, EGit, ERFlute, AmaterasUML
@@ -14,6 +23,7 @@ Hygieia is an enterprise hospital management system which comes with the base co
 - JDBC version: 5.1.40
 
 ## Local Runtime Environment ##
+
 - Vagrant version: 1.8.1
 - OS: CentOS 6.6
 - OpenJDK version: 1.8.0
@@ -23,6 +33,7 @@ Hygieia is an enterprise hospital management system which comes with the base co
 - JDBC version: 5.1.40
 
 ## Remote Runtime Environment ##
+
 - Hosting Server: Amazon EC2
 - AMI: Amazon Linux AMI (HVM / 64-bit) version 2016.09.1.20170119
 - OpenJDK version: 1.8.0
@@ -354,13 +365,13 @@ ProxyPass / ajp://localhost:8009/
 
 1\. Set a new password for the root user (for Mac)
 
-    $ mysql.server start --skip-grant-tables --skip-networking
+    $ sudo mysql.server start --skip-grant-tables --skip-networking
     $ mysql -u root
     mysql> FLUSH PRIVILEGES;
     mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'YourNewPassword’;
     mysql> exit
-    $ mysql.server stop
-    $ mysql.server start
+    $ sudo mysql.server stop
+    $ sudo mysql.server start
 
 1\. Set a new password for the root user (for Linux)
 
