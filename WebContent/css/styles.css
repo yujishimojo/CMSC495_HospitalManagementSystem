@@ -1,3 +1,4 @@
+@CHARSET "UTF-8";
 /*
 Colors: 
 #0f585e   logo color
@@ -13,21 +14,47 @@ Colors:
 }
 
 @font-face {
-    font-family: simple;
-    src: url('fonts/simple-print/simple-print_regular.woff');
+    font-family: cinzel;
+    src: url('fonts/cinzel/Cinzel-Regular.otf');
 }
 
+
 body {
-    background-color: white;
-    color: #0f585e;
+    background-color: #c3d5d7;
+    color: black;
     font-family: quicksand, arial, sans-serif;
-    margin: 0px;
-    padding: 0px;
+    padding: 0;
+    margin: 8px;
+    
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	
+	font-weight: italic;
 }
 
 header {
-    /* font-family: serif; */
     overflow: hidden;
+    background-color: white;
+    /* Negative margins to collapse body's margins on three sides */
+    margin-top: -8px;
+    margin-left: -8px;
+    margin-right: -8px;
+    vertical-align: center;
+}
+
+header img {
+	display: block;
+	float: left;
+}
+
+h1 {
+	font-size: 3em;
+	margin: 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: cinzel, serif;
 }
 
 header img {
@@ -51,7 +78,6 @@ nav a {
     display: inline;
     margin: 0px 10px;
     color: #0f585e;
-    
 }
 
 th {
@@ -63,55 +89,52 @@ td {
 }
 
 form {
-    margin: 1em auto;
-    background-color: #c3d5d7;
-    color: #5e0f58;
-    box-shadow: 2px 2px 5px gray;
-    padding: 5px;
     font-weight: inherit;
     font-size: inherit;
+    display: inline-block;
 }
 
-.flex-container {
-    display: -webkit-flex;
-    display: flex; 
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-align-content: center;
-    align-content: center;
-    width: 100%;
-    height: 250px;
-    background-color: lightgrey;
+:optional {
+	/*background: #e0eaeb;
+	border-style: solid;
+	border-color: #ccc;*/
+	
+	/*border-style: none;*/
+	background: rgba(255, 255, 255, 0.6);
+    border-color: #0f585e;
 }
-.flex-container div {
-    background-color: red;
-    margin: 5px;
-    display: inline-block;
+
+:required {
+	background: white;
+}
+
+textarea {
+	resize: none;
 }
 
 textarea, input {
     font-family: inherit;
-    /*font-size: inherit;*/
+    font-size: inherit;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
-textarea, input[type=text], input[type=password], select {
-    border: 1px solid #ccc;
+textarea, input[type=text], input[type=password], input[type=email], select {
+    border: 1px solid #0f585e;
     border-radius: 3px;
+    width: 100%;
+    padding: 2px;
 }
 
-input[type=text], input[type=password], select {
-    padding: 2px;
-    width: 15em;
+
+input[type=submit], select {
+    /*border: 1px solid #0f585e;*/
+    font-size: large;
+    border-radius: 3px;
 }
 
 form h2 {
   text-align: center;
-}
-
-form li {
-    margin: 5px 0px;
 }
 
 .floatleft {
@@ -120,15 +143,42 @@ form li {
 
 .error-message {
 	font-size:small;
-	color: red;
+	color: #b30000;
 	font-style: italic;
 }
 
-form {
-    display: inline-block;
+/* 
+	Using divs to group together the field label and input. 
+	Inline blocks will appear multiple per line when space is available
+	but will split to multiple lines when it is not. 
+ */
+
+.columns {
+	
+  -webkit-columns: 3 350px;
+     -moz-columns: 3 350px;
+          columns: 3 350px;
+
+  -webkit-column-gap: 3em;
+     -moz-column-gap: 3em;
+          column-gap: 3em;
+	
+	margin-left: 3em;
+	margin-right: 3em;
 }
 
-form div.field {
-    display: inline-block;
-    margin: 10px;
+.columns p {
+    -webkit-column-break-inside: avoid;
+	break-inside: avoid-column;
+}
+
+.columns div.field {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    
+    -webkit-column-break-inside: avoid; /* Chrome, Safari */
+    page-break-inside: avoid;           /* Theoretically FF 20+ */
+    break-inside: avoid-column;         /* IE 11 */
+    
+	text-align: top;
 }
