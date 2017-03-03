@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -73,15 +72,15 @@ public class NewStaff extends HttpServlet {
         String stafftypegroup = request.getParameter("stafftypegroup");
         String address = request.getParameter("address");
         String qualification = request.getParameter("qualification");
-        String expiration = request.getParameter("expiration");
+        String expiration = request.getParameter("certexpiration");
         String cell = request.getParameter("cell");
         String email = request.getParameter("email");
         String payroll = request.getParameter("payroll");
         String details = request.getParameter("details");
         String pass1 = request.getParameter("pass1");
-        String clock_in_time = request.getParameter("clock_in_time");
-        String clock_out_time = request.getParameter("clock_out_time");
-        String status = request.getParameter("status");
+        String clock_in_time = request.getParameter("clockin");
+        String clock_out_time = request.getParameter("clockout");
+        String status = request.getParameter("statusgroup");
 
         int user_id = 0;
         int staff_id = 0;
@@ -89,29 +88,15 @@ public class NewStaff extends HttpServlet {
 
         validationMap.clear();
 
-        boolean checkFirstname = validateFirstname(firstname);
-        boolean checkMiddlename = validateMiddlename(middlename);
-        boolean checkLastname = validateLastname(lastname);
+        boolean checkName = validateName(firstname, lastname);
         boolean checkSSN = validateSSN(ssn);
-        boolean checkAddress = validateAddress(address);
-        boolean checkQualification = validateQualification(qualification);
-        boolean checkExpiration = validateExpiration(expiration);
-        boolean checkCell = validateCell(cell);
-        boolean checkEmail = validateEmail(email);
-        boolean checkPayroll = validatePayroll(payroll);
-        boolean checkDetails = validateDetails(details);
-        boolean checkClockInTime = validateClockInTime(clock_in_time);
-        boolean checkClockOutTime = validateClockOutTime(clock_out_time);
-        boolean checkClockInOutTimes = validateClockInOutTimes(clock_in_time, clock_out_time);
 
-        if (checkFirstname && checkMiddlename && checkLastname && checkSSN && checkAddress
-                && checkQualification && checkExpiration && checkCell && checkEmail && checkPayroll
-                && checkDetails && checkClockInTime && checkClockOutTime && checkClockInOutTimes) {
-
+        if (checkName && checkSSN) {
             try {
                 /* Insert the form data to users table. */
                 String sql = "INSERT INTO"
-                           + " users (created_at, updated_at, login_name, password, role, first_name, middle_name, last_name, social_security_number, address)"
+                           + " users (created_at, updated_at, login_name, password, role, first_name, middle_name, last_name,"
+                           + " social_security_number, address)"
                            + " VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, firstname + "." + lastname);
@@ -146,19 +131,31 @@ public class NewStaff extends HttpServlet {
                 pstmt.clearParameters();
 
                 /* Insert the form data and user_id into staff table. */
-                sql = "INSERT INTO staff (user_id, created_at, updated_at, qualification, certification_expirations, cell_phone_number, email_address, payroll, personal_details, is_doctor)"
-                    + " VALUES (?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, STR_TO_DATE(?, '%m/%d/%Y'), ?, ?, ?, ?, ?)";
+                if (expiration.equals("")) {
+                    sql = "INSERT INTO staff (user_id, created_at, updated_at, qualification, certification_expirations,"
+                        + " cell_phone_number, email_address, payroll, personal_details, is_doctor)"
+                        + " VALUES (?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?)";
+                } else {
+                    sql = "INSERT INTO staff (user_id, created_at, updated_at, qualification, certification_expirations,"
+                        + " cell_phone_number, email_address, payroll, personal_details, is_doctor)"
+                        + " VALUES (?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, STR_TO_DATE(?, '%m/%d/%Y'), ?, ?, ?, ?, ?)";
+                }
+
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setInt(1, user_id);
                 pstmt.setString(2, qualification);
-                pstmt.setString(3, expiration);
+                if (expiration.equals("")) {
+                    pstmt.setString(3, null);
+                } else {
+                    pstmt.setString(3, expiration);
+                }
                 pstmt.setString(4, cell);
                 pstmt.setString(5, email);
                 pstmt.setString(6, payroll);
                 pstmt.setString(7, details);
-                if (stafftypegroup.equals("Staff")) {
+                if (stafftypegroup.equals("staff")) {
                     pstmt.setBoolean(8, false);
-                } else if (stafftypegroup.equals("Doctor")) {
+                } else if (stafftypegroup.equals("doctor")) {
                     pstmt.setBoolean(8, true);
                 }
                 pstmt.executeUpdate();
@@ -181,7 +178,7 @@ public class NewStaff extends HttpServlet {
 
                 pstmt.clearParameters();
 
-                if (stafftypegroup.equals("Doctor")) {
+                if (stafftypegroup.equals("doctor")) {
                     /* Insert the form data into doctors table. */
                     sql = "INSERT INTO doctors (staff_id, created_at, updated_at) VALUES (?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
                     pstmt = conn.prepareStatement(sql);
@@ -199,9 +196,9 @@ public class NewStaff extends HttpServlet {
                     pstmt.setInt(1, staff_id);
                     pstmt.setString(2, clock_in_time);
                     pstmt.setString(3, clock_out_time);
-                    if (status.equals("Normal")) {
+                    if (status.equals("normal")) {
                         pstmt.setInt(4, 0);
-                    } else if (status.equals("Emergency")) {
+                    } else if (status.equals("emergency")) {
                         pstmt.setInt(4, 1);
                     }
                     pstmt.executeUpdate();
@@ -265,9 +262,9 @@ public class NewStaff extends HttpServlet {
                         shift.add(rs.getString(1));    // clock_in_time
                         shift.add(rs.getString(2));    // clock_out_time
                         if (rs.getInt(3) == 0) {   // status
-                            shift.add("Normal");
+                            shift.add("normal");
                         } else if (rs.getInt(3) == 1) {
-                            shift.add("Emergency");
+                            shift.add("emergency");
                         }
                     }
                     validationMap.put("registration", "successful");
@@ -285,7 +282,6 @@ public class NewStaff extends HttpServlet {
             } catch (Exception e) {
                 validationMap.put("registration", "failed");
                 request.setAttribute("validationMap", validationMap);
-                request.getRequestDispatcher("/NewStaff.jsp").forward(request, response);
                 e.printStackTrace();
             }
 
@@ -297,205 +293,48 @@ public class NewStaff extends HttpServlet {
 
     }
 
-    protected boolean validateFirstname(String firstname) {
-        if (Pattern.compile(".*[0-9].*").matcher(firstname).find() || Pattern.compile(".*\\s.*").matcher(firstname).find()
-                || firstname.contains("'") || firstname.contains(";")) {
-            validationMap.put("firstname", "illegal characters");
-            return false;
-        } else if (firstname.equals(null) || firstname.equals("")) {
-            validationMap.put("firstname", "empty");
-            return false;
-        } else if (firstname.length() > 30) {
-            validationMap.put("firstname", "too long");
-            return false;
-        } else {
-            validationMap.put("firstname", "OK");
-            return true;
-        }
-    }
+    protected boolean validateName(String firstname, String lastname) {
+        try {
+            String sql = "SELECT id FROM users WHERE first_name = ? AND last_name = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
 
-    protected boolean validateMiddlename(String middlename) {
-        if (Pattern.compile(".*[0-9].*").matcher(middlename).find() || Pattern.compile(".*\\s.*").matcher(middlename).find()
-                || middlename.contains("'") || middlename.contains(";")) {
-            validationMap.put("middlename", "illegal characters");
-            return false;
-        } else if (middlename.length() > 30) {
-            validationMap.put("middlename", "too long");
-            return false;
-        } else {
-            validationMap.put("middlename", "OK");
-            return true;
-        }
-    }
+            pstmt.setString(1, firstname);
+            pstmt.setString(2, lastname);
+            ResultSet rs = pstmt.executeQuery();
 
-    protected boolean validateLastname(String lastname) {
-        if (Pattern.compile(".*[0-9].*").matcher(lastname).find() || Pattern.compile(".*\\s.*").matcher(lastname).find()
-                || lastname.contains("'") || lastname.contains(";")) {
-            validationMap.put("lastname", "illegal characters");
-            return false;
-        } else if (lastname.equals(null) || lastname.equals("")) {
-            validationMap.put("lastname", "empty");
-            return false;
-        } else if (lastname.length() > 30) {
-            validationMap.put("lastname", "too long");
-            return false;
-        } else {
-            validationMap.put("lastname", "OK");
-            return true;
+            if (rs.next()) {
+                validationMap.put("name", "in use");
+                return false;
+            } else {
+                validationMap.put("name", "OK");
+                return true;
+            }
+        } catch (SQLException e) {
+               validationMap.put("name", "in use");
+            log("SQLException:" + e.getMessage());
+               return false;
         }
     }
 
     protected boolean validateSSN(String ssn) {
-        if (Pattern.compile(".*\\s.*").matcher(ssn).find() || ssn.contains("'") || ssn.contains(";")) {
-            validationMap.put("ssn", "illegal characters");
-            return false;
-        } else if (ssn.equals(null) || ssn.equals("")) {
-            validationMap.put("ssn", "empty");
-            return false;
-        } else if (Pattern.compile("^[0-9]{9}").matcher(ssn).find() == false) {
-            validationMap.put("ssn", "invalid format");
-            return false;
-        } else {
-            try {
-                String sql = "SELECT id FROM users WHERE social_security_number = ?";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
+        try {
+            String sql = "SELECT id FROM users WHERE social_security_number = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
 
-                pstmt.setString(1, ssn);
-                ResultSet rs = pstmt.executeQuery();
+            pstmt.setString(1, ssn);
+            ResultSet rs = pstmt.executeQuery();
 
-                if (rs.next()) {
-                    validationMap.put("ssn", "in use");
-                    return false;
-                } else {
-                    validationMap.put("ssn", "OK");
-                    return true;
-                }
-            } catch (SQLException e) {
-                   validationMap.put("ssn", "in use");
-                log("SQLException:" + e.getMessage());
-                   return false;
+            if (rs.next()) {
+                validationMap.put("ssn", "in use");
+                return false;
+            } else {
+                validationMap.put("ssn", "OK");
+                return true;
             }
-        }
-    }
-
-    protected boolean validateAddress(String address) {
-        if (address.length() > 100) {
-            validationMap.put("address", "too long");
-            return false;
-        } else {
-            validationMap.put("address", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateExpiration(String expiration) {
-        if (expiration.equals(null) || expiration.equals("")) {
-            validationMap.put("expiration", "empty");
-            return false;
-        } else if (Pattern.compile("^[0-9]{2}/[0-9]{2}/[0-9]{4}").matcher(expiration).find() == false) {  // must be MM/DD/YYYY
-            validationMap.put("expiration", "invalid format");
-            return false;
-        } else {
-            validationMap.put("expiration", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateQualification(String qualification) {
-        if (qualification.equals(null) || qualification.equals("")) {
-            validationMap.put("qualification", "empty");
-            return false;
-        } else if (qualification.length() > 50) {
-            validationMap.put("qualification", "too long");
-            return false;
-        } else {
-            validationMap.put("qualification", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateCell(String cell) {
-        if (cell.length() > 20) {
-            validationMap.put("cell", "too long");
-            return false;
-        } else {
-            validationMap.put("cell", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateEmail(String email) {
-        if (email.length() > 50) {
-            validationMap.put("email", "too long");
-            return false;
-        } else {
-            validationMap.put("email", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validatePayroll(String payroll) {
-        if (payroll.equals(null) || payroll.equals("")) {
-            validationMap.put("payroll", "empty");
-            return false;
-        } else if (payroll.length() > 30) {
-            validationMap.put("payroll", "too long");
-            return false;
-        } else {
-            validationMap.put("payroll", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateDetails(String details) {
-        if (details.length() > 500) {
-            validationMap.put("details", "too long");
-            return false;
-        } else {
-            validationMap.put("details", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateInsurance(String insurance) {
-        if (insurance.length() > 100) {
-            validationMap.put("insurance", "too long");
-            return false;
-        } else {
-            validationMap.put("insurance", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateClockInTime(String clock_in_time) {
-        if (!clock_in_time.equals("") && Pattern.compile("^[0-9]{2}:[0-9]{2}:[0-9]{2}").matcher(clock_in_time).find() == false) {  // must be hh:mm:ss
-            validationMap.put("clock_in_time", "invalid format");
-            return false;
-        } else {
-            validationMap.put("clock_in_time", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateClockOutTime(String clock_out_time) {
-        if (!clock_out_time.equals("") && Pattern.compile("^[0-9]{2}:[0-9]{2}:[0-9]{2}").matcher(clock_out_time).find() == false) {  // must be hh:mm:ss
-            validationMap.put("clock_out_time", "invalid format");
-            return false;
-        } else {
-            validationMap.put("clock_out_time", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateClockInOutTimes(String clock_in_time, String clock_out_time) {
-        if (!clock_in_time.equals("") && clock_out_time.equals("")) {
-            validationMap.put("clock_in_time", "missing");
-            return false;
-        } else if (clock_in_time.equals("") && !clock_out_time.equals("")) {
-            validationMap.put("clock_out_time", "missing");
-            return false;
-        } else {
-            return true;
+        } catch (SQLException e) {
+               validationMap.put("ssn", "in use");
+            log("SQLException:" + e.getMessage());
+               return false;
         }
     }
 }

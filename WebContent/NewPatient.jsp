@@ -10,7 +10,7 @@
     <script src="js/validateForms.js"></script>
 </head>
 <body onload="defaultDate('date')">
-    
+
     <!-- Check whether logged in and user type -->
     <% String login = (String)session.getAttribute("login"); %>
     <% String role = (String)session.getAttribute("role"); %>
@@ -73,28 +73,32 @@
     <p><small>* required</small><br>
         <span class="error-message" id="error-message">
             <span id="errors1"></span>
-            <span id="errors2"></span>
-            <span id="errors3">
+            <span id="errors2">
                 <!-- jsp errors go here -->
-                
+
                 <!-- start each line with <br> -->
                 <!-- text here will be red, small, and italic by default (inline-styles not necessary) -->
-                
-                <!-- SSN checked -->
+
+                <!-- name, SSN, and doctor name checked -->
                 <%
                 if (validationMap != null && validationMap.get("registration") == "failed") {
+                    boolean errorFound = false;
+                    if (validationMap.get("name") == "in use") {
+                        out.println("<br>The first and last names are already in use.");
+                        errorFound = true;
+                    }
                     if (validationMap.get("ssn") == "in use") {
                         out.println("<br>The SSN is already in use.");
+                        errorFound = true;
                     }
-                }
-                %>
-                
-                <!-- Doctor name checked -->
-                <%
-                if (validationMap != null && validationMap.get("registration") == "failed") {
                     if (validationMap.get("doctor_firstname") == "not found" 
                             || validationMap.get("doctor_lastname") == "not found") {
-                        out.println("<br>The doctor name is not found.");
+                        out.println("<br>This doctor name is not found.");
+                        errorFound = true;
+                    }
+
+                    if(!errorFound){
+                        out.println("<br>Unknown Error");
                     }
                 }
                 %>
@@ -136,9 +140,7 @@
             Insurance *<br>
             <input type="text" name="insurance" value="" required>
         </div>
-        
-        
-        
+
         <div class="field">
             Doctor's Name *<br>
             <input type="text" name="doctor_firstname" value="" placeholder="First" required><br>

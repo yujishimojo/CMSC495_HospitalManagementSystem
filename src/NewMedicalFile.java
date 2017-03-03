@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -67,7 +66,8 @@ public class NewMedicalFile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String patient_id = request.getParameter("patient_id");
-        String visit_date = request.getParameter("visit_date");
+        String visit_date = request.getParameter("vdate");
+        String ambulance = request.getParameter("ambulance");
         String bed_name = request.getParameter("bed_name");
         String start_date = request.getParameter("start_date");
         String end_date = request.getParameter("end_date");
@@ -76,24 +76,20 @@ public class NewMedicalFile extends HttpServlet {
         String medicine_given = request.getParameter("medicine_given");
         String medicine_name = request.getParameter("medicine_name");
         String notes = request.getParameter("notes");
-        String ambulance = request.getParameter("ambulance");
         String billing_amount = request.getParameter("billing_amount");
 
         int bed_id = 0;
         int patient_type = getPatientType(patient_id);
+        int floor = 0;
+        String firstname = null;
+        String middlename = null;
+        String lastname = null;
+        String room_name = null;
 
         validationMap.clear();
 
         boolean checkPatientId = validatePatientId(patient_id);
-        boolean checkVisitDate = validateVisitDate(visit_date);
         boolean checkBedName = validateBedName(bed_name);
-        boolean checkStartDate = validateStartDate(start_date);
-        boolean checkEndDate = validateEndDate(end_date);
-        boolean checkDisease = validateDisease(disease);
-        boolean checkTreatment = validateTreatment(treatment);
-        boolean checkMedicineName = validateMedicineName(medicine_name);
-        boolean checkNotes = validateNotes(notes);
-        boolean checkBillingAmount = validateBillingAmount(billing_amount);
 
         if (bed_name.equals("") && patient_type == 0) {
             validationMap.put("bed_name", "empty");
@@ -102,8 +98,7 @@ public class NewMedicalFile extends HttpServlet {
             validationMap.put("start_date", "empty");
         }
 
-        if (checkPatientId && checkVisitDate && checkBedName && checkStartDate && checkEndDate
-                && checkDisease && checkTreatment && checkMedicineName && checkNotes && checkBillingAmount) {
+        if (checkPatientId && checkBedName) {
             try {
                 ArrayList<String> list = new ArrayList<String>();
                 ArrayList<String> medicine = new ArrayList<String>();
@@ -152,67 +147,73 @@ public class NewMedicalFile extends HttpServlet {
 
                     pstmt.clearParameters();
 
-                    /* Insert the form data to bed_usage table. */
-                    sql = "INSERT INTO"
-                        + " bed_usage (bed_id, patient_id, created_at, updated_at, start_date, end_date, status)"
-                        + " VALUES (?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, STR_TO_DATE(?, '%m/%d/%Y'), STR_TO_DATE(?, '%m/%d/%Y'), 1)";
-                    pstmt = conn.prepareStatement(sql);
-                    pstmt.setInt(1, bed_id);
-                    pstmt.setInt(2, Integer.parseInt(patient_id));
-                    pstmt.setString(3, start_date);
-                    if (end_date.equals("")) {
-                        pstmt.setString(4, null);
-                    } else {
-                        pstmt.setString(4, end_date);
+
+                    if (!bed_name.equals("") && !start_date.equals("")) {
+                        /* Insert the form data to bed_usage table. */
+                        if (end_date.equals("")) {
+                            sql = "INSERT INTO"
+                                    + " bed_usage (bed_id, patient_id, created_at, updated_at, start_date, end_date, status)"
+                                    + " VALUES (?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, STR_TO_DATE(?, '%m/%d/%Y'),"
+                                    + " ?, 1)";
+                        } else {
+                            sql = "INSERT INTO"
+                                    + " bed_usage (bed_id, patient_id, created_at, updated_at, start_date, end_date, status)"
+                                    + " VALUES (?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, STR_TO_DATE(?, '%m/%d/%Y'),"
+                                    + " STR_TO_DATE(?, '%m/%d/%Y'), 1)";
+                        }
+                        pstmt = conn.prepareStatement(sql);
+                        pstmt.setInt(1, bed_id);
+                        pstmt.setInt(2, Integer.parseInt(patient_id));
+                        pstmt.setString(3, start_date);
+                        if (end_date.equals("")) {
+                            pstmt.setString(4, null);
+                        } else {
+                            pstmt.setString(4, end_date);
+                        }
+                        pstmt.executeUpdate();
+
+                        pstmt.clearParameters();
+
+                        /* Get patient name of the inserted record avobe */
+                        sql = "SELECT first_name, middle_name, last_name FROM users u"
+                            + " INNER JOIN (SELECT id, user_id FROM patients) p"
+                            + " ON u.id = p.user_id WHERE p.id = ?";
+                        pstmt = conn.prepareStatement(sql);
+                        pstmt.setInt(1, Integer.parseInt(patient_id));
+                        rs = pstmt.executeQuery();
+
+                        if (rs.next()) {
+                            firstname = rs.getString(1);
+                            middlename = rs.getString(2);
+                            lastname = rs.getString(3);
+                        } else {
+                            validationMap.put("registration", "failed");
+                            request.setAttribute("validationMap", validationMap);
+                            request.getRequestDispatcher("/NewMedicalFile.jsp").forward(request, response);
+                        }
+
+                        pstmt.clearParameters();
+
+                        /* Get rooms.name and rooms.floor of the inserted record avobe */
+                        sql = "SELECT r.name, r.floor FROM beds b"
+                            + " INNER JOIN (SELECT id, name, floor FROM rooms) r"
+                            + " ON b.room_id = r.id"
+                            + " WHERE b.id = ?";
+                        pstmt = conn.prepareStatement(sql);
+                        pstmt.setInt(1, bed_id);
+                        rs = pstmt.executeQuery();
+
+                        if (rs.next()) {
+                            room_name = rs.getString(1);
+                            floor = rs.getInt(2);
+                        } else {
+                            validationMap.put("registration", "failed");
+                            request.setAttribute("validationMap", validationMap);
+                            request.getRequestDispatcher("/NewMedicalFile.jsp").forward(request, response);
+                        }
+
+                        pstmt.clearParameters();
                     }
-                    pstmt.executeUpdate();
-
-                    pstmt.clearParameters();
-
-                    /* Get patient name of the inserted record avobe */
-                    sql = "SELECT first_name, middle_name, last_name FROM users u"
-                        + " INNER JOIN (SELECT id, user_id FROM patients) p"
-                        + " ON u.id = p.user_id WHERE p.id = ?";
-                    pstmt = conn.prepareStatement(sql);
-                    pstmt.setInt(1, Integer.parseInt(patient_id));
-                    rs = pstmt.executeQuery();
-
-                    String firstname = null;
-                    String middlename = null;
-                    String lastname = null;
-                    if (rs.next()) {
-                        firstname = rs.getString(1);
-                        middlename = rs.getString(2);
-                        lastname = rs.getString(3);
-                    } else {
-                        validationMap.put("registration", "failed");
-                        request.setAttribute("validationMap", validationMap);
-                        request.getRequestDispatcher("/NewMedicalFile.jsp").forward(request, response);
-                    }
-
-                    pstmt.clearParameters();
-
-                    /* Get rooms.name and rooms.floor of the inserted record avobe */
-                    sql = "SELECT r.name, r.floor FROM beds b"
-                        + " INNER JOIN (SELECT id, name, floor FROM rooms) r"
-                        + " ON b.room_id = r.id"
-                        + " WHERE b.id = ?";
-                    pstmt = conn.prepareStatement(sql);
-                    pstmt.setInt(1, bed_id);
-                    rs = pstmt.executeQuery();
-
-                    String room_name = null;
-                    int floor = 0;
-                    if (rs.next()) {
-                        room_name = rs.getString(1);
-                        floor = rs.getInt(2);
-                    } else {
-                        validationMap.put("registration", "failed");
-                        request.setAttribute("validationMap", validationMap);
-                        request.getRequestDispatcher("/NewMedicalFile.jsp").forward(request, response);
-                    }
-
-                    pstmt.clearParameters();
 
                     /* Get the registration information from inserted records above, and forward it to NewMedicalFileResult.jsp. */
                     sql = "SELECT"
@@ -317,9 +318,6 @@ public class NewMedicalFile extends HttpServlet {
                     pstmt.setInt(1, Integer.parseInt(patient_id));
                     ResultSet rs = pstmt.executeQuery();
 
-                    String firstname = null;
-                    String middlename = null;
-                    String lastname = null;
                     if (rs.next()) {
                         firstname = rs.getString(1);
                         middlename = rs.getString(2);
@@ -384,7 +382,6 @@ public class NewMedicalFile extends HttpServlet {
             } catch (Exception e) {
                 validationMap.put("registration", "failed");
                 request.setAttribute("validationMap", validationMap);
-                request.getRequestDispatcher("/NewMedicalFile.jsp").forward(request, response);
                 e.printStackTrace();
             }
         } else {
@@ -395,32 +392,24 @@ public class NewMedicalFile extends HttpServlet {
     }
 
     protected boolean validatePatientId(String patient_id) {
-        if (patient_id.equals(null) || patient_id.equals("")) {
-            validationMap.put("patient_id", "empty");
-            return false;
-        } else if (Pattern.compile("^[0-9]{1,}$").matcher(patient_id).find() == false) {  // must be a number
-            validationMap.put("patient_id", "invalid format");
-            return false;
-        } else {
-            try {
-                String sql = "SELECT id FROM patients WHERE id = ?";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
+        try {
+            String sql = "SELECT id FROM patients WHERE id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
 
-                pstmt.setInt(1, Integer.parseInt(patient_id));
-                ResultSet rs = pstmt.executeQuery();
+            pstmt.setInt(1, Integer.parseInt(patient_id));
+            ResultSet rs = pstmt.executeQuery();
 
-                if (rs.next()) {
-                    validationMap.put("patient_id", "OK");
-                    return true;
-                } else {
-                    validationMap.put("patient_id", "not found");
-                    return false;
-                }
-            } catch (SQLException e) {
-                   validationMap.put("patient_id", "not found");
-                log("SQLException:" + e.getMessage());
-                   return false;
+            if (rs.next()) {
+                validationMap.put("patient_id", "OK");
+                return true;
+            } else {
+                validationMap.put("patient_id", "not found");
+                return false;
             }
+        } catch (SQLException e) {
+            validationMap.put("patient_id", "not found");
+            log("SQLException:" + e.getMessage());
+            return false;
         }
     }
 
@@ -441,28 +430,12 @@ public class NewMedicalFile extends HttpServlet {
         }        
     }
 
-    protected boolean validateVisitDate(String visit_date) {
-        if (visit_date.equals(null) || visit_date.equals("")) {
-            validationMap.put("visit_date", "empty");
-            return false;
-        } else if (Pattern.compile("^[0-9]{2}/[0-9]{2}/[0-9]{4}").matcher(visit_date).find() == false) {  // must be MM/DD/YYYY
-            validationMap.put("visit_date", "invalid format");
-            return false;
-        } else {
-            validationMap.put("visit_date", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateBedName(String bed_name) {
-        if (bed_name.contains("'") || bed_name.contains(";")) {
-            validationMap.put("bed_name", "illegal characters");
-            return false;
-        } else if (bed_name.equals("")) {
+    protected boolean validateBedName(String bed_name) { 
+        if (bed_name.equals("")) {
             validationMap.put("bed_name", "OK");
             return true;
         } else {
-            try {
+        	try {
                 String sql = "SELECT id FROM beds WHERE name = ?";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, bed_name);
@@ -480,102 +453,6 @@ public class NewMedicalFile extends HttpServlet {
                 log("SQLException:" + e.getMessage());
                 return false;
             }
-        }
-    }
-
-    protected boolean validateStartDate(String start_date) {
-        if (!start_date.equals("")
-            && Pattern.compile("^[0-9]{2}/[0-9]{2}/[0-9]{4}").matcher(start_date).find() == false) {  // must be MM/DD/YYYY
-            validationMap.put("start_date", "invalid format");
-            return false;
-        } else {
-            validationMap.put("start_date", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateEndDate(String end_date) {
-        if (!end_date.equals("")
-            && Pattern.compile("^[0-9]{2}/[0-9]{2}/[0-9]{4}").matcher(end_date).find() == false) {  // must be MM/DD/YYYY
-            validationMap.put("end_date", "invalid format");
-            return false;
-        } else {
-            validationMap.put("end_date", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateDisease(String disease) {
-        if (disease.equals(null) || disease.equals("")) {
-            validationMap.put("disease", "empty");
-            return false;
-        } else if (disease.length() > 500) {
-            validationMap.put("disease", "too long");
-            return false;
-        } else if (disease.contains("'") || disease.contains(";")) {
-            validationMap.put("disease", "illegal characters");
-            return false;
-        } else {
-            validationMap.put("disease", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateTreatment(String treatment) {
-        if (treatment.equals(null) || treatment.equals("")) {
-            validationMap.put("treatment", "empty");
-            return false;
-        } else if (treatment.length() > 1000) {
-            validationMap.put("treatment", "too long");
-            return false;
-        } else if (treatment.contains("'") || treatment.contains(";")) {
-            validationMap.put("treatment", "illegal characters");
-            return false;
-        } else {
-            validationMap.put("treatment", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateMedicineName(String medicine_name) {
-        if (medicine_name.length() > 500) {
-            validationMap.put("medicine_name", "too long");
-            return false;
-        } else if (medicine_name.contains("'") || medicine_name.contains(";")) {
-            validationMap.put("medicine_name", "illegal characters");
-            return false;
-        } else {
-            validationMap.put("medicine_name", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateNotes(String notes) {
-        if (notes.length() > 1000) {
-            validationMap.put("notes", "too long");
-            return false;
-        } else if (notes.contains("'") || notes.contains(";")) {
-            validationMap.put("notes", "illegal characters");
-            return false;
-        } else {
-            validationMap.put("notes", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateBillingAmount(String billing_amount) {
-        if (billing_amount.equals(null) || billing_amount.equals("")) {
-            validationMap.put("billing_amount", "empty");
-            return false;
-        } else if (billing_amount.length() > 30) {
-            validationMap.put("billing_amount", "too long");
-            return false;
-        } else if (Pattern.compile("[0-9]{1,27}.[0-9]{2}").matcher(billing_amount).find() == false){
-            validationMap.put("billing_amount", "invalid format");
-            return false;
-        } else {
-            validationMap.put("billing_amount", "OK");
-            return true;
         }
     }
 }

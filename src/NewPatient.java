@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -83,18 +82,11 @@ public class NewPatient extends HttpServlet {
 
         validationMap.clear();
 
-        boolean checkFirstname = validateFirstname(firstname);
-        boolean checkMiddlename = validateMiddlename(middlename);
-        boolean checkLastname = validateLastname(lastname);
+        boolean checkName = validateName(firstname, lastname);
         boolean checkSSN = validateSSN(ssn);
-        boolean checkDate = validateDate(date);
         boolean checkDoctor = validateDoctor(doctor_firstname, doctor_lastname);
-        boolean checkAddress = validateAddress(address);
-        boolean checkInsurance = validateInsurance(insurance);
 
-        if (checkFirstname && checkMiddlename && checkLastname && checkSSN
-                && checkDate && checkDoctor && checkAddress && checkInsurance) {
-
+        if (checkName && checkSSN && checkDoctor) {
             try {
                 /* Insert the form data to users table. */
                 String sql = "INSERT INTO"
@@ -231,7 +223,6 @@ public class NewPatient extends HttpServlet {
             } catch (Exception e) {
                 validationMap.put("registration", "failed");
                 request.setAttribute("validationMap", validationMap);
-                request.getRequestDispatcher("/NewPatient.jsp").forward(request, response);
                 e.printStackTrace();
             }
 
@@ -243,153 +234,76 @@ public class NewPatient extends HttpServlet {
 
     }
 
-    protected boolean validateFirstname(String firstname) {
-        if (Pattern.compile(".*[0-9].*").matcher(firstname).find() || Pattern.compile(".*\\s.*").matcher(firstname).find()
-                || firstname.contains("'") || firstname.contains(";")) {
-            validationMap.put("firstname", "illegal characters");
-            return false;
-        } else if (firstname.equals(null) || firstname.equals("")) {
-            validationMap.put("firstname", "empty");
-            return false;
-        } else if (firstname.length() > 30) {
-            validationMap.put("firstname", "too long");
-            return false;
-        } else {
-            validationMap.put("firstname", "OK");
-            return true;
-        }
-    }
+    protected boolean validateName(String firstname, String lastname) {
+        try {
+            String sql = "SELECT id FROM users WHERE first_name = ? AND last_name = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
 
-    protected boolean validateMiddlename(String middlename) {
-        if (Pattern.compile(".*[0-9].*").matcher(middlename).find() || Pattern.compile(".*\\s.*").matcher(middlename).find()
-                || middlename.contains("'") || middlename.contains(";")) {
-            validationMap.put("middlename", "illegal characters");
-            return false;
-        } else if (middlename.length() > 30) {
-            validationMap.put("middlename", "too long");
-            return false;
-        } else {
-            validationMap.put("middlename", "OK");
-            return true;
-        }
-    }
+            pstmt.setString(1, firstname);
+            pstmt.setString(2, lastname);
+            ResultSet rs = pstmt.executeQuery();
 
-    protected boolean validateLastname(String lastname) {
-        if (Pattern.compile(".*[0-9].*").matcher(lastname).find() || Pattern.compile(".*\\s.*").matcher(lastname).find()
-                || lastname.contains("'") || lastname.contains(";")) {
-            validationMap.put("lastname", "illegal characters");
-            return false;
-        } else if (lastname.equals(null) || lastname.equals("")) {
-            validationMap.put("lastname", "empty");
-            return false;
-        } else if (lastname.length() > 30) {
-            validationMap.put("lastname", "too long");
-            return false;
-        } else {
-            validationMap.put("lastname", "OK");
-            return true;
+            if (rs.next()) {
+                validationMap.put("name", "in use");
+                return false;
+            } else {
+                validationMap.put("name", "OK");
+                return true;
+            }
+        } catch (SQLException e) {
+               validationMap.put("name", "in use");
+            log("SQLException:" + e.getMessage());
+               return false;
         }
     }
 
     protected boolean validateSSN(String ssn) {
-        if (Pattern.compile(".*\\s.*").matcher(ssn).find() || ssn.contains("'") || ssn.contains(";")) {
-            validationMap.put("ssn", "illegal characters");
-            return false;
-        } else if (ssn.equals(null) || ssn.equals("")) {
-            validationMap.put("ssn", "empty");
-            return false;
-        } else if (Pattern.compile("^[0-9]{9}").matcher(ssn).find() == false) {
-            validationMap.put("ssn", "invalid format");
-            return false;
-        } else {
-            try {
-                String sql = "SELECT id FROM users WHERE social_security_number = ?";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
+        try {
+            String sql = "SELECT id FROM users WHERE social_security_number = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
 
-                pstmt.setString(1, ssn);
-                ResultSet rs = pstmt.executeQuery();
+            pstmt.setString(1, ssn);
+            ResultSet rs = pstmt.executeQuery();
 
-                if (rs.next()) {
-                    validationMap.put("ssn", "in use");
-                    return false;
-                } else {
-                    validationMap.put("ssn", "OK");
-                    return true;
-                }
-            } catch (SQLException e) {
-                   validationMap.put("ssn", "in use");
-                log("SQLException:" + e.getMessage());
-                   return false;
+            if (rs.next()) {
+                validationMap.put("ssn", "in use");
+                return false;
+            } else {
+                validationMap.put("ssn", "OK");
+                return true;
             }
-        }
-    }
-
-    protected boolean validateDate(String date) {
-        if (date.equals(null) || date.equals("")) {
-            validationMap.put("date", "empty");
-            return false;
-        } else if (Pattern.compile("^[0-9]{2}/[0-9]{2}/[0-9]{4}").matcher(date).find() == false) {  // must be MM/DD/YYYY
-            validationMap.put("date", "invalid format");
-            return false;
-        } else {
-            validationMap.put("date", "OK");
-            return true;
+        } catch (SQLException e) {
+               validationMap.put("ssn", "in use");
+            log("SQLException:" + e.getMessage());
+               return false;
         }
     }
 
     protected boolean validateDoctor(String doctor_firstname, String doctor_lastname) {
-        if (doctor_firstname.equals(null) || doctor_firstname.equals("")) {
-            validationMap.put("doctor_firstname", "empty");
-            return false;
-        } else if (doctor_lastname.equals(null) || doctor_lastname.equals("")) {
-            validationMap.put("doctor_lastname", "empty");
-            return false;
-        } else {
-            try {
-                String sql = "SELECT id FROM users"
-                           + " WHERE id IN (SELECT user_id FROM staff"
-                           + " WHERE id IN (SELECT staff_id FROM doctors)) AND first_name = ? AND last_name = ?";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
+        try {
+            String sql = "SELECT id FROM users"
+                       + " WHERE id IN (SELECT user_id FROM staff"
+                       + " WHERE id IN (SELECT staff_id FROM doctors)) AND first_name = ? AND last_name = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
 
-                pstmt.setString(1, doctor_firstname);
-                pstmt.setString(2, doctor_lastname);
-                ResultSet rs = pstmt.executeQuery();
+            pstmt.setString(1, doctor_firstname);
+            pstmt.setString(2, doctor_lastname);
+            ResultSet rs = pstmt.executeQuery();
 
-                if (rs.next()) {
-                    validationMap.put("doctor_firstname", "OK");
-                    validationMap.put("doctor_lastname", "OK");
-                    return true;
-                } else {
-                    validationMap.put("doctor_firstname", "not found");
-                    validationMap.put("doctor_lastname", "not found");
-                    return false;
-                }
-            } catch (SQLException e) {
+            if (rs.next()) {
+                validationMap.put("doctor_firstname", "OK");
+                validationMap.put("doctor_lastname", "OK");
+                return true;
+            } else {
                 validationMap.put("doctor_firstname", "not found");
                 validationMap.put("doctor_lastname", "not found");
-                log("SQLException:" + e.getMessage());
                 return false;
             }
-        }
-    }
-
-    protected boolean validateAddress(String address) {
-        if (address.length() > 100) {
-            validationMap.put("address", "too long");
+        } catch (SQLException e) {
+            validationMap.put("doctor_firstname", "not found");
+            validationMap.put("doctor_lastname", "not found");
+            log("SQLException:" + e.getMessage());
             return false;
-        } else {
-            validationMap.put("address", "OK");
-            return true;
-        }
-    }
-
-    protected boolean validateInsurance(String insurance) {
-        if (insurance.length() > 100) {
-            validationMap.put("insurance", "too long");
-            return false;
-        } else {
-            validationMap.put("insurance", "OK");
-            return true;
         }
     }
 }
