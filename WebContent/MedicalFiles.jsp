@@ -42,7 +42,7 @@
     <%
         if (patient_type == 0) {
             if (validationMap.get("medical_file") == "found") {
-                out.println("<table border=1>");
+                out.println("<table class='landscape'");
                 out.println("    <tr>");
                 out.println("        <th>Date of Visit</th>");
                 out.println("        <th>Patient ID</th>");

@@ -65,7 +65,7 @@
     <% String pathToNewRoom = request.getContextPath() + "/NewRoom"; %>
     <form name="newroom" action="<%=pathToNewRoom%>" method="POST">
         <h2>New Room</h2>
-        <table>
+        <table class='portrait'>
             <tr>
                 <th>Room Name:</th>
                 <td><input type="text" name="room_name" value="" required></td>

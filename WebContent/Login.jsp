@@ -23,7 +23,7 @@
     </header>
     <% String pathToLogin = request.getContextPath() + "/Login"; %>
     <form method="POST" action="<%=pathToLogin%>" >
-    <table>
+    <table class='portrait'>
         <tr>
             <td>Login Name:</td>
             <td><input type="text" name="user" size="32"></td>

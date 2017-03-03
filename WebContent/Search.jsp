@@ -64,7 +64,7 @@
     <% String pathToSearchUser = request.getContextPath() + "/SearchUser"; %>
     <% String pathToSearchMedicalFiles = request.getContextPath() + "/SearchMedicalFiles"; %>
     <form method="POST" action="<%=pathToSearchUser%>" id="searchForm">
-    <table>
+    <table class='portrait'>
         <tr>
             <td>Search for</td>
             <td>

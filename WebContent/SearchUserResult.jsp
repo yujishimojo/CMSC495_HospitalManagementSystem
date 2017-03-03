@@ -67,7 +67,7 @@
     <%
         if (!profile.isEmpty()) {
             if (searchUserRole == 0) {   // administrator
-                out.println("<table>");
+                out.println("<table class='portrait'>");
                 out.println("    <tr><th>Role:</th><td>" + profile.get(0) + "</td></tr>");
                 out.println("    <tr><th>User ID:</th><td>" + profile.get(1) + "</td></tr>");
                 out.println("    <tr><th>Login Name:</th><td>" + profile.get(2) + "</td></tr>");
@@ -77,7 +77,7 @@
                 out.println("    <tr><th>Address:</th><td>" + profile.get(6) + "</td></tr>");
                 out.println("</table>");
             } else if (searchUserRole == 1) {   // medical staff
-                out.println("<table>");
+                out.println("<table class='portrait'>");
                 out.println("    <tr><th>Role:</th><td>" + profile.get(0) + "</td></tr>");
                 out.println("    <tr><th>Staff ID:</th><td>" + profile.get(1) + "</td></tr>");
                 if (doctor_id != 0) {
@@ -99,7 +99,7 @@
                     out.println("    <tr><th>Clock out time:</th><td>" + shift.get(1) + "</td></tr>");
                     out.println("    <tr><th>Status:</th><td>" + shift.get(2) + "</td></tr>");
                 }
-                out.println("</table>");
+                out.println("</table class='portrait'>");
             } else if (searchUserRole == 2) {   // patient
                 out.println("<table>");
                 out.println("    <tr><th>Role:</th><td>" + profile.get(0) + "</td></tr>");

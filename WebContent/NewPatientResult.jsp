@@ -63,7 +63,7 @@
     </header>
     <h2>Registration Successful</h2>
     <!-- table version -->
-	<table>
+	<table class='portrait'>
 		<tr>
 			<th>Patient ID:</th>
 			<td><%out.print(list.get(0));%></td>

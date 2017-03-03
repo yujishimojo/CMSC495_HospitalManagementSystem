@@ -68,7 +68,7 @@
     <%
         if (!profile.isEmpty()) {
             if (role.equals("admin")) {   // administrator
-                out.println("<table>");
+                out.println("<table class='portrait'>");
                 out.println("    <tr><th>Role:</th><td>" + profile.get(0) + "</td></tr>");
                 out.println("    <tr><th>User ID:</th><td>" + profile.get(1) + "</td></tr>");
                 out.println("    <tr><th>Login Name:</th><td>" + profile.get(2) + "</td></tr>");
@@ -78,7 +78,7 @@
                 out.println("    <tr><th>Address:</th><td>" + profile.get(6) + "</td></tr>");
                 out.println("</table>");
             } else if (role.equals("staff")) {   // medical staff
-                out.println("<table>");
+                out.println("<table class='portrait'>");
                 out.println("    <tr><th>Role:</th><td>" + profile.get(0) + "</td></tr>");
                 out.println("    <tr><th>Staff ID:</th><td>" + profile.get(1) + "</td></tr>");
                 if (doctor_id != 0) {
@@ -102,7 +102,7 @@
                 }
                 out.println("</table>");
             } else if (role.equals("patient")) {   // patient
-                out.println("<table>");
+                out.println("<table class='portrait'>");
                 out.println("    <tr><th>Role:</th><td>" + profile.get(0) + "</td></tr>");
                 out.println("    <tr><th>Patient ID:</th><td>" + profile.get(1) + "</td></tr>");
                 out.println("    <tr><th>Login Name:</th><td>" + profile.get(2) + "</td></tr>");

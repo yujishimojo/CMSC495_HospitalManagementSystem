@@ -62,7 +62,7 @@
         </div>
     </header>
     <h2>Registration Successful</h2>
-	<table>
+	<table class="portrait">
 		<tr>
 			<th>Bed ID:</th>
 			<td><%out.print(list.get(0));%></td>

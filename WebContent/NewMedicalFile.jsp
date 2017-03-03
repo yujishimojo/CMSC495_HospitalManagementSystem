@@ -8,6 +8,7 @@
     <title>CMSC 495 - Group 4</title>
     <link rel="stylesheet" href="css/styles.css"/>
     <script src="js/validateForms.js"></script>
+    <script src="js/changeNameAttributes.js"></script>
 </head>
 <body onload="defaultDate('vdate')">
 
@@ -126,7 +127,7 @@
         
         <div class="field">
             <input type="hidden" name="ambulance" value="off">
-            <input type="checkbox" name="ambulance" value="on"> Ambulance Service Used
+            <input type="checkbox" id="cb-ambulance" name="ambulance" value="on"> Ambulance Service Used
         </div>
         
         <div class="field">
@@ -158,7 +159,7 @@
             Medicine Name<br>
             <input type="text" name="medicine_name" value="">
             <small><input type="hidden" name="medicine_given" value="off">
-            <input type="checkbox" name="medicine_given" value="on"> Administered</small>
+            <input type="checkbox" id="cb-medicine" name="medicine_given" value="on"> Administered</small>
         </div>
         <!-- 
         <div class="field">
@@ -188,6 +189,6 @@
 
     <% String pathToLogout = request.getContextPath() + "/Logout"; %>
     <input type="button" value="Logout" align="right" onClick="location.href='<%=pathToLogout%>'">
-    
+
 </body>
 </html>

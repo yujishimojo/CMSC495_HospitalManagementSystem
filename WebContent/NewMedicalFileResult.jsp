@@ -68,7 +68,7 @@
    <%
         if (patient_type == 0) {
             if (!list.isEmpty()) {
-                out.println("<table>");
+                out.println("<table class='portrait'>");
                 out.println("    <tr><th>Patient ID:</th><td>" + list.get(0) + "</td></tr>");
                 out.println("    <tr><th>Patient Name:</th><td>" + list.get(1) + "</td></tr>");
                 out.println("    <tr><th>Date of Visit:</th><td>" + list.get(2) + "</td></tr>");
@@ -84,7 +84,7 @@
                 out.println("    <tr><th>Treatment:</th><td>" + list.get(7) + "</td></tr>");
                 out.println("    <tr><th>Medicine Given:</th><td>" + medicine.get(0) + "</td></tr>");
                 if (medicine.get(0).equals("Yes")) {
-                    out.println("    <li>Medicine Name:</th><td>" + medicine.get(1) + "</td></tr>");
+                    out.println("    <tr><th>Medicine Name:</th><td>" + medicine.get(1) + "</td></tr>");
                 }
                 out.println("    <tr><th>Medical Notes:</th><td>" + list.get(10) + "</td></tr>");
                 out.println("    <tr><th>Ambulance Service:</th><td>" + list.get(8) + "</td></tr>");
@@ -93,7 +93,7 @@
             }
         } else if (patient_type == 1) {
             if (!list.isEmpty()) {
-                out.println("<table>");
+                out.println("<table class='portrait'>");
                 out.println("    <tr><th>Patient ID:</th><td>" + list.get(0) + "</td></tr>");
                 out.println("    <tr><th>Patient Name:</th><td>" + list.get(1) + "</td></tr>");
                 out.println("    <tr><th>Date of Visit:</th><td>" + list.get(2) + "</td></tr>");
@@ -101,7 +101,7 @@
                 out.println("    <tr><th>Treatment:</th><td>" + list.get(4) + "</td></tr>");
                 out.println("    <tr><th>Medicine Given:</th><td>" + medicine.get(0) + "</td></tr>");
                 if (medicine.get(0).equals("Yes")) {
-                    out.println("    <li>Medicine Name:</th><td>" + medicine.get(1) + "</td></tr>");
+                    out.println("    <tr><th>Medicine Name:</th><td>" + medicine.get(1) + "</td></tr>");
                 }
                 out.println("    <tr><th>Medical Notes:</th><td>" + list.get(7) + "</td></tr>");
                 out.println("    <tr><th>Ambulance Service:</th><td>" + list.get(5) + "</td></tr>");

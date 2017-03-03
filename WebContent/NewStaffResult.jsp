@@ -66,7 +66,7 @@
     <h2>Registration Successful</h2>
     <%
          if (!profile.isEmpty()) {
-             out.println("<table>");
+             out.println("<table class='portrait'>");
              out.println("    <tr><th>Staff ID:</th><td>" + profile.get(0) + "</td></tr>");
              out.println("    <tr><th>Staff Type:</th><td>" + profile.get(13) + "</td></tr>");
              if (doctor_id != 0) {

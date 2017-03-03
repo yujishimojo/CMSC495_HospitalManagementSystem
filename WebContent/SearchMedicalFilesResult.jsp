@@ -65,7 +65,7 @@
     <%
         if (patient_type == 0) {
             if (!map.isEmpty()) {
-                out.println("<table border=1>");
+                out.println("<table class='landscape'>");
                 out.println("    <tr>");
                 out.println("        <th>Date of Visit</th>");
                 out.println("        <th>Patient ID</th>");
@@ -112,7 +112,7 @@
             }
         } else if (patient_type == 1) {
             if (!map.isEmpty()) {
-                out.println("<table border=1>");
+                out.println("<table class='landscape'>");
                 out.println("    <tr>");
                 out.println("        <th>Date of Visit</th>");
                 out.println("        <th>Patient ID</th>");
