@@ -1,5 +1,5 @@
 function defaultDate(id){
-	//Get Current date and set as default value in date field
+	// Get Current date and set as default value in date field
 	var d = new Date();
 	var m = d.getMonth()+1;
 	var date = d.getDate()
@@ -15,7 +15,7 @@ function defaultDate(id){
 }
 
 function checkCharacters(str){
-	//Check for invalid characters
+	// Check for invalid characters
     if (str.indexOf(";") > -1 || str.indexOf("'") > -1){
         return false;
     }
@@ -23,7 +23,7 @@ function checkCharacters(str){
 }
 
 function validDate(x){
-	var y, z; //Temporary variables to store form input
+	var y, z; // Temporary variables to store form input
 	var re = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/;
 	
     if (x != "" && !(x.match(re))){
@@ -33,41 +33,41 @@ function validDate(x){
 }
 
 function generalValidation(form){
-	//Remove errors from previous validation (this method should run before any other)
+	// Remove errors from previous validation (this method should run before any other)
 	var errorMessages = ""; 
     var valid = true;
 	
-	var x, y, z; //Temporary variables to store form input
+	var x, y, z;  // Temporary variables to store form input
 	
-	//No need to check for blank required fields
-	//There is a required attribute being used on the forms themselves
+	// No need to check for blank required fields
+	// There is a required attribute being used on the forms themselves
 	
-	//Get names
+	// Get names
     x = form.firstname.value;
     y = form.middlename.value;
     z = form.lastname.value;
     
-    //Check name length
+    // Check name length
     if(x.length > 30 || y.length > 30 || z.length > 30){
         errorMessages += "<br> Name lengths may not exceed 30 characters.";
         valid = false;
     }
-    //Check names for invalid characters
+    // Check names for invalid characters
     if (!(checkCharacters(x) && checkCharacters(y) && checkCharacters(z))){
     	errorMessages += "<br> Input cannot contain ' or ;";
     	valid = false;
     }
 	
-    //Check for valid ssn
-    x = form.ssn.value; //Get ssn
-    x = x.replace(/[^0-9]/g, "");  //removes all non-numeric characters
-    if (x.length != 9){//checks that there are 9 digits
+    // Check for valid ssn
+    x = form.ssn.value;  // get ssn
+    x = x.replace(/[^0-9]/g, "");  // removes all non-numeric characters
+    if (x.length != 9){  // checks that there are 9 digits
         errorMessages += "<br> SSN should have exactly 9 numeric digits";
         valid = false;
     }
-    form.ssn.value = x; //replace original input with purely numeric ssn 
+    form.ssn.value = x; // replace original input with purely numeric ssn 
 
-    //Validate address
+    // Validate address
     x = form.address.value;
     if(x.length > 100){
         errorMessages += "<br> Address length may not exceed 100 characters.";
@@ -75,15 +75,15 @@ function generalValidation(form){
     }
     
     if(form.pass1.value != form.pass2.value){
-    	form.pass1.value = "";//clear old passwords
+    	form.pass1.value = "";  // clear old passwords
     	form.pass2.value = "";
         errorMessages += "<br> Passwords must match";
         valid = false;
     }
-    //Do we want any additional password requirements? 
+    // Do we want any additional password requirements? 
     
     
-	//Display results on page
+	// Display results on page
 	if (valid == false){
     	document.getElementById("error-message").style.display = "block";
     	document.getElementById("errors1").innerHTML = errorMessages;
@@ -91,31 +91,30 @@ function generalValidation(form){
     	document.getElementById("errors1").innerHTML = "";
     	document.getElementById("error-message").style.display = "none";
 	}
-	//Form will only submit if valid
+	// Form will only submit if valid
 	return valid;
 }
 
 function newPatientValidation(form){
 	var valid = generalValidation(form);
-	//Do not remove error message from previous validation
+	// Do not remove error message from previous validation
 	var errorMessages = "";
 	var x, y, z; //Temporary variables to store form input
 	
-    //Validate Date
+    // Validate Date
 	if (!validDate(form.date.value)){
 		errorMessages += "<br> Invalid Date (MUST BE MM/DD/YYYY)";
         valid = false;
 	}
 	
-    //Display results on page
+    // Display results on page
     if (valid == false){
     	document.getElementById("error-message").style.display = "inline-block";
     	document.getElementById("errors2").innerHTML = errorMessages;
-    	//alert("Invalid Input");
 	} else {
     	document.getElementById("error-message").style.display = "none";
     	document.getElementById("errors2").innerHTML = "";
-//    	alert("Valid input entered."+"\n"+"Form will be submitted");
+    	// alert("Valid input entered."+"\n"+"Form will be submitted");
 	}
 	return valid;
 }
@@ -123,11 +122,11 @@ function newPatientValidation(form){
 
 function newStaffValidation(form){
 	var valid = generalValidation(form);
-	//Do not remove error message from previous validation
+	// Do not remove error message from previous validation
 	var errorMessages = "";
 	var x, y, z; //Temporary variables to store form input
 	
-	//Check for valid date
+	// Check for valid date
 	if (!validDate(form.certexpiration.value)){
 		errorMessages += "<br> Invalid Date (MUST BE MM/DD/YYYY)";
         valid = false;
@@ -157,7 +156,7 @@ function newStaffValidation(form){
         valid = false;
 	}
 
-	// regular expression to match required time format
+	// Regular expression to match required time format
     var re = /^\d{1,2}:\d{2}:\d{2}$/;
     if ((form.clockin.value != "" && !(form.clockin.value.match(re))) || 
     		(form.clockout.value != "" && !(form.clockout.value.match(re)))){
@@ -165,44 +164,44 @@ function newStaffValidation(form){
         valid = false;
 	}
 
-    //clockout value must be blank if clockin is blank
+    // Clockout value must be blank if clockin is blank
     if (form.clockout.value != "" && form.clockin.value == ""){
     	errorMessages += "<br> Clock out time may not be entered without clock in time";
         valid = false;
     }
 
-    //Display results on page
+    // Display results on page
     if (valid == false){
     	document.getElementById("error-message").style.display = "block";
     	document.getElementById("errors2").innerHTML = errorMessages;
 	} else {
     	document.getElementById("error-message").style.display = "none";
     	document.getElementById("errors2").innerHTML = "";
-//    	alert("Valid input entered."+"\n"+"Form will be submitted");
+    	// alert("Valid input entered."+"\n"+"Form will be submitted");
 	}
 	return valid;
 }
 
 function newMedicalFileValidation(form){
-	//Remove errors from previous validation (this method should run before any other)
+	// Remove errors from previous validation (this method should run before any other)
 	var errorMessages = ""; 
     var valid = true;
 
-	// regular expression to match required patient ID format
+	// Regular expression to match required patient ID format
     var re = /^\d{1,}$/;
     if ((form.patient_id != "" && !(form.patient_id.value.match(re)))){
 		errorMessages += "<br> Patient ID must be a number.";
         valid = false;
 	}
 
-    //Check for valid dates
+    // Check for valid dates
 	if (!(validDate(form.vdate.value) && validDate(form.start_date.value)
 			&& validDate(form.start_date.value))){
 		errorMessages += "<br> Invalid Date (MUST BE MM/DD/YYYY)";
         valid = false;
 	}
 
-    //end bed date value must be blank if start bed date is blank
+    // End bed date value must be blank if start bed date is blank
     if (form.end_date.value != "" && form.start_date.value == ""){
     	errorMessages += "<br> End bed date may not be entered without start bed date";
         valid = false;
@@ -229,6 +228,12 @@ function newMedicalFileValidation(form){
         valid = false;
 	}
 
+    // Administered checkbox must be checked if medicine name is not blank
+    if (form.medicine_name.value != "" && form.medicine_given[1].checked == false){
+    	errorMessages += "<br> Administered must be checked if medicine name is entered";
+        valid = false;
+    }
+
 	if (form.notes.value.length > 1000){
 		errorMessages += "<br> Notes must be under 1000 characters";
         valid = false;
@@ -239,15 +244,14 @@ function newMedicalFileValidation(form){
         valid = false;
 	}
 
-    //Display results on page
+    // Display results on page
     if (valid == false){
     	document.getElementById("error-message").style.display = "inline-block";
     	document.getElementById("errors2").innerHTML = errorMessages;
-    	//alert("Invalid Input");
 	} else {
     	document.getElementById("error-message").style.display = "none";
     	document.getElementById("errors2").innerHTML = "";
-//    	alert("Valid input entered."+"\n"+"Form will be submitted");
+    	// alert("Valid input entered."+"\n"+"Form will be submitted");
 	}
 	return valid;
 }
