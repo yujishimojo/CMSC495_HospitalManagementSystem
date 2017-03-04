@@ -5,11 +5,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>CMSC 495 - Group 4</title>
+    <title>New Bed</title>
     <link rel="stylesheet" href="css/styles.css"/>
-    <script src="js/validate-form.js"></script>
 </head>
 <body>
+
+    <!-- Check whether logged in and user type -->
     <% String login = (String)session.getAttribute("login"); %>
     <% String role = (String)session.getAttribute("role"); %>
     <%
@@ -21,10 +22,16 @@
             }
         }
     %>
+
+    <!-- Set the path for Home servlet class -->
     <% String pathToHome = request.getContextPath() + "/Home"; %>
+
+    <!-- Get attributes forwarded by NewBed servlet -->
     <% HashMap<String,String> validationMap = (HashMap<String,String>)request.getAttribute("validationMap"); %>
+
+    <!-- Header customized by user type -->
     <header>
-        <a href="index.html"><img src="images/logo_notext.png"></a>
+        <a href="#" onClick="location.href='<%=pathToHome%>'"><img src="images/logo_notext.png"></a>
         <div class="align-vertically">
            <h1>Hygieia</h1>
             <nav>
@@ -62,8 +69,11 @@
             </nav>
         </div>
     </header>
+
+    <!-- Set the path for NewBed servlet -->
     <% String pathToNewBed = request.getContextPath() + "/NewBed"; %>
-    <form name="newbed" action="<%=pathToNewBed%>" method="POST" onsubmit="return validateForm()">
+
+    <form name="newbed" action="<%=pathToNewBed%>" method="POST">
         <h2>New Bed</h2>
         <table class="portrait">
             <tr>
@@ -74,15 +84,21 @@
                 if (validationMap != null && validationMap.get("registration") == "failed") {
                     if (validationMap.get("room_id") == "empty") {
                         out.println("<tr>");
-                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                        out.println("    **This field is requied. Please fill out the field.");
+                        out.println("    </font></em></small></th>");
                         out.println("</tr>");
                     } else if (validationMap.get("room_id") == "invalid format") {
                         out.println("<tr>");
-                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This is not a valid format. The field must be a proper Room ID number.</font></em></small></th>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                        out.println("    **This is not a valid format. The field must be a proper room ID number.");
+                        out.println("    </font></em></small></th>");
                         out.println("</tr>");
                     } else if (validationMap.get("room_id") == "not found") {
                         out.println("<tr>");
-                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This room ID is not found.</font></em></small></th>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                        out.println("    **This room ID is not found.");
+                        out.println("    </font></em></small></th>");
                         out.println("</tr>");
                     }
                 }
@@ -95,15 +111,21 @@
                 if (validationMap != null && validationMap.get("registration") == "failed") {
                     if (validationMap.get("bed_name") == "illegal characters") {
                         out.println("<tr>");
-                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**Bed Name Field contains illegal characters.</font></em></small></th>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                        out.println("    **This field contains illegal characters.");
+                        out.println("    </font></em></small></th>");
                         out.println("</tr>");
                     } else if (validationMap.get("bed_name") == "empty") {
                         out.println("<tr>");
-                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                        out.println("    **This field is requied. Please fill out the field.");
+                        out.println("    </font></em></small></th>");
                         out.println("</tr>");
                     } else if (validationMap.get("bed_name") == "too long") {
                         out.println("<tr>");
-                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 30 characters.</font></em></small></th>");
+                        out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                        out.println("    **This field must be under 30 characters.");
+                        out.println("    </font></em></small></th>");
                         out.println("</tr>");
                     }
                 }
@@ -111,11 +133,12 @@
         </table>
         <br/>
         <input type="submit" value="Submit" />
+        <!-- Set the path for Logout servlet -->
         <% String pathToLogout = request.getContextPath() + "/Logout"; %>
         <input type="button" value="Logout" align="right" onClick="location.href='<%=pathToLogout%>'">
     </form>
     <script>
-        //Get Current date and set as default value in date field
+        // Get Current date and set as default value in date field
         var d = new Date();
         document.getElementById("date").value = d.getMonth()+"/"+d.getFullDate()+"/"+d.getFullYear();
     </script>

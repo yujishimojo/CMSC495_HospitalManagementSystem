@@ -4,11 +4,12 @@
 <!DOCTYPE>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Home</title>
-<link rel="stylesheet" href="css/styles.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
+    <!-- Check whether logged in and user type -->
     <%
         String login = (String)session.getAttribute("login");
         if (login == null || login != "OK") {
@@ -16,13 +17,19 @@
         }
     %>
     <% String role = (String)request.getAttribute("role"); %>
+
+    <!-- Set the path for Home and MedicalFiles servlet classes -->
     <% String pathToHome = request.getContextPath() + "/Home"; %>
     <% String pathToMedicalFiles = request.getContextPath() + "/MedicalFiles"; %>
+
+    <!-- Get attributes forwarded by Home servlet -->
     <% ArrayList<String> profile = (ArrayList<String>)request.getAttribute("profile"); %>
     <% ArrayList<String> shift = (ArrayList<String>)request.getAttribute("shift"); %>
     <% int doctor_id = (int)request.getAttribute("doctor_id"); %>
+
+    <!-- Header customized by user type -->
     <header>
-        <a href="index.html"><img src="images/logo_notext.png"></a>
+        <a href="#" onClick="location.href='<%=pathToHome%>'"><img src="images/logo_notext.png"></a>
         <div class="align-vertically">
             <h1>Hygieia</h1>
             <nav>
@@ -119,6 +126,7 @@
         }
     %>
     <form>
+        <!-- Set the path for Logout servlet -->
         <% String pathToLogout = request.getContextPath() + "/Logout"; %>
         <input type="button" value="Logout" align="right" onClick="location.href='<%=pathToLogout%>'">
     </form>

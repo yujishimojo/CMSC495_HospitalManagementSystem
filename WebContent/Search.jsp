@@ -4,11 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Search Page</title>
-<link rel="stylesheet" href="css/styles.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Search Page</title>
+    <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
+
+    <!-- Check whether logged in and user type -->
     <% String login = (String)session.getAttribute("login"); %>
     <% String role = (String)session.getAttribute("role"); %>
     <%
@@ -20,10 +22,16 @@
             }
         }
     %>
+
+    <!-- Set the path for Home servlet class -->
     <% String pathToHome = request.getContextPath() + "/Home"; %>
+
+    <!-- Get attributes forwarded by SearchUser or SearchMedicalFiles servlet -->
     <% HashMap<String,String> validationMap = (HashMap<String,String>)request.getAttribute("validationMap"); %>
+
+    <!-- Header customized by user type -->
     <header>
-        <a href="index.html"><img src="images/logo_notext.png"></a>
+        <a href="#" onClick="location.href='<%=pathToHome%>'"><img src="images/logo_notext.png"></a>
         <div class="align-vertically">
         <h1>Hygieia</h1>
         <nav>
@@ -61,8 +69,11 @@
         </nav>
         </div>
     </header>
+
+    <!-- Set the path for SearchUser and SearchMedicalFiles servlet classes -->
     <% String pathToSearchUser = request.getContextPath() + "/SearchUser"; %>
     <% String pathToSearchMedicalFiles = request.getContextPath() + "/SearchMedicalFiles"; %>
+
     <form method="POST" action="<%=pathToSearchUser%>" id="searchForm">
     <table class='portrait'>
         <tr>
@@ -82,15 +93,21 @@
             if (validationMap != null) {
                 if (validationMap.get("firstname") == "illegal characters") {
                     out.println("<tr>");
-                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**First Name Field contains illegal characters.</font></em></small></th>");
+                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                    out.println("    **This field contains illegal characters.");
+                    out.println("    </font></em></small></th>");
                     out.println("</tr>");
                 } else if (validationMap.get("firstname") == "empty") {
                     out.println("<tr>");
-                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                    out.println("    **This field is requied. Please fill out the field.");
+                    out.println("    </font></em></small></th>");
                     out.println("</tr>");
                 } else if (validationMap.get("firstname") == "too long") {
                     out.println("<tr>");
-                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 30 characters.</font></em></small></th>");
+                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                    out.println("    **This field must be under 30 characters.");
+                    out.println("    </font></em></small></th>");
                     out.println("</tr>");
                 }
             }
@@ -103,15 +120,21 @@
             if (validationMap != null) {
                 if (validationMap.get("lastname") == "illegal characters") {
                     out.println("<tr>");
-                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**Last Name Field contains illegal characters.</font></em></small></th>");
+                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                    out.println("    **This field contains illegal characters.");
+                    out.println("    </font></em></small></th>");
                     out.println("</tr>");
                 } else if (validationMap.get("lastname") == "empty") {
                     out.println("<tr>");
-                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field is requied. Please fill out the field.</font></em></small></th>");
+                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                    out.println("    **This field is requied. Please fill out the field.");
+                    out.println("    </font></em></small></th>");
                     out.println("</tr>");
                 } else if (validationMap.get("lastname") == "too long") {
                     out.println("<tr>");
-                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**This field must be under 30 characters.</font></em></small></th>");
+                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                    out.println("    **This field must be under 30 characters.");
+                    out.println("    </font></em></small></th>");
                     out.println("</tr>");
                 }
             }
@@ -120,12 +143,16 @@
             if (validationMap != null) {
                 if (validationMap.get("user") == "not found") {
                     out.println("<tr>");
-                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**There are no users that match your search.</font></em></small></th>");
+                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                    out.println("    **There are no users that match your search.");
+                    out.println("    </font></em></small></th>");
                     out.println("</tr>");
                 }
                 if (validationMap.get("medical_file") == "not found") {
                     out.println("<tr>");
-                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">**There are no medical files that match your search.</font></em></small></th>");
+                    out.println("    <th colspan=\"2\" style=\"text-align: center;\"><small><em><font color=\"red\">");
+                    out.println("    **There are no medical files that match your search.");
+                    out.println("    </font></em></small></th>");
                     out.println("</tr>");
                 }
             }

@@ -95,7 +95,7 @@ public class SearchUser extends HttpServlet {
                         profile.add(rs.getString(4));   // middle_name
                         profile.add(rs.getString(5));   // last_name
                         profile.add(rs.getString(6));   // address
-                    	validationMap.put("user", "found");
+                        validationMap.put("user", "found");
                         request.setAttribute("validationMap", validationMap);
                         request.setAttribute("profile", profile);
                         request.setAttribute("shift", shift);
@@ -103,7 +103,7 @@ public class SearchUser extends HttpServlet {
                         request.setAttribute("doctor_id", doctor_id);
                         request.getRequestDispatcher("/SearchUserResult.jsp").forward(request, response);
                     } else {
-                    	validationMap.put("user", "not found");
+                        validationMap.put("user", "not found");
                         request.setAttribute("validationMap", validationMap);
                         request.getRequestDispatcher("/Search.jsp").forward(request, response);
                     }
@@ -152,7 +152,7 @@ public class SearchUser extends HttpServlet {
                             }
                         }
                     } else {
-                    	validationMap.put("user", "not found");
+                        validationMap.put("user", "not found");
                         request.setAttribute("validationMap", validationMap);
                         request.getRequestDispatcher("/Search.jsp").forward(request, response);
                     }
@@ -169,7 +169,7 @@ public class SearchUser extends HttpServlet {
                             shift.add("Emergency");
                         }
                     }
-                	validationMap.put("user", "found");
+                    validationMap.put("user", "found");
                     request.setAttribute("validationMap", validationMap);
                     request.setAttribute("profile", profile);
                     request.setAttribute("shift", shift);
@@ -219,7 +219,7 @@ public class SearchUser extends HttpServlet {
                             profile.add("Outpatient");
                         }
                         profile.add(rs.getString(11));   // insurance
-                    	validationMap.put("search", "successful");
+                        validationMap.put("search", "successful");
                         validationMap.put("user", "found");
                         request.setAttribute("validationMap", validationMap);
                         request.setAttribute("profile", profile);
@@ -228,18 +228,18 @@ public class SearchUser extends HttpServlet {
                         request.setAttribute("doctor_id", doctor_id);
                         request.getRequestDispatcher("/SearchUserResult.jsp").forward(request, response);
                     } else {
-                    	validationMap.put("user", "not found");
+                        validationMap.put("user", "not found");
                         request.setAttribute("validationMap", validationMap);
                         request.getRequestDispatcher("/Search.jsp").forward(request, response);
                     }
                 } catch (Exception e) {
-                	validationMap.put("search", "failed");
+                    validationMap.put("search", "failed");
                     request.setAttribute("validationMap", validationMap);
                     e.printStackTrace();
                 }
             }
         } else {
-        	validationMap.put("search", "failed");
+            validationMap.put("search", "failed");
             request.setAttribute("validationMap", validationMap);
             request.getRequestDispatcher("/Search.jsp").forward(request, response);
         }

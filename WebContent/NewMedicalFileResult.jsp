@@ -4,11 +4,13 @@
 <!DOCTYPE>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>New Medical File Result</title>
-<link rel="stylesheet" href="css/styles.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>New Medical File Result</title>
+    <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
+
+    <!-- Check whether logged in and user type -->
     <% String login = (String)session.getAttribute("login"); %>
     <% String role = (String)session.getAttribute("role"); %>
     <%
@@ -20,13 +22,19 @@
             }
         }
     %>
+
+    <!-- Set the path for Home servlet class -->
     <% String pathToHome = request.getContextPath() + "/Home"; %>
+
+    <!-- Get attributes forwarded by NewMedicalFile servlet -->
     <% ArrayList<String> list = (ArrayList<String>)request.getAttribute("list"); %>
     <% ArrayList<String> medicine = (ArrayList<String>)request.getAttribute("medicine"); %>
     <% ArrayList<String> bedUsage = (ArrayList<String>)request.getAttribute("bedUsage"); %>
     <% int patient_type = (int)request.getAttribute("patient_type"); %>
+
+    <!-- Header customized by user type -->
     <header>
-        <a href="index.html"><img src="images/logo_notext.png"></a>
+        <a href="#" onClick="location.href='<%=pathToHome%>'"><img src="images/logo_notext.png"></a>
         <div class="align-vertically">
             <h1>Hygieia</h1>
             <nav>
@@ -65,7 +73,7 @@
         </div>
     </header>
     <h2>Registration Successful</h2>
-   <%
+    <%
         if (patient_type == 0) {
             if (!list.isEmpty()) {
                 out.println("<table class='portrait'>");

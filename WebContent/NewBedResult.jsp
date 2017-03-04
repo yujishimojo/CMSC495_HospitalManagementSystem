@@ -4,11 +4,13 @@
 <!DOCTYPE>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>New Bed Result</title>
-<link rel="stylesheet" href="css/styles.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>New Bed Result</title>
+    <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
+
+    <!-- Check whether logged in and user type -->
     <% String login = (String)session.getAttribute("login"); %>
     <% String role = (String)session.getAttribute("role"); %>
     <%
@@ -20,10 +22,16 @@
             }
         }
     %>
+
+    <!-- Set the path for Home servlet class -->
     <% String pathToHome = request.getContextPath() + "/Home"; %>
+
+    <!-- Get attributes forwarded by NewBed servlet -->
     <% ArrayList<String> list = (ArrayList<String>)request.getAttribute("list"); %>
+
+    <!-- Header customized by user type -->
     <header>
-        <a href="index.html"><img src="images/logo_notext.png"></a>
+        <a href="#" onClick="location.href='<%=pathToHome%>'"><img src="images/logo_notext.png"></a>
         <div class="align-vertically">
             <h1>Hygieia</h1>
             <nav>
@@ -62,27 +70,27 @@
         </div>
     </header>
     <h2>Registration Successful</h2>
-	<table class="portrait">
-		<tr>
-			<th>Bed ID:</th>
-			<td><%out.print(list.get(0));%></td>
-		</tr>
-		<tr>
-			<th>Bed Name:</th>
-			<td><%out.print(list.get(1));%></td>
-		</tr>
-		<tr>
-			<th>Room ID</th>
-			<td><%out.print(list.get(2));%></td>
-		</tr>
-		<tr>
-			<th>Room Name:</th>
-			<td><%out.print(list.get(3));%></td>
-		</tr>
-		<tr> 
-			<th>Floor:</th>
-			<td><%out.print(list.get(4));%></td>
-		</tr>
-	</table>
+    <table class="portrait">
+        <tr>
+            <th>Bed ID:</th>
+            <td><%out.print(list.get(0));%></td>
+        </tr>
+        <tr>
+            <th>Bed Name:</th>
+            <td><%out.print(list.get(1));%></td>
+        </tr>
+        <tr>
+            <th>Room ID</th>
+            <td><%out.print(list.get(2));%></td>
+        </tr>
+        <tr>
+            <th>Room Name:</th>
+            <td><%out.print(list.get(3));%></td>
+        </tr>
+        <tr> 
+            <th>Floor:</th>
+            <td><%out.print(list.get(4));%></td>
+        </tr>
+    </table>
 </body>
 </html>

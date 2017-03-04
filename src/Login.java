@@ -68,9 +68,9 @@ public class Login extends HttpServlet {
             if (role == 0) {
                 session.setAttribute("role", "admin");
             } else if (role == 1) {
-            	session.setAttribute("role", "staff");
+                session.setAttribute("role", "staff");
             } else if (role == 2) {
-            	session.setAttribute("role", "patient");
+                session.setAttribute("role", "patient");
             }
 
             int user_id = getUserId(user, pass);
@@ -96,7 +96,7 @@ public class Login extends HttpServlet {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-            	return true;
+                return true;
             } else {
                 return false;
             }

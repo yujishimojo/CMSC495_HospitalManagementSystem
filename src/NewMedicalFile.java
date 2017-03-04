@@ -435,7 +435,7 @@ public class NewMedicalFile extends HttpServlet {
             validationMap.put("bed_name", "OK");
             return true;
         } else {
-        	try {
+            try {
                 String sql = "SELECT id FROM beds WHERE name = ?";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, bed_name);

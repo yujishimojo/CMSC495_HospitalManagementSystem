@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>CMSC 495 - Group 4</title>
+    <title>New Patient</title>
     <link rel="stylesheet" href="css/styles.css"/>
     <script src="js/validateForms.js"></script>
 </head>
@@ -23,13 +23,16 @@
             }
         }
     %>
-    
+
+    <!-- Set the path for Home servlet class -->
     <% String pathToHome = request.getContextPath() + "/Home"; %>
+
+    <!-- Get attributes forwarded by NewPatient servlet -->
     <% HashMap<String,String> validationMap = (HashMap<String,String>)request.getAttribute("validationMap"); %>
-    
+
     <!-- Header customized by user type -->
     <header>
-        <a href="index.html"><img src="images/logo_notext.png"></a>
+        <a href="#" onClick="location.href='<%=pathToHome%>'"><img src="images/logo_notext.png"></a>
         <div class="align-vertically">
            <h1>Hygieia</h1>
             <nav>
@@ -84,16 +87,16 @@
                 if (validationMap != null && validationMap.get("registration") == "failed") {
                     boolean errorFound = false;
                     if (validationMap.get("name") == "in use") {
-                        out.println("<br>The first and last names are already in use.");
+                        out.println("<br>First and Last Names are already in use.");
                         errorFound = true;
                     }
                     if (validationMap.get("ssn") == "in use") {
-                        out.println("<br>The SSN is already in use.");
+                        out.println("<br>SSN is already in use.");
                         errorFound = true;
                     }
                     if (validationMap.get("doctor_firstname") == "not found" 
                             || validationMap.get("doctor_lastname") == "not found") {
-                        out.println("<br>This doctor name is not found.");
+                        out.println("<br>Doctor name is not found.");
                         errorFound = true;
                     }
 
@@ -171,5 +174,9 @@
         
         <input type="submit" value="Submit">
     </form>
+
+    <!-- Set the path for Logout servlet -->
+    <% String pathToLogout = request.getContextPath() + "/Logout"; %>
+    <input type="button" value="Logout" align="right" onClick="location.href='<%=pathToLogout%>'">
 </body>
 </html>

@@ -26,10 +26,10 @@ body {
     margin: 8px;
     
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
-	
-	font-weight: italic;
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    
+    font-weight: italic;
 }
 
 header {
@@ -43,17 +43,17 @@ header {
 }
 
 header img {
-	display: block;
-	float: left;
+    display: block;
+    float: left;
 }
 
 h1 {
-	font-size: 3em;
-	margin: 10px;
+    font-size: 3em;
+    margin: 10px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: cinzel, serif;
+    font-family: cinzel, serif;
 }
 
 header img {
@@ -86,21 +86,17 @@ form {
 }
 
 :optional {
-	/*background: #e0eaeb;
-	border-style: solid;
-	border-color: #ccc;*/
-	
-	/*border-style: none;*/
-	background: rgba(255, 255, 255, 0.6);
+    /*border-style: none;*/
+    background: rgba(255, 255, 255, 0.6);
     border-color: #0f585e;
 }
 
 :required {
-	background: white;
+    background: white;
 }
 
 textarea {
-	resize: none;
+    resize: none;
 }
 
 textarea, input {
@@ -133,19 +129,19 @@ form h2 {
 }
 
 .error-message {
-	font-size:small;
-	color: #b30000;
-	font-style: italic;
+    font-size:small;
+    color: #b30000;
+    font-style: italic;
 }
 
 /* 
-	Using divs to group together the field label and input. 
-	Inline blocks will appear multiple per line when space is available
-	but will split to multiple lines when it is not. 
+    Using divs to group together the field label and input. 
+    Inline blocks will appear multiple per line when space is available
+    but will split to multiple lines when it is not. 
  */
 
 .columns {
-	
+    
   -webkit-columns: 3 350px;
      -moz-columns: 3 350px;
           columns: 3 350px;
@@ -153,14 +149,14 @@ form h2 {
   -webkit-column-gap: 3em;
      -moz-column-gap: 3em;
           column-gap: 3em;
-	
-	margin-left: 3em;
-	margin-right: 3em;
+    
+    margin-left: 3em;
+    margin-right: 3em;
 }
 
 .columns p {
     -webkit-column-break-inside: avoid;
-	break-inside: avoid-column;
+    break-inside: avoid-column;
 }
 
 .columns div.field {
@@ -171,14 +167,10 @@ form h2 {
     page-break-inside: avoid;           /* Theoretically FF 20+ */
     break-inside: avoid-column;         /* IE 11 */
     
-	text-align: top;
+    text-align: top;
 }
 
 table {
-	/*
-	margin-left: auto;
-	margin-right: auto;
-	*/
 }
 
 table.landscape, table.landscape th, table.landscape td {
@@ -187,25 +179,25 @@ table.landscape, table.landscape th, table.landscape td {
 }
 
 table.landscape {
-	text-align: center;
+    text-align: center;
 }
 table.landscape th{
-	vertical-align: bottom;
+    vertical-align: bottom;
     background-color: rgba(255, 255, 255, 0.5);
 }
 table.landscape td{
-	vertical-align: top;
+    vertical-align: top;
     background-color: white;
 }
 
 table.portrait th, td{
-	vertical-align: top;
+    vertical-align: top;
 }
 
 table.portrait th {
-	text-align: right;
+    text-align: right;
 }
 
 table.portrait td {
-	text-align: left;
+    text-align: left;
 }

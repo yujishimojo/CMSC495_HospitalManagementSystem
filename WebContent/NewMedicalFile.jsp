@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>CMSC 495 - Group 4</title>
+    <title>New Medical File</title>
     <link rel="stylesheet" href="css/styles.css"/>
     <script src="js/validateForms.js"></script>
     <script src="js/changeNameAttributes.js"></script>
@@ -25,10 +25,15 @@
         }
     %>
 
+    <!-- Set the path for Home servlet class -->
     <% String pathToHome = request.getContextPath() + "/Home"; %>
+
+    <!-- Get attributes forwarded by NewMedicalFile servlet -->
     <% HashMap<String,String> validationMap = (HashMap<String,String>)request.getAttribute("validationMap"); %>
+
+    <!-- Header customized by user type -->
     <header>
-        <a href="index.html"><img src="images/logo_notext.png"></a>
+        <a href="#" onClick="location.href='<%=pathToHome%>'"><img src="images/logo_notext.png"></a>
         <div class="align-vertically">
            <h1>Hygieia</h1>
             <nav>
@@ -82,11 +87,11 @@
                 if (validationMap != null && validationMap.get("registration") == "failed") {
                     boolean errorFound = false;
                     if (validationMap.get("patient_id") == "invalid format") {
-                        out.println("<br>The patient ID is not a valid format. The field must be a proper patient ID number.");
+                        out.println("<br>Patient ID is not a valid format. The field must be a proper patient ID number.");
                         errorFound = true;
                     }
                     if (validationMap.get("patient_id") == "not found") {
-                        out.println("<br>The patient ID is not found.");
+                        out.println("<br>Patient ID is not found.");
                         errorFound = true;
                     }
                     if (validationMap.get("bed_name") == "not found") {
@@ -161,13 +166,6 @@
             <small><input type="hidden" name="medicine_given" value="off">
             <input type="checkbox" id="cb-medicine" name="medicine_given" value="on"> Administered</small>
         </div>
-        <!-- 
-        <div class="field">
-            Medicine Given<br>
-            <input type="hidden" name="medicine_given" value="off">
-            <input type="checkbox" name="medicine_given" value="on"> Medicine Given
-        </div>
-        -->
         
         <div class="field">
             Medical Notes <br>
@@ -187,6 +185,7 @@
         
     </form>
 
+    <!-- Set the path for Logout servlet -->
     <% String pathToLogout = request.getContextPath() + "/Logout"; %>
     <input type="button" value="Logout" align="right" onClick="location.href='<%=pathToLogout%>'">
 
