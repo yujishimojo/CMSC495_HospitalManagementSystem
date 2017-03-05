@@ -29,8 +29,6 @@
 
     <!-- Get attributes forwarded by MedicalFiles servlet -->
     <% HashMap<String,String> validationMap = (HashMap<String,String>)request.getAttribute("validationMap"); %>
-    <% HashMap<Integer,String[]> map = (HashMap<Integer,String[]>)request.getAttribute("map"); %>
-    <% int patient_type = (int)request.getAttribute("patient_type"); %>
 
     <!-- Header customized by user type -->
     <header>
@@ -48,8 +46,12 @@
         </div>
     </header>
     <%
-        if (patient_type == 0) {
-            if (validationMap.get("medical_file") == "found") {
+        if (validationMap.get("medical_file") == "found") {
+            /* Get attributes forwarded by MedicalFiles servlet */
+            HashMap<Integer,String[]> map = (HashMap<Integer,String[]>)request.getAttribute("map");
+            int patient_type = (int)request.getAttribute("patient_type");
+            /* if inpatient */
+            if (patient_type == 0) {
                 out.println("<table class='landscape'");
                 out.println("    <tr>");
                 out.println("        <th>Date of Visit</th>");
@@ -94,11 +96,8 @@
             }
                 out.println("    </tr>");
                 out.println("</table>");
-            } else if (validationMap.get("medical_file") == "not found") {
-                out.println("<h3>There are no medical files.</h3>");
-            }
-        } else if (patient_type == 1) {
-            if (validationMap.get("medical_file") == "found") {
+            /* if outpatient */
+            } else if (patient_type == 1) {
                 out.println("<table border=1>");
                 out.println("    <tr>");
                 out.println("        <th>Date of Visit</th>");
@@ -131,9 +130,9 @@
             }
                 out.println("    </tr>");
                 out.println("</table>");
-            } else if (validationMap.get("medical_file") == "not found") {
-                out.println("<h3>There are no medical files.</h3>");
             }
+        } else if (validationMap.get("medical_file") == "not found") {
+                out.println("<h3>There are no medical files.</h3>");
         }
     %>
 </body>
